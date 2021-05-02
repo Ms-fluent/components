@@ -1,0 +1,59 @@
+.ms-toggle {
+  display: inline-block;
+  box-sizing: border-box;
+
+  &:focus{
+    outline: transparent;
+  }
+}
+
+.ms-toggle-layout {
+  outline: transparent;
+  position: relative;
+  box-sizing: border-box;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  transition: all 0.1s ease 0s;
+  border:1px solid rgb(96, 94, 92);
+  cursor: pointer;
+  background-color: transparent;
+
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+
+  .ms-toggle.ms-disabled &{
+    border-color: transparent;
+    background-color: $ms-color-gray50;
+  }
+
+  .ms-toggle.ms-checked &{
+    border-color: transparent;
+    background-color: rgb(0, 120, 212);
+
+    &:hover{
+      background-color: rgb(0, 90, 158);
+    }
+  }
+}
+
+.ms-toggle-thumb {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.1s ease 0s;
+  background-color: rgb(32, 31, 30);
+  border-color: transparent;
+  border-width: 6px;
+  border-style: solid;
+  box-sizing: border-box;
+
+
+
+  .ms-toggle.ms-checked & {
+    background-color: rgb(255, 255, 255);
+    transform: translate3d(20px, 0, 0);
+  }
+}

@@ -1,0 +1,130 @@
+$ms-pivot-activeColor: $ms-primary-color !default;
+
+$ms-pivot-labelHoverBackgroundColor: #f3f2f1 !default;
+$ms-pivot-labelFontColor: #605e5c !default;
+
+$ms-pivot-labelFontSize: 14px !default;
+$ms-pivot-labelHeight: 36px !default;
+
+$ms-pivot-iconFontSize: 14px !default;
+
+$ms-pivot-borderHeight: 3px !default;
+$ms-pivot-headerBorderColor: #f3f2f1 !default;
+
+$ms-pivot-contentPadding: 10px !default;
+
+
+.ms-pivot {
+  display: block;
+  touch-action: pan-y !important;
+}
+
+.ms-pivotHeader {
+  display: block;
+  border-bottom: 1px solid $ms-pivot-headerBorderColor;
+  position: relative;
+}
+
+.ms-pivotHeader-layout {
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ms-pivotActiveBorder {
+  display: inline-block;
+  height: $ms-pivot-borderHeight;
+  background: $ms-pivot-activeColor;
+  pointer-events: none;
+
+  position: absolute;
+  bottom: 0;
+  left:0;
+}
+
+.ms-pivotLabel {
+  font-family: "Segoe UI", sans-serif;
+  font-size: $ms-pivot-labelFontSize;
+  font-weight: 500;
+  color: $ms-pivot-labelFontColor;
+
+  position: relative;
+  vertical-align: top;
+
+  padding: 16px 10px;
+  height: $ms-pivot-labelHeight;
+  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+
+
+  cursor: pointer;
+  user-select: none;
+  outline: transparent;
+
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: background-color 200ms;
+
+  &.ms-active {
+    color: $ms-pivot-activeColor;
+  }
+
+  &:focus {
+    background-color: transparent;
+    outline: 1px dashed $ms-pivot-labelFontColor;
+  }
+
+  &:disabled, &[disabled], &.ms-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+.ms-pivotLabel-layout {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+}
+
+.ms-pivotLabel-icon {
+  font-size: $ms-pivot-iconFontSize;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.ms-pivotBody {
+  // border: 1px solid cyan;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ms-pivotBody-layout {
+  display: flex;
+  // border: 1px solid darkmagenta;
+}
+
+.ms-pivotContent-container {
+  width: 100%;
+  overflow: auto;
+  touch-action: pan-y !important;
+}
+
+.ms-pivotContent {
+  display: block;
+  padding: $ms-pivot-contentPadding;
+}
+
+@media not all and (pointer: coarse) {
+  .ms-pivotLabel {
+    &:hover {
+      background-color: $ms-pivot-labelHoverBackgroundColor;
+    }
+  }}

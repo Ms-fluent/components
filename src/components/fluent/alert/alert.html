@@ -1,0 +1,23 @@
+<div class="ms-alert-layout">
+  <div class="ms-alert-iconContainer">
+    <i #iconRef class="ms-Icon ms-Icon--{{getIcon()}}"></i>
+  </div>
+  <div class="ms-alert-body" [class.ms-alert-body-marginLeft]="!showCloseButton">
+    <div #titleRef class="ms-alert-title" [class.ms-display-none]="!hasTitle()">
+      <div *ngIf="title">{{title}}</div>
+      <ng-content select="[ms-alert-title], [MsAlertTitle]"></ng-content>
+    </div>
+    <div class="ms-alert-content" [class.ms-alert-content-margin-top]=!hasTitle()>
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div *ngIf="showCloseButton" class="ms-alert-closeContainer">
+    <button class="ms-alert-closeButton"><i class="ms-Icon ms-Icon--Cancel"></i></button>
+  </div>
+
+</div>
+
+<div #footerRef class="ms-alert-footer">
+  <ng-content select="[ms-alertFooter], [MsAlertFooter]"></ng-content>
+</div>
+

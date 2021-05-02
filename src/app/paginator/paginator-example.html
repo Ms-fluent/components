@@ -1,0 +1,65 @@
+<div>Total size: {{paginator.totalSize}}</div>
+
+<div>Page size: {{paginator.pageSize}}</div>
+
+<div>Page count: {{paginator.countPage()}}</div>
+
+<div>Pages: {{paginator.pages | json}}</div>
+
+<div *ngFor="let page of paginator.pages">
+  page {{page}}: {{paginator.getPage(page).size}}
+</div>
+
+
+<div style="padding-top: 100px; border: 1px solid red">
+  <button [class.ms-bgColor-red]="msPaginator.pageSize === 3" (click)="msPaginator.pageSize = 3">3</button>
+  <button [class.ms-bgColor-red]="msPaginator.pageSize === 5" (click)="msPaginator.pageSize = 5">5</button>
+  <button [class.ms-bgColor-red]="msPaginator.pageSize === 10" (click)="msPaginator.pageSize = 10">10</button>
+  {{msPaginator.pageSize}}
+  <div *ngIf="msPaginator.currentPage">
+    [{{msPaginator.currentPage.start}} - {{msPaginator.currentPage.end}}] ({{msPaginator.currentPage.length}})
+  </div>
+
+  <ms-paginator pageSize="5" totalSize="34" #msPaginator [itemsFn]="itemsFn" style="overflow: hidden">
+    <div *msPaginatorPageDef="let data=items; let current=start">
+      <MsTable #table >
+        <tr *ms-tableHeadDef ms-tableHead>
+          <th ms-tableHeadCell name="#">#</th>
+          <th [sortBy]="['id', 'number']" ms-tableHeadCell name="id">Id</th>
+          <th [sortBy]="['position', 'number']" ms-tableHeadCell name="position">Position</th>
+          <th [sortBy]="['name', 'string']" ms-tableHeadCell name="name">Name</th>
+          <th [sortBy]="['weight', 'number']" ms-tableHeadCell name="weight">Weight</th>
+          <th [sortBy]="['symbol', 'string']" ms-tableHeadCell name="symbol">Symbol</th>
+          <th [sortBy]="['type', 'string']" ms-tableHeadCell name="type">Type</th>
+          <th ms-tableHeadCell name="actions">Action</th>
+        </tr>
+
+        <tr #row *ms-tableRowDef="let item of data; let i=index" ms-tableRow>
+          <td ms-tableCell>{{current + i}} </td>
+          <td ms-tableCell>{{item.id}}</td>
+          <td ms-tableCell>{{item.position}}</td>
+          <td ms-tableCell>{{item.name}}</td>
+          <td ms-tableCell>{{item.weight}}</td>
+          <td ms-tableCell>{{item.symbol}}</td>
+          <td ms-tableCell>{{item.type}}</td>
+          <td ms-tableCell>
+            <span (click)="table.remove(item)" style="color: blue; cursor: pointer">Delete</span>
+          </td>
+        </tr>
+      </MsTable>
+    </div>
+  </ms-paginator>
+
+  <div>
+    <button [disabled]="!msPaginator.hasPreviousPage" (click)="msPaginator.previousPage()"><</button>
+    <button *ngFor="let page of msPaginator.pageIndexes" [class.ms-bgColor-blue]="msPaginator.currentPageIndex === page"
+      (click)="msPaginator.currentPageIndex = page" >
+      {{page}}
+    </button>
+    <button [disabled]="!msPaginator.hasNextPage" (click)="msPaginator.nextPage()">></button>
+  </div>
+
+  <div>
+    <button (click)="msPaginator.reset(0)">Reset</button>
+  </div>
+</div>

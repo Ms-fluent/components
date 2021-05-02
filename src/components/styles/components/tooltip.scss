@@ -1,0 +1,41 @@
+.ms-tooltip-panel {
+  border: none;
+}
+
+.ms-tooltip-container {
+  display: block;
+  position: relative;
+}
+
+.ms-tooltip-layout {
+  position: relative;
+}
+
+.ms-tooltip-content {
+  border-radius: 3px;
+  display: block;
+  padding: 8px;
+  position: relative;
+  z-index: 3;
+
+}
+
+.ms-tooltip-depth {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 16px;
+  z-index: 1;
+}
+
+.ms-tooltip-beak {
+  z-index: 2;
+  position: absolute;
+
+  display: inline-block;
+  border: none;
+  box-sizing: border-box;
+
+  transform: rotate(45deg);
+}

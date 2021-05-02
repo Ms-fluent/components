@@ -1,0 +1,43 @@
+.ms-persona {
+  display: inline-block;
+}
+
+.ms-persona-layout {
+  display: flex;
+  align-items: center;
+}
+
+.ms-persona--content {
+  margin-left: 8px;
+}
+
+.ms-persona--persona {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 50%;
+}
+
+.ms-persona--status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+
+  border: 2px solid #FFF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-persona--text {
+  text-transform: uppercase;
+  font-weight: 600
+}
+
+.ms-image-persona--image {
+  border-radius: 50%;
+}

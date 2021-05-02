@@ -1,0 +1,20 @@
+<div #origin="cdkOverlayOrigin" cdk-overlay-origin class="ms-suggest-wrapper">
+  <ng-content></ng-content>
+</div>
+
+<ng-template (backdropClick)="close()"
+             (attach)="overlayAttach()"
+             [cdkConnectedOverlayOpen]="openPanel"
+             [cdkConnectedOverlayOrigin]="origin"
+             cdk-connected-overlay
+             cdkConnectedOverlayHasBackdrop
+             cdkConnectedOverlayOffsetX="-16"
+             cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+             cdkConnectedOverlayLockPosition
+             cdkConnectedOverlayPanelClass="ms-suggest-panel-overlay"
+
+>
+  <div #suggestContainer class="ms-suggest-container ms-depth-16" [style.width.px]="_elementWidth">
+    <ms-suggest-item *ngFor="let item of visibleItems" [value]="this.getMapFn()(item)" [key]="userInputValue"></ms-suggest-item>
+  </div>
+</ng-template>

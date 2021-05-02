@@ -1,0 +1,49 @@
+<msStepper  #stepper style="width: 600px; background: #EEE">
+  <div *msStepperStep style="background: green">
+    <h2>Step 1</h2>
+    <div>
+      <button ms-stepper-prev>Précédent</button>
+      <button ms-stepper-next>Suivant</button>
+    </div>
+  </div>
+
+  <div *msStepperStep  style="background: red">
+    <h2>Step 2</h2>
+    <div>
+      <button ms-stepper-prev>Précédent</button>
+      <button ms-stepper-next>Suivant</button>
+    </div>
+  </div>
+
+  <div *msStepperStep style="background: cyan">
+    <h2>Step 3</h2>
+    <div>
+      <button ms-stepper-prev>Précédent</button>
+      <button ms-stepper-next>Suivant</button>
+    </div>
+  </div>
+
+  <div *msStepperStep style="background: blue">
+    <h2>Step 4</h2>
+    <div>
+      <button ms-stepper-prev>Précédent</button>
+      <button ms-stepper-next>Suivant</button>
+    </div>
+  </div>
+
+  <div *msStepperStep style="background: darkmagenta">
+    <h2>Step 5</h2>
+    <div>
+      <button ms-stepper-prev>Précédent</button>
+      <button ms-stepper-next>Suivant</button>
+    </div>
+  </div>
+</msStepper>
+
+<div>
+  <button (click)="stepper.activateIndex(0)">0</button>
+  <button (click)="stepper.activateIndex(1)">1</button>
+  <button (click)="stepper.activateIndex(2)">2</button>
+  <button (click)="stepper.activateIndex(3)">3</button>
+  <button (click)="stepper.activateIndex(4)">4</button>
+</div>

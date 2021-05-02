@@ -1,0 +1,17 @@
+<div class="ms-formField-labelLayout" #labelLayoutRef>
+  <MsLabel id="b" *ngIf="labelText" #viewLabelRef [required]="required" [htmlFor]="getHtmlFor()">{{labelText}}</MsLabel>
+  <ng-content select="ms-label MsLabel"></ng-content>
+</div>
+
+<div class="ms-formField-inputLayout" #inputLayoutRef>
+  <div class="ms-formField-inputContainer"
+       [class.underline-appearance]="appearance === 'underline'"
+       [class.standard-appearance]="appearance === 'standard'"
+       [class.ms-active]="focused">
+    <ng-content></ng-content>
+  </div>
+  <div class="ms-formField-border" *ngIf="appearance === 'standard'" [class.ms-active]="focused"></div>
+  <div class="ms-formField-underline" *ngIf="appearance === 'underline'" [class.ms-active]="focused"></div>
+</div>
+
+

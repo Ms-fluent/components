@@ -1,0 +1,78 @@
+<router-outlet>
+  <div class="component-usage-section-content">
+    <msPivot [selectedIndex]="1" paramName="pivot">
+      <msPivotHeader>
+        <msPivotLabel id="file">My Files</msPivotLabel>
+        <msPivotLabel id="recent">Recent</msPivotLabel>
+        <msPivotLabel id="folder">Folders</msPivotLabel>
+        <msPivotLabel id="shared">Shared with me</msPivotLabel>
+        <msPivotLabel>History</msPivotLabel>
+        <msPivotLabel>Music</msPivotLabel>
+        <msPivotLabel>Images</msPivotLabel>
+      </msPivotHeader>
+
+      <msPivotBody>
+        <div *msPivotContentDef>Pivot #1</div>
+        <div *msPivotContentDef>Pivot #2</div>
+        <div *msPivotContentDef>Pivot #3</div>
+        <div *msPivotContentDef>Pivot #4</div>
+        <div *msPivotContentDef>Pivot #5</div>
+        <div *msPivotContentDef>Pivot #6</div>
+        <div *msPivotContentDef>Pivot #7</div>
+      </msPivotBody>
+    </msPivot>
+  </div>
+
+
+  <div class="component-usage-section">
+    <h5 class="component-usage-section-title">With icon</h5>
+
+    <div class="component-usage-section-content">
+      <msPivot selectedId="folder-1">
+        <msPivotHeader>
+          <msPivotLabel id="file-1" icon="Add">My Files</msPivotLabel>
+          <msPivotLabel id="clock-1" icon="Clock">Recent</msPivotLabel>
+          <msPivotLabel id="folder-1" icon="Folder" >Folder</msPivotLabel>
+          <msPivotLabel id="settings-1" icon="Settings">Settings</msPivotLabel>
+        </msPivotHeader>
+
+        <msPivotBody>
+          <div *msPivotContentDef>Pivot #1</div>
+          <div *msPivotContentDef>Pivot #2</div>
+          <div *msPivotContentDef>Pivot #3</div>
+          <div *msPivotContentDef>Pivot #4</div>
+        </msPivotBody>
+
+
+      </msPivot>
+    </div>
+  </div>
+
+
+  <div class="component-usage-section">
+    <h5 class="component-usage-section-title">Override selected item</h5>
+
+    <div class="component-usage-section-content">
+      <msPivot #pivot id="pivot1" selectedId="share">
+        <msPivotHeader>
+          <msPivotLabel id="files">My Files</msPivotLabel>
+          <msPivotLabel id="recent0">Recent</msPivotLabel>
+          <msPivotLabel id="share">Shared with me</msPivotLabel>
+        </msPivotHeader>
+
+        <msPivotBody>
+          <div *msPivotContentDef>>Pivot #1</div>
+          <div *msPivotContentDef>>Pivot #2</div>
+          <div *msPivotContentDef>>Pivot #3</div>
+        </msPivotBody>
+
+      </msPivot>
+
+      <div class="mt-3">
+        <button  (click)="pivot.selectPrev()">Select prev item</button>
+        <button  (click)="pivot.selectNext()">Select next item</button>
+      </div>
+    </div>
+  </div>
+
+</router-outlet>

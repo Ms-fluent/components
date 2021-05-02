@@ -1,0 +1,56 @@
+<button (click)=" toggleColumnByName('#')" [class.ms-bgColor-blue]="selectedColumn('#')">#</button>
+<button (click)=" toggleColumnByName('id')" [class.ms-bgColor-blue]="selectedColumn('id')">Id</button>
+<button [class.ms-bgColor-blue]="selectedColumn('position')" (click)=" toggleColumnByName('position')"> Position</button>
+ <button [class.ms-bgColor-blue]="selectedColumn('name')" (click)=" toggleColumnByName('name')">Name</button>
+<button [class.ms-bgColor-blue]="selectedColumn('weight')" (click)=" toggleColumnByName('weight')">Weight</button>
+<button (click)=" toggleColumnByName('symbol')" [class.ms-bgColor-blue]="selectedColumn('symbol')">Symbol</button>
+<button (click)=" toggleColumnByName('type')" [class.ms-bgColor-blue]="selectedColumn('type')">Type</button>
+<button (click)=" toggleColumnByName('actions')" [class.ms-bgColor-blue]="selectedColumn('actions')">Actions</button>
+
+
+<div>
+  <button (click)="filter('Reactive nonmetal')">Reactive nonmetal</button>
+  <button (click)="filter('Noble gas')">Noble gas</button>
+  <button (click)="filter('Alkali metal')">Alkali metal</button>
+  <button (click)="filter('Alkaline earth metal')">Alkaline earth metal</button>
+  <button (click)="filter('Metalloid')">Metalloid</button>
+  <button (click)="filter('Transition metal')">Transition metal</button>
+  <button (click)="filter('Lanthanide')">Lanthanide</button>
+  <button (click)="filter('Actinide')">Actinide</button>
+  <button (click)="table.filter()">Clear filter</button>
+</div>
+
+<div>
+  <button (click)="filterByLetter(l)" *ngFor="let l of letters">{{l}}</button>
+</div>
+
+<div>
+  <button (click)="loadAll()">Load all</button>
+</div>
+
+<MsTable #table [visibleColumns]="columns" style="height: 500px">
+  <tr *ms-tableHeadDef ms-tableHead>
+    <th ms-tableHeadCell name="#">#</th>
+    <th [sortBy]="['id', 'number']" ms-tableHeadCell name="id">Id</th>
+    <th [sortBy]="['position', 'number']" ms-tableHeadCell name="position">Position</th>
+    <th [sortBy]="['name', 'string']" ms-tableHeadCell name="name">Name</th>
+    <th [sortBy]="['weight', 'number']" ms-tableHeadCell name="weight">Weight</th>
+    <th [sortBy]="['symbol', 'string']" ms-tableHeadCell name="symbol">Symbol</th>
+    <th [sortBy]="['type', 'string']" ms-tableHeadCell name="type">Type</th>
+    <th ms-tableHeadCell name="actions">Action</th>
+  </tr>
+
+  <tr #row *ms-tableRowDef="let item of elements; let i=index" ms-tableRow>
+    <td ms-tableCell>{{i}} </td>
+    <td ms-tableCell>{{item.id}}</td>
+    <td ms-tableCell>{{item.position}}</td>
+    <td ms-tableCell>{{item.name}}</td>
+    <td ms-tableCell>{{item.weight}}</td>
+    <td ms-tableCell>{{item.symbol}}</td>
+    <td ms-tableCell>{{item.type}}</td>
+    <td ms-tableCell>
+      <span (click)="table.remove(item)" style="color: blue; cursor: pointer">Delete</span>
+    </td>
+  </tr>
+</MsTable>
+

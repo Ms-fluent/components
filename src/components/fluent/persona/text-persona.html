@@ -1,0 +1,22 @@
+<div class="ms-persona-layout">
+  <div class="ms-persona--persona"
+       [style.width.px]="width"
+       [style.height.px]="width"
+       [ngClass]="[ 'ms-bgColor-' + bgColor]">
+    <div
+      [ngClass]="['ms-persona--text', 'ms-fontColor-' + color, 'ms-bgColor-' + bgColor ]"
+      [style.fontSize.px]="sizeDeclaration.fontSize">
+      {{initialText}}
+    </div>
+
+    <MsPersonaStatus *ngIf="showStatus"
+                     [fontSize]="sizeDeclaration.statusFontSize"
+                     [width]="sizeDeclaration.statusWidth"
+                     [statusDeclaration]="statusDeclaration">
+    </MsPersonaStatus>
+  </div>
+
+  <div class="ms-persona--content">
+    <ng-content></ng-content>
+  </div>
+</div>

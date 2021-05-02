@@ -1,0 +1,8 @@
+<div class="ms-action-menu-button-layout">
+  <div class="ms-action-menu-focusBorder" #focusBorder></div>
+  <span *ngIf="icon" class="ms-action-menu-button-icon ms-Icon ms-Icon--{{icon}}"></span>
+  <div class="ms-action-menu-button-content">
+    <ng-content></ng-content>
+  </div>
+  <span *ngIf="secondaryIcon" class="ms-action-menu-button-secondaryIcon ms-Icon ms-Icon--{{secondaryIcon}}"></span>
+</div>

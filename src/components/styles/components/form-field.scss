@@ -1,0 +1,182 @@
+.ms-formField {
+  display: block;
+  height: 64px;
+  position: relative;
+
+  &.ms-form-field-inline {
+    display: flex;
+    align-items: center;
+    height: 48px;
+  }
+
+  &.inline-float-label {
+    height: 32px;
+    margin: 16px 0;
+  }
+}
+
+
+.ms-formField-inputLayout {
+  position: relative;
+  height: 32px;
+  flex-grow: 1;
+
+  .inline-float-label &{
+    position: absolute;
+    top:0;
+    border: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+.ms-formField-border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  border: 0 solid transparent;
+  border-radius: 2px;
+  overflow: hidden;
+
+  transition: border-width 200ms;
+  z-index: -1;
+
+  &.ms-active {
+    border-color: #0078D4;
+    border-width: 2px;
+    z-index: 2;
+    cursor: text;
+  }
+}
+
+.ms-formField-underline {
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  background-color: #0078D4;
+  box-sizing: border-box;
+  transform: scaleX(0);
+  transition: transform 200ms;
+  &.ms-active {
+    transform: scaleX(1);
+  }
+}
+
+.ms-formField-inputContainer {
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: rgb(255, 255, 255);
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transition: border-color 200ms;
+
+  &.standard-appearance {
+    border: 1px solid rgb(96, 94, 92);
+    border-radius: 2px;
+  }
+  &.underline-appearance {
+    border-bottom: 1px solid rgb(96, 94, 92);
+  }
+
+  &.ms-active {
+    //border-color: transparent;
+  }
+}
+
+.ms-formField-labelLayout {
+  height: 32px;
+  //border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+
+  transform-origin: 0 0;
+
+  z-index: 10;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .appearance-underline & {
+    height: 20px;
+  }
+
+  .floating-label & {
+    height: 24px;
+  }
+
+  .appearance-underline.floating-label & {
+    height: 18px;
+  }
+
+  .ms-form-field-inline & {
+    margin-right: 8px;
+  }
+
+  .inline-float-label &{
+    height: 100%;
+    //border: 1px solid $ms-color-sharedGreenCyan10;
+    z-index: 3;
+  }
+
+  &.as-placeholder, &.as-placeholder label {
+    opacity: 0.7;
+    cursor: text !important;
+  }
+}
+
+.ms-inputField {
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: none;
+  background: none transparent;
+  color: rgb(50, 49, 48);
+  width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+  outline: 0;
+  line-height: 32px;
+
+  .appearance-underline &:first-child.ms-inputField {
+    padding-left: 0;
+  }
+
+  &.ms-disabled {
+    background-color: $ms-color-gray30;
+    border-color: transparent;
+  }
+
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
+.ms-formField-icon {
+  display: inline-block;
+  width: 42px;
+  height: 100%;
+  line-height: 32px;
+  text-align: center;
+  background-color: #E3E3E3;
+  box-sizing: border-box;
+}

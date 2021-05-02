@@ -1,0 +1,44 @@
+<button ms-tooltip="Bonjour à toi jeune entrepreuneur"> string tooltip</button>
+<button [MsTooltip]="template">template tooltip</button>
+<button (click)="_tooltip.open($event.target, component)">component tooltip</button>
+<button [MsTooltip]="template" position="bottom" align="center">Top center</button>
+
+<div style="margin-top: 300px; padding-left: 500px;padding-bottom: 200px; border: 1px solid red">
+  <div>
+    <button [MsTooltip]="'bonjour à tous et à tous.'" position="bottom" align="center">Bottom center</button>
+  </div>
+  <div>
+    <button [MsTooltip]="template" position="bottom" align="start">Bottom start</button>
+    <button [MsTooltip]="template" position="bottom" align="center">Bottom center</button>
+    <button [MsTooltip]="template" position="bottom" align="end">Bottom end</button>
+  </div>
+
+  <div>
+    <button [MsTooltip]="template" position="top" align="start">Top start</button>
+    <button [MsTooltip]="template" position="top" align="center">Top center</button>
+    <button [MsTooltip]="template" position="top" align="end">Top end</button>
+
+  </div>
+
+  <div>
+    <button [MsTooltip]="template" position="left" align="start">Left start</button>
+    <button [MsTooltip]="template" position="left" align="end">Left end</button>
+    <button [MsTooltip]="template" position="left" align="center">Left center</button>
+  </div>
+
+  <div>
+    <button [MsTooltip]="template" position="right" align="start">Right start</button>
+    <button [MsTooltip]="template" position="right" align="end">Right end</button>
+    <button [MsTooltip]="template" position="right" align="center">Right center</button>
+  </div>
+</div>
+
+<button style="margin-left: 300px" [MsTooltip]="template" position="top" align="center">Top center</button>
+
+
+<ng-template #template>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>
+  Cumque dicta dolorem est officiis vitae. A aliquid amet,<br>
+  atque culpa ea eos ipsam laborum porro quisquam,<br>
+  reprehenderit velit veritatis, voluptatum. Libero!
+</ng-template>

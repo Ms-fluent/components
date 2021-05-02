@@ -1,0 +1,17 @@
+<div class="ms-persona-layout">
+  <div class="ms-persona--persona">
+    <img [src]="imageUrl" class="ms-image-persona--image" [alt]="imageAlt" [width]="width" [height]="width">
+
+    <div *ngIf="showStatus"
+          [ngClass]="['ms-persona--status', 'ms-fontColor-' + statusDeclaration.color, 'ms-bgColor-' + statusDeclaration.bgColor ]"
+          [style.fontSize.px]="sizeDeclaration.statusFontSize"
+         [style.width.px]="statusWidth"
+         [style.height.px]="statusWidth">
+      <i [ngClass]="['ms-Icon', 'ms-Icon--' + statusDeclaration.icon]"></i>
+    </div>
+  </div>
+
+  <div class="ms-persona--content">
+    <ng-content></ng-content>
+  </div>
+</div>

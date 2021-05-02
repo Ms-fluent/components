@@ -1,0 +1,37 @@
+.ms-display-none {
+  display: none;
+}
+
+
+.ms-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.ms-bgColor-transparent {
+  background: transparent;
+}
+
+.ms-borderColor-transparent {
+  border-color: transparent;
+}
+
+.ms-fontColor-transparent {
+  color: transparent;
+}
+
+.ms-fontColor-transparent--hover:hover {
+  color: transparent;
+}
+
+
+.ms-opacity-9 {
+  opacity: 0.9;
+}
+
+.ms-opacity-8 {
+  opacity: 0.8;
+}
+
+.ms-opacity-7 {
+  opacity: 0.7;
+}

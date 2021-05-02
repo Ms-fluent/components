@@ -1,0 +1,19 @@
+<button msIconButton icon="ChevronDown"></button>
+
+<div>
+  <ms-suggest style="width: 256px" [searchFn]="searchFn" itemField="name">
+    <msFormField ms-float-label label="Default" appearance="underline" style="height: auto">
+      <input type="text" ms-input-field ms-suggest-origin>
+    </msFormField>
+  </ms-suggest>
+</div>
+
+
+<div>
+  <ms-suggest style="width: 256px" [searchFn]="searchFn" [mapFn]="mapFn">
+    <msFormField label="Search with trigger" appearance="underline" style="height: auto">
+      <input type="text" ms-input-field ms-suggest-origin>
+      <button msIconButton icon="ChevronDown" msSuggestTrigger></button>
+    </msFormField>
+  </ms-suggest>
+</div>

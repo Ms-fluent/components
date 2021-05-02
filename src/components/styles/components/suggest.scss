@@ -1,0 +1,36 @@
+.ms-suggest {
+  display: inline-block;
+}
+
+.ms-suggest-wrapper {
+
+}
+
+.ms-suggest-panel-overlay {
+  //border: 1px solid red;
+  background-color: transparent;
+  overflow-y: hidden;
+}
+.ms-suggest-container {
+  //border: 1px solid green;
+  opacity: 0;
+  background-color: #FFF;
+  margin-right: 32px;
+  margin-left: 16px;
+  margin-bottom: 32px;
+}
+
+.ms-suggest-item {
+  height: 32px;
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: $ms-color-gray10;
+  }
+}

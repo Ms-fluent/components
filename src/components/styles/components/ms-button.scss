@@ -1,0 +1,122 @@
+.ms-button {
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 2px;
+
+  transition: background .3s;
+
+  &:hover {
+    filter: contrast(1.1);
+  }
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+  &.ms-disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  &.ms-button-size--small{
+    font-size: 12px;
+    height: 26px;
+  }
+}
+
+.ms-iconButton {
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  font-size: 16px;
+
+
+  &.ms-button-size--small {
+    height: 26px;
+    width: 26px;
+    font-size: 14px;
+  }
+
+  &.rounded {
+    border-radius: 50%;
+  }
+  &:hover {
+    filter: contrast(1.1);
+  }
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+}
+
+
+.ms-button-icon, .ms-button-secondaryIcon {
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.ms-button-size--small {
+  & .ms-button-icon,  & .ms-button-secondaryIcon {
+    font-size: 14px;
+  }
+}
+
+.ms-button-icon {
+  margin-right: 8px;
+}
+
+.ms-button-secondaryIcon {
+  margin-left: 8px;
+}
+
+.ms-button-layout {
+  display: flex;
+  align-items: center;
+}
+
+.ms-iconButton-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+.ms-button-focusBorder {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  top: 1px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.ms-iconButton.rounded .ms-button-focusBorder {
+  border-radius: 50%;
+}
+
+
+.ms-ripple {
+  position: absolute; /* The absolute position we mentioned earlier */
+  border-radius: 50%;
+  transform: scale(0);
+  background-color: rgba(0, 0, 0, 0.2);
+}

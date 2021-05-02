@@ -1,0 +1,121 @@
+.ms-action-menu {
+  display: block;
+  overflow-x: auto;
+}
+
+.ms-action-menu-button {
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  height: 32px;
+  padding: 0 8px;
+
+  transition: background .3s;
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+  &.ms-disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  &.size--small{
+    font-size: 12px;
+    height: 26px;
+  }
+}
+
+.ms-action-menu-iconButton {
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  font-size: 16px;
+
+
+  &.small {
+    height: 26px;
+    width: 26px;
+    font-size: 14px;
+  }
+
+  &.rounded {
+    border-radius: 50%;
+  }
+
+  &:active, &:focus {
+    outline: none;
+  }
+
+}
+
+
+.ms-action-menu-button-icon, .ms-action-menu-button-secondaryIcon {
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.ms-action-menu-button.small {
+  & .ms-action-menu-button-icon,  & .ms-action-menu-button-secondaryIcon {
+    font-size: 14px;
+  }
+}
+
+.ms-action-menu-button-icon {
+  margin-right: 8px;
+}
+
+.ms-action-menu-button-secondaryIcon {
+  margin-left: 8px;
+}
+
+.ms-action-menu-button-layout {
+  display: flex;
+  align-items: center;
+}
+
+.ms-action-menu-iconButton-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+}
+
+.ms-action-menu-button-focusBorder {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  top: 1px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.ms-action-menu-iconButton.rounded .ms-action-menu-iconButton-focusBorder {
+  border-radius: 50%;
+}
+
+
+.ms-ripple {
+  position: absolute; /* The absolute position we mentioned earlier */
+  border-radius: 50%;
+  transform: scale(0);
+  background-color: rgba(0, 0, 0, 0.2);
+}

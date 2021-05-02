@@ -1,0 +1,99 @@
+<div style="display: flex">
+<div style="width: 300px">
+  <MsFormField label="Standard">
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField>
+    <MsLabel>Standard 1</MsLabel>
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField label="Disabled" [disabled]="true">
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField [disabled]="true">
+    <MsLabel>Disabled 1</MsLabel>
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField label="Required" [required]="true">
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField [required]="true">
+    <MsLabel>Required 1</MsLabel>
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField [required]="true">
+    <MsLabel>With icon</MsLabel>
+    <span class="ms-formField-icon"><i class="ms-Icon ms-Icon--Contact "></i></span>
+
+    <input type="text" MsInputField>
+    <i class="ms-Icon ms-Icon--Add ms-formField-icon ms-bgColor-info"></i>
+  </MsFormField>
+
+  <MsFormField appearance="underline">
+    <MsLabel>Underline</MsLabel>
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField [required]="true" [inline]="true">
+    <MsLabel>Inline </MsLabel>
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField label="Inline 1" [inline]="true">
+    <input type="text" MsInputField>
+  </MsFormField>
+
+  <MsFormField label="underline Inline" appearance="underline" [inline]="true">
+    <input type="text" MsInputField>
+  </MsFormField>
+</div>
+
+  <div style="margin-left: 64px; width: 300px">
+    <MsFormField label="Float label" MsFloatLabel>
+      <input type="text" MsInputField>
+    </MsFormField>
+
+    <MsFormField label="Float label underline" appearance="underline" MsFloatLabel>
+      <input type="text" MsInputField>
+    </MsFormField>
+
+    <MsFormField [required]="true" MsFloatLabel>
+      <MsLabel>Float label with icon</MsLabel>
+      <i class="ms-Icon ms-Icon--Add ms-formField-icon ms-bgColor-info"></i>
+      <input type="text" MsInputField>
+    </MsFormField>
+
+    <MsFormField [required]="true"  MsFloatLabel >
+      <MsLabel>Float label with placeholder</MsLabel>
+      <input type="text" placeholder="input placeholder" MsInputField>
+    </MsFormField>
+
+    <MsFormField label="Inline 1" [inline]="true" MsInlineFloatLabel>
+      <input type="text" MsInputField>
+    </MsFormField>
+
+    <MsFormField label="Inline underline" [inline]="true" appearance="underline" MsInlineFloatLabel>
+      <input type="text" MsInputField>
+    </MsFormField>
+
+    <MsFormField [inline]="true" MsInlineFloatLabel>
+      <MsLabel>With placeholder</MsLabel>
+      <input placeholder="Nothing to say" type="text" value="1" MsInputField>
+    </MsFormField>
+
+
+
+    <MsFormField [required]="true" inline MsInlineFloatLabel>
+      <MsLabel>Icon Float label</MsLabel>
+      <i class="ms-Icon ms-Icon--Add ms-formField-icon ms-bgColor-info"></i>
+      <input type="text" MsInputField>
+    </MsFormField>
+  </div>
+
+</div>

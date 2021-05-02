@@ -1,0 +1,21 @@
+$ms-label-color: #323130;
+$ms-label-required: rgb(164, 38, 44);
+
+.ms-label {
+
+  color: $ms-label-color;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 600;
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 0;
+  display: block;
+  padding: 5px 0;
+  overflow-wrap: break-word;
+
+  & .ms-label-required {
+    pointer-events: none;
+    color: $ms-label-required;
+  }
+}
