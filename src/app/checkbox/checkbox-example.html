@@ -1,0 +1,21 @@
+<div>
+  <input type="text" placeholder="first focus">
+  <label tabindex="0" for="nativeCheckbox">nativeCheckbox</label>
+  <input type="text" placeholder="first focus">
+  <input type="checkbox" id="nativeCheckbox">
+  <MsLabel htmlFor="checkbox">Basic checkbox</MsLabel>
+  <MsCheckbox id="checkbox"></MsCheckbox>
+
+
+  <div>
+    <h3>Disable toggle</h3>
+    <MsCheckbox [disabled]="true"></MsCheckbox>
+  </div>
+
+  <div>
+    <h3>Indeterminate</h3>
+    <MsCheckbox #indeterminate [indeterminate]="true"></MsCheckbox>
+    <button (click)="indeterminate.markAsIndeterminate()">Reset</button>
+  </div>
+
+</div>

@@ -7,7 +7,7 @@ import {MsSuggestSearchFn} from '../../components/fluent/suggest';
 })
 export class SuggestExample {
   searchFn: MsSuggestSearchFn<PeriodicElement> = (key: string) => Promise.resolve(
-    ELEMENT_DATA.filter(i => i.name.toLowerCase().indexOf(key.toLowerCase()) > -1));
+    ELEMENT_DATA.filter(i => i.name.toLowerCase().indexOf(key.toLowerCase()) > -1).slice(0, 7));
   mapFn = (item: PeriodicElement) => item.name;
 }
 

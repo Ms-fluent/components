@@ -17,6 +17,8 @@ const routes: Routes = [
   {path: 'toggle', loadChildren: () => import('./toggle/toggle-example.module').then(t => t.ToggleExampleModule)},
   {path: 'suggest', loadChildren: () => import('./suggest/suggest-example.module').then(t => t.SuggestExampleModule)},
   {path: 'persona', loadChildren: () => import('./persona/persona-example.module').then(t => t.PersonaExampleModule)},
+  {path: 'radio', loadChildren: () => import('./radio/radio-example.module').then(t => t.RadioExampleModule)},
+  {path: 'checkbox', loadChildren: () => import('./checkbox/checkbox-example.module').then(t => t.CheckboxExampleModule)},
   {path: '', redirectTo: '/suggest', pathMatch: 'full'}
 ];
 

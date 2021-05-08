@@ -2,10 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
-  Input,
+  ElementRef, HostListener, Inject,
+  Input, OnDestroy, OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'ms-label, MsLabel, msLabel',
@@ -17,7 +18,7 @@ import {
     '[class.ms-disabled]': 'disabled'
   }
 })
-export class MsLabel {
+export class MsLabel implements OnInit, OnDestroy {
   @Input()
   disabled: boolean = false;
 
@@ -27,9 +28,32 @@ export class MsLabel {
   @Input()
   htmlFor: string;
 
+  target: HTMLElement;
+
+  _targetClickEvent = () => this.target?.click();
+
   constructor(private elementRef: ElementRef<HTMLElement>,
+              @Inject(DOCUMENT) private document: Document,
               private changeDetectorRef: ChangeDetectorRef) {
   }
+
+  ngOnInit(): void {
+    if (this.htmlFor) {
+      this.target = this.document.getElementById(this.htmlFor);
+    }
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
+  @HostListener('click')
+  _onclick() {
+    if (this.target) {
+      this.target.click();
+    }
+  }
+
 
   get host(): HTMLElement {
     return this.elementRef.nativeElement;

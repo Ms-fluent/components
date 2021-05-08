@@ -1,0 +1,15 @@
+<div class="ms-checkbox-container">
+
+<!--  <span class="msf-checkbox-marker ms-Icon ms-Icon&#45;&#45;CheckMark"-->
+<!--        [class.ms-motion-slideLeftIn]="checked"> </span>-->
+
+  <svg [class.ms-opacity-0]="indeterminate"  class="ms-checkbox-marker" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M13.86 3.66a.5.5 0 01-.02.7l-7.93 7.48a.6.6 0 01-.84-.02L2.4 9.1a.5.5 0 01.72-.7l2.4 2.44 7.65-7.2a.5.5 0 01.7.02z"/>
+  </svg>
+
+  <div class="active-background" [class.ms-opacity-0]="indeterminate" #background></div>
+  <div class="indeterminate-background" [class.ms-opacity-0]="!indeterminate" #indeterminateBackground></div>
+  <div class="ms-checkbox-border" #border></div>
+</div>
+

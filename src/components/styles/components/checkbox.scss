@@ -1,0 +1,112 @@
+$ms-checkbox-default-color: $ms-primary-color;
+$ms-checkbox-marker-color: $ms-color-white;
+$ms-checkbox-border-color: $ms-color-sharedGray30;
+
+$ms-checkbox-size: 20px;
+
+.ms-checkbox{
+  display: inline-block;
+  margin: 0;
+  user-select: none;
+
+
+  &.ms-rounded {
+    border-radius: 50%;
+  }
+
+  &.ms-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+}
+
+
+.ms-checkbox-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 2px;
+  vertical-align: middle;
+
+  height: $ms-checkbox-size;
+  width: $ms-checkbox-size;
+  //box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+
+
+}
+
+.ms-checkbox-border {
+  border-radius: 2px;
+  border: 1px solid $ms-checkbox-border-color;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+
+  .ms-checkbox.ms-checked &, .ms-checkbox.ms-indeterminate & {
+    border-color: $ms-checkbox-default-color;
+  }
+}
+
+.ms-checkbox-container .active-background {
+  background: $ms-checkbox-default-color;
+  vertical-align: middle;
+  box-sizing: border-box;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  bottom: -10px;
+  right: -10px;
+  border: none;
+  border-radius: 50%;
+  transform: scale(0);
+  z-index: -1;
+}
+
+.ms-checkbox-container .indeterminate-background {
+  background: $ms-checkbox-default-color;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  right: 4px;
+  border-radius: 2px;
+  z-index: -1;
+}
+
+
+.ms-checkbox-marker{
+  display: inline-block;
+  & path {
+    fill: $ms-checkbox-marker-color;
+  }
+
+  //animation: scaleOut .3s both;
+
+  .ms-checkbox.ms-checked & {
+    //animation: scaleIn .3s both;
+  }
+}
+
+.ms-checkbox.ms-checked .ms-checkbox-marker {
+
+}
+
+@keyframes scaleIn {
+  from {transform: rotate(-180deg); opacity: 0}
+  to {transform: rotate(0); opacity: 1}
+}
+
+@keyframes scaleOut {
+  from {transform: rotate(0); opacity: 1}
+  to {transform: rotate(-180deg); opacity: 0}
+}

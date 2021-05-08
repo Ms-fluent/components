@@ -1,3 +1,7 @@
 <div>
-  <span *ngFor="let token of tokens" [class.ms-fontWeight-bold]="token === key">{{token}}</span>
+  <div>
+    <span *ngFor="let token of tokens"
+          [class.ms-fontWeight-bold]="key.toLowerCase() == token.toLowerCase()">{{token}}</span>
+  </div>
 </div>
+

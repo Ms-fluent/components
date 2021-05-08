@@ -15,6 +15,12 @@
 
 >
   <div #suggestContainer class="ms-suggest-container ms-depth-16" [style.width.px]="_elementWidth">
-    <ms-suggest-item *ngFor="let item of visibleItems" [value]="this.getMapFn()(item)" [key]="userInputValue"></ms-suggest-item>
+    <ng-container #panelContainer></ng-container>
   </div>
 </ng-template>
+
+<div *MsSuggestPanelDef="let data=$implicit; let k=keyword">
+  <ms-suggest-item *ngFor="let item of data" [value]="this.getMapFn()(item)" [key]="k"></ms-suggest-item>
+</div>
+
+

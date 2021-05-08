@@ -8,13 +8,13 @@ import {
   ElementRef,
   Inject,
   Input,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation
+  OnDestroy, TemplateRef,
+  ViewChild, ViewContainerRef,
+  ViewEncapsulation, ViewRef
 } from '@angular/core';
 import {MS_SUGGEST_DEFAULT_INTL, MsSuggestIntl} from './suggest-intl';
 import {MS_SUGGEST_DEFAULT_OPTIONS, MsSuggestOptions} from './suggest-options';
-import {MsSuggestPanelDef} from './suggest-panel-def';
+import {MsSuggestPanelContext, MsSuggestPanelDef} from './suggest-panel-def';
 import {MsSuggestItemDef} from './suggest-item-def';
 import {MsSuggestOrigin} from './suggest-origin';
 import {CdkConnectedOverlay} from '@angular/cdk/overlay';
@@ -84,6 +84,12 @@ export class MsSuggest<T> implements AfterViewInit, AfterContentInit, OnDestroy 
   @ViewChild('suggestContainer')
   suggestContainer: ElementRef<HTMLElement>;
 
+  @ViewChild('panelContainer', {read: ViewContainerRef})
+  panelContainer: ViewContainerRef;
+
+  context = new MsSuggestPanelContext<T>([], '');
+  view: ViewRef;
+
   openPanel: boolean = false;
   active: boolean = false;
 
@@ -150,6 +156,7 @@ export class MsSuggest<T> implements AfterViewInit, AfterContentInit, OnDestroy 
     this.inputValueObserver?.unobserve();
   }
 
+
   async close() {
     await this.animatePanelOut();
     this.openPanel = false;
@@ -162,16 +169,17 @@ export class MsSuggest<T> implements AfterViewInit, AfterContentInit, OnDestroy 
       return Promise.resolve();
     }
     this.active = true;
-    this.search();
+    this.context.$implicit = this.items;
     this.openPanel = true;
     this.changeDetectorRef.markForCheck();
     setTimeout(() => {
+      this.createPanelView();
       this.animatePanelEnter();
-
     })
   }
 
   filled: boolean = false;
+
   async onbeforeInput(event: InputEvent) {
   }
 
@@ -185,8 +193,31 @@ export class MsSuggest<T> implements AfterViewInit, AfterContentInit, OnDestroy 
       this.open();
     }
     const items = await this.searchFn(this.key);
+    setTimeout(() => {
+      this.updatePanelView(items, this.key);
+    }, 0);
     this.items = items;
     this.changeDetectorRef.markForCheck();
+  }
+
+  createPanelView() {
+    this.panelContainer.clear();
+    this.view = this.panelContainer.createEmbeddedView(this.getTemplate().template, this.context, 0);
+    this.view.detectChanges();
+  }
+
+  updatePanelView(items: T[], key: string) {
+    this.context.$implicit = items;
+    this.context.keyword = key;
+    this.view?.detectChanges();
+  }
+
+  getTemplate(): MsSuggestPanelDef<T> {
+    if (this._contentPanelTemplate) {
+      return this._contentPanelTemplate;
+    }
+
+    return this._defaultPanelTemplate;
   }
 
   toggle(): Promise<void> {

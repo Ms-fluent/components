@@ -2,7 +2,12 @@ import {Directive, TemplateRef} from '@angular/core';
 
 
 export class MsSuggestPanelContext<T> {
-  items: Array<T>;
+  constructor(public $implicit: T[], public keyword: string) {
+  }
+
+  get items(): Array<T> {
+    return this.$implicit;
+  }
 }
 
 
@@ -10,7 +15,6 @@ export class MsSuggestPanelContext<T> {
   selector: '[ms-suggest-panel-def], [msSuggestPanelDef], [MsSuggestPanelDef]'
 })
 export class MsSuggestPanelDef<T> {
-  constructor(private _templateRef: TemplateRef<MsSuggestPanelContext<T>>) {
+  constructor(public template: TemplateRef<MsSuggestPanelContext<T>>) {
   }
-
 }
