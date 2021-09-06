@@ -1,21 +1,29 @@
 import {
-  AfterContentInit, ChangeDetectionStrategy,
+  AfterContentInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  HostListener, Inject,
-  Input, OnDestroy, OnInit, Optional,
+  forwardRef,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
   Output,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {FocusMonitor} from '@angular/cdk/a11y';
 
 
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {MS_RADIO_DEFAULT_OPTIONS, MsRadioDefaultOptions} from './radio-options';
-import * as gsap from "gsap";
-import {Subject} from "rxjs";
+import * as gsap from 'gsap';
+import {Subject} from 'rxjs';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 let nextUniqueId = 0;
 
@@ -30,10 +38,16 @@ export class MsRadioChange {
   }
 }
 
-class MsRadioInputBase {
-  constructor(public _elementRef: ElementRef) {
-  }
-}
+/**
+ * Provider Expression that allows Radio to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ * @docs-private
+ */
+export const MS_RADIO_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MsRadio),
+  multi: true
+};
 
 @Component({
   templateUrl: 'radio.html',
@@ -50,7 +64,9 @@ class MsRadioInputBase {
     '[attr.aria-describedby]': 'ariaDescribedby',
     '[attr.aria-label]': 'ariaLabel'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  providers: [MS_RADIO_CONTROL_VALUE_ACCESSOR]
 })
 
 /**
@@ -61,7 +77,7 @@ class MsRadioInputBase {
  * @author Chendjou Caleb deGrace
  * @version 1.
  */
-export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
+export class MsRadio implements AfterContentInit, OnInit, OnDestroy, ControlValueAccessor {
   /**
    * ID of the native input element inside `<MsRadioInput>`
    * This Id should be different to id property which is used for the MsRadioInput
@@ -108,6 +124,8 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
   @Input()
   id: string = this._uniqueId;
 
+  @Input()
+  name: string = this._uniqueId;
 
   /** Whether this radio is checked. */
   private _checked: boolean = false;
@@ -116,6 +134,16 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
   /** Value assigned to this radio. */
   private _value: any = null;
 
+  /**
+   * Called when the radio is blurred. Needed to properly implement ControlValueAccessor.
+   * @docs-private
+   */
+  private _onTouched: () => any = () => {
+  };
+  private _controlValueAccessorChangeFn: (value: any) => void = () => {
+  };
+
+  private _touched: boolean = false;
 
   constructor(public _elementRef: ElementRef<HTMLElement>,
               private _changeDetector: ChangeDetectorRef,
@@ -123,6 +151,20 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
               @Optional() @Inject(MS_RADIO_DEFAULT_OPTIONS)
               private _providerOverride?: MsRadioDefaultOptions
   ) {
+    this._focusMonitor.monitor(_elementRef, false).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+        Promise.resolve().then(() => {
+          this._onTouched();
+          this._touched = true;
+          _changeDetector.markForCheck();
+        });
+      }
+    });
   }
 
 
@@ -131,6 +173,7 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
 
 
   ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
   @HostListener('click')
@@ -172,19 +215,25 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
     }
     this._checked = value;
     if (value) {
-      this.activate();
+      this.animateIn().then();
     } else {
-      this.deactivate();
+      this.animateOut().then();
     }
     this._changeDetector.markForCheck();
   }
 
-  activate() {
-    gsap.gsap.to(this.thumb.nativeElement, 0.2, {scale: 1});
+  async animateIn(): Promise<void> {
+    if(this.thumb) {
+      await gsap.gsap.to(this.thumb.nativeElement, 0.2, {scale: 1});
+    }
+    return Promise.resolve();
   }
 
-  deactivate() {
-    gsap.gsap.to(this.thumb.nativeElement, 0.2, {scale: 0});
+  async animateOut(): Promise<void> {
+    if(this.thumb) {
+      await gsap.gsap.to(this.thumb?.nativeElement, 0.2, {scale: 0});
+    }
+    return Promise.resolve();
   }
 
   get element(): HTMLElement {
@@ -213,4 +262,19 @@ export class MsRadio implements AfterContentInit, OnInit, OnDestroy {
   }
 
 
+  registerOnChange(fn: any): void {
+    this._controlValueAccessorChangeFn = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this._onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: any): void {
+    this.checked = !!value;
+  }
 }

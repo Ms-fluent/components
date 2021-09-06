@@ -8,7 +8,7 @@ export interface MsActionMenuColorTheme {
   focusBorderColor: string;
 }
 
-export const colorThemes: { [name: string]: MsActionMenuColorTheme } = {
+export const actionMenuColorThemes: { [name: string]: MsActionMenuColorTheme } = {
   'error': {
     fontColor: 'sharedRed20',
     focusBorderColor: 'sharedRed20',

@@ -1,4 +1,5 @@
-<router-outlet>
+<div >
+
   <div class="component-usage-section-content">
     <msPivot [selectedIndex]="1" paramName="pivot">
       <msPivotHeader>
@@ -12,13 +13,24 @@
       </msPivotHeader>
 
       <msPivotBody>
-        <div *msPivotContentDef>Pivot #1</div>
-        <div *msPivotContentDef>Pivot #2</div>
-        <div *msPivotContentDef>Pivot #3</div>
-        <div *msPivotContentDef>Pivot #4</div>
-        <div *msPivotContentDef>Pivot #5</div>
-        <div *msPivotContentDef>Pivot #6</div>
-        <div *msPivotContentDef>Pivot #7</div>
+        <div *msPivotContentDef>
+          Pivot #1
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+          praesentium quasi repellendus sequi,
+          tempore ullam vero? Ad commodi deserunt officiis placeat recusandae, suscipit voluptatibus.
+          <button>button</button>
+        </div>
+        <div *msPivotContentDef>
+          Pivot #2 <button>button</button>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+          praesentium quasi repellendus sequi,
+          tempore ullam vero? Ad commodi deserunt officiis placeat recusandae, suscipit voluptatibus.
+        </div>
+        <div *msPivotContentDef>Pivot #3 <button>button</button> </div>
+        <div *msPivotContentDef>Pivot #4 <button>button</button> </div>
+        <div *msPivotContentDef>Pivot #5 <button>button</button> </div>
+        <div *msPivotContentDef>Pivot #6 <button>button</button> </div>
+        <div *msPivotContentDef>Pivot #7 <button>button</button> </div>
       </msPivotBody>
     </msPivot>
   </div>
@@ -75,4 +87,4 @@
     </div>
   </div>
 
-</router-outlet>
+</div>

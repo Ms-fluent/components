@@ -1,3 +1,14 @@
+$ms-toast-bgColor: #FFF !default;
+
+.ms-toast-container {
+  box-sizing: border-box;
+  opacity: 0;
+}
+
+.ms-toast-content {
+  background-color: $ms-toast-bgColor;
+}
+
 .ms-toast-item {
   display: block;
   background-color: rgba(0, 175, 85, 0.5);

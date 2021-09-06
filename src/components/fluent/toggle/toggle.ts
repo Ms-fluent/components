@@ -105,7 +105,6 @@ export class MsToggle {
   @HostListener('click')
   _onclick() {
     this.checked = !this.checked;
-    console.log('click: ' + this.assertIsChecked());
     this._emitChangeEvent();
   }
 

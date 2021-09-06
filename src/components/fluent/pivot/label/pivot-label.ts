@@ -4,7 +4,6 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  EventEmitter,
   HostListener,
   Input,
   ViewChild,
@@ -16,12 +15,13 @@ let _uniqueId = 0;
 
 @Component({
   templateUrl: 'pivot-label.html',
-  selector: 'ms-pivotLabel, msPivotLabel',
+  selector: 'ms-pivotLabel, msPivotLabel, MsPivotLabel',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'ms-pivotLabel',
     '[class.ms-active]': 'isActive',
+    '[class.ms-disabled]': 'disabled',
     '[attr.tabindex]': 'tabindex',
     '[attr.aria-selected]': 'isActive',
     '[attr.aria-label]': 'ariaLabel',
@@ -55,22 +55,13 @@ export class MsPivotLabel {
   ariaLabelledby: string;
 
 
-  get tabindex(): number {
-    if (this._isActive) {
-      return -1;
-    }
-    return 0;
-  }
+  @Input()
+  tabindex: number = 0;
 
 
   /** Whether the component is disabled. */
   @Input()
   disabled: boolean;
-
-  click = new EventEmitter<MouseEvent>();
-  mouseenter = new EventEmitter<MouseEvent>();
-  mouseout = new EventEmitter<MouseEvent>();
-  mouseover = new EventEmitter<MouseEvent>();
 
   get isHover(): boolean {
     return this._isHover;
@@ -83,7 +74,7 @@ export class MsPivotLabel {
 
   /** The position of the tab. */
   get index(): number {
-    return undefined;
+    return this._index;
   }
 
   /** Whether the tab is currently active. */
@@ -97,35 +88,22 @@ export class MsPivotLabel {
 
   }
 
-  @HostListener('click', ['$event'])
-  clickEventListener(event: MouseEvent) {
-    event.preventDefault();
-    this.click.emit(event);
-  }
-
   @HostListener('mouseenter', ['$event'])
   mouseEnterEventListener(event: MouseEvent) {
-    if (1) {
-      this._isHover = true;
-      this.mouseenter.emit(event);
-      this.mouseover.emit(event);
-    } else {
-      console.log('Is touch event');
-    }
+    this._isHover = true;
   }
 
   @HostListener('mouseleave', ['$event'])
   mouseLeaveEventListener(event: MouseEvent) {
-    if (1) {
-      this._isHover = true;
-      this.mouseout.emit(event);
-    } else {
-      console.log('Is touch event');
-    }
+    this._isHover = false;
   }
 
   get host(): HTMLElement {
     return this._elementRef.nativeElement;
+  }
+
+  get contentHost(): HTMLElement {
+    return this._contentRef.instance.host;
   }
 
   get layoutHost(): HTMLElement {
@@ -134,9 +112,5 @@ export class MsPivotLabel {
 
   markForCheck() {
     this._changeDetectorRef.markForCheck();
-  }
-
-  get isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 }

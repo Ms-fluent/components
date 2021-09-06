@@ -3,6 +3,8 @@ export interface User {
   fullName: string;
   gender: string;
   birthDate: string;
+  imageUrl?: string,
+  hasImage?: boolean;
 }
 
 

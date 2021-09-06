@@ -1,1 +1,1 @@
-export type msontWeight = 'regular' | 'bold' | 'semibold' | 'light' | 'lighter' | 'semilight';
+export type msFontWeight = 'regular' | 'bold' | 'semibold' | 'light' | 'lighter' | 'semilight';

@@ -175,6 +175,9 @@ export class MsFormField implements AfterViewInit, AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
+    if(!this.inputField) {
+      throw new Error('The FormField must contains a MsInputField');
+    }
     this.inputField.host.addEventListener('focus', this._inputFocusEvent);
     this.inputField.host.addEventListener('blur', this._inputBlurEvent);
   }

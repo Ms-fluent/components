@@ -1,4 +1,15 @@
-<MsRadio></MsRadio>
+<div>
+  <MsRadio></MsRadio>
+</div>
+<div>
+  <h3>Radio with ngModel</h3>
+  <div class="radio-layout">
+    <MsRadio value="nothing" required id="to-check" [(ngModel)]="checked"></MsRadio>
+    <MsLabel htmlFor="to-check">click to check</MsLabel>
+
+    ({{checked}})
+  </div>
+</div>
 
 <h3>Disable toggle</h3>
 <div>
@@ -6,9 +17,22 @@
 </div>
 
 <div>
-  <MsRadioGroup>
-    <MsRadio></MsRadio>
-    <MsRadio></MsRadio>
-    <MsRadio></MsRadio>
+  <h3>Radio group</h3>
+  <div class="radio-layout">
+    <MsCheckbox id="radio-disabled" [(ngModel)]="disabled"></MsCheckbox>
+    <MsLabel htmlFor="radio-disabled">Disabled radio</MsLabel>
+  </div>
+  <div>
+    <button (click)="radioGroup.clear()">Clear</button>
+  </div>
+  <MsRadioGroup  required #radioGroup value="Boron" [disabled]="disabled">
+    <div class="radio-layout" *ngFor="let element of elements">
+      <MsRadio [id]="element.name" [value]="element.name"></MsRadio>
+      <MsLabel [htmlFor]="element.name">{{element.name}}</MsLabel>
+    </div>
   </MsRadioGroup>
+
+  <div>
+    {{value}}
+  </div>
 </div>

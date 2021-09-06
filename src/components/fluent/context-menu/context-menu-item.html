@@ -1,0 +1,15 @@
+<span class="ms-contextMenuItem-icon ms-Icon ms-Icon--{{icon}}" *ngIf="icon"></span>
+<span *ngIf="!icon"></span>
+<span class="ms-contextMenuItem-content">
+  <ng-content></ng-content>
+</span>
+
+
+
+<span class="ms-contextMenuItem-secondaryText" *ngIf="secondaryText">
+  {{secondaryText}}
+</span>
+<span *ngIf="!secondaryText"></span>
+
+<span class="ms-contextMenuItem-secondaryIcon ms-Icon ms-Icon--{{secondaryIcon}}" *ngIf="secondaryIcon"></span>
+<span *ngIf="!secondaryIcon"></span>

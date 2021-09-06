@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LogicPaginator, MsPaginatorItemsFn} from '../../components/fluent/paginator';
+import {LogicPaginator, MsPaginatorItemsFn} from '../../components/fluent/paginator/public-api';
 import {ELEMENT_DATA, PeriodicElement} from '../../data/element';
 
 @Component({

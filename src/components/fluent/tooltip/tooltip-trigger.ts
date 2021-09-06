@@ -1,11 +1,13 @@
 import {Directive, ElementRef, Input, TemplateRef} from '@angular/core';
-import {MsTooltip} from "./tooltip";
-import {MsTooltipAlign, MsTooltipPosition} from "./tooltip-options";
+import {MsTooltip} from './tooltip';
+import {MsTooltipAlign, MsTooltipPosition, MsTooltipTriggerEvent} from './tooltip-options';
 
 @Directive({
   selector: '[ms-tooltip], [MsTooltip]',
   host: {
-    '(click)': '_clickEvent()'
+    '(click)': '_clickEvent()',
+    '(mouseenter)': '_mouseenterEvent()',
+    '(mouseout)': '_mouseoutEvent($event)'
   }
 })
 export class MsTooltipTrigger {
@@ -24,12 +26,26 @@ export class MsTooltipTrigger {
   @Input()
   align: MsTooltipAlign = 'center';
 
+  @Input()
+  triggerEvent: MsTooltipTriggerEvent = 'click';
+
   constructor(private elementRef: ElementRef<HTMLElement>, private tooltip: MsTooltip) {
 
   }
 
   _clickEvent() {
-    this.tooltip.open(this.elementRef.nativeElement, this._target, {position: this.position, align: this.align});
+    if (this.triggerEvent === 'click') {
+      this.tooltip.open(this.elementRef.nativeElement, this._target, {position: this.position, align: this.align, hasBackdrop: true});
+    }
   }
 
+  _mouseenterEvent() {
+    if (this.triggerEvent === 'hover') {
+      this.tooltip.open(this.elementRef.nativeElement, this._target, {position: this.position, align: this.align});
+    }
+  }
+
+  _mouseoutEvent(event: MouseEvent) {
+
+  }
 }

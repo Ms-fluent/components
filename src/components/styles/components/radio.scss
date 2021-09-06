@@ -2,7 +2,7 @@ $ms-radio-default-color: $ms-primary-color;
 $ms-radio-border-color: $ms-color-sharedGray30;
 
 .ms-radio{
-  display: inline-block;
+  display: block;
   user-select: none;
 }
 
@@ -33,10 +33,10 @@ $ms-radio-border-color: $ms-color-sharedGray30;
 
 .ms-radio-thumb {
   position: absolute;
-  left: 1px;
-  top: 1px;
-  height: 14px;
-  width: 14px;
+  left: 2px;
+  top: 2px;
+  height: 12px;
+  width: 12px;
   border-radius: 50%;
 
   background: $ms-radio-default-color;

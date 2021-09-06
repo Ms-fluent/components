@@ -266,7 +266,7 @@ export class MsSuggest<T> implements AfterViewInit, AfterContentInit, OnDestroy 
   }
 
 
-  private getMapFn(): MsSuggestMapFn<T> {
+  public getMapFn(): MsSuggestMapFn<T> {
     if (this.mapFn) {
       return this.mapFn;
     }

@@ -23,7 +23,7 @@ import {MsTooltipRef} from './tooltip-ref';
   selector: 'ms-tooltip-container',
   encapsulation: ViewEncapsulation.None,
   host: {
-    'class': 'ms-tooltip-container'
+    'class': 'ms-tooltip-container',
   }
 })
 export class MsTooltipContainer extends BasePortalOutlet implements AfterViewInit {
@@ -97,8 +97,6 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
       this.setDepthContainerPosition(position);
       this.setBeakPosition(position);
 
-
-      console.log(this.position)
       this.animateEnter(position);
     }, 0)
   }
@@ -153,7 +151,6 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
 
   private setBeakPosition(dir: MsTooltipPosition) {
     const rect = this.tooltipRef.target.getBoundingClientRect();
-    console.log(rect)
     const x = rect.x + rect.width / 2 - this.overlayRef.overlayElement.getBoundingClientRect().x - this.beakWidth/2;
     const y = rect.y + rect.height / 2 - this.host.getBoundingClientRect().y - this.beakWidth/2;
 
@@ -177,7 +174,7 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
 
   private animateEnter(dir: MsTooltipPosition) {
 
-    gsap.gsap.fromTo(this.host, 0.3, {...this.getKeyframe(dir), opacity: 0}, {
+    gsap.gsap.fromTo(this.host, 0.2, {transform: 'scale3d(0.9, 0.9, 1)', opacity: 0}, {
       transform: '',
       opacity: 1,
       ease: MsMotionTimings.decelerate
@@ -187,20 +184,7 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
   }
 
   getKeyframe(dir: MsTooltipPosition) {
-
-    if (dir === 'left') {
-      return {transform: 'translate3d(48px, 0, 0)'};
-    }
-    if (dir === 'bottom') {
-      return {transform: 'translate3d(0, 48px, 0)'};
-    }
-    if (dir === 'right') {
-      return {transform: 'translate3d(48px, 0, 0)'};
-    }
-    if (dir === 'top') {
-      return {transform: 'translate3d(0, -48px, 0)'};
-    }
-    return {transform: 'scale3d(0.9, 0.9, 1)'}
+    return {transform: 'scale3d(0.9, 0.9, 1)', opacity: 0}
   }
 
   get beakRect(): DOMRect {

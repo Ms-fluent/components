@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Directive,
+  Directive, ElementRef, Input,
   OnDestroy,
   TemplateRef,
   ViewChild,
@@ -12,7 +12,7 @@ import {
 import {MsPivotContentContext} from './pivot-content-context';
 
 @Directive({
-  selector: '[ms-pivotContentDef], [msPivotContentDef]'
+  selector: '[ms-pivotContentDef], [msPivotContentDef], [MsPivotContentDef]'
 })
 export class MsPivotContentDef {
   constructor(public template: TemplateRef<MsPivotContentContext>) {
@@ -22,7 +22,9 @@ export class MsPivotContentDef {
 
 @Component({
   template: `
-      <ng-container #element></ng-container>`,
+      <div class="ms-pivot-content-layout" #layout>
+          <ng-container #element></ng-container>
+      </div>`,
   selector: 'ms-pivotContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +37,14 @@ export class MsPivotContent implements AfterViewInit, OnDestroy {
   @ViewChild('element', {read: ViewContainerRef})
   view: ViewContainerRef;
 
-  constructor(private _contentDef: MsPivotContentDef, private _context: MsPivotContentContext) {
+  @ViewChild('layout')
+  layoutRef: ElementRef<HTMLElement>;
+
+  isActive: boolean = false;
+
+  constructor(private _contentDef: MsPivotContentDef,
+              private _elementRef: ElementRef<HTMLElement>,
+              private _context: MsPivotContentContext) {
   }
 
   ngAfterViewInit(): void {
@@ -45,5 +54,13 @@ export class MsPivotContent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.view.clear();
+  }
+
+  get host(): HTMLElement {
+    return this._elementRef.nativeElement;
+  }
+
+  get layoutHost(): HTMLElement {
+    return this.layoutRef.nativeElement;
   }
 }

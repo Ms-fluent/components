@@ -1,0 +1,12 @@
+<h4>Collection Slide</h4>
+
+<MsCollectionSlide [description]="description" style="width: 500px; height: 300px">
+
+  bonjour
+  <div *MsCollectionSlideItemDef="let item" style="display: flex; align-items: center; justify-content: center">
+    <div style="width: fit-content;">
+      <div style="font-size: 76px">{{item.symbol}}</div>
+      <div>{{item.name}}</div>
+    </div>
+  </div>
+</MsCollectionSlide>

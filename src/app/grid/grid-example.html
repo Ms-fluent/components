@@ -1,0 +1,52 @@
+<div>
+  <button (click)="filter('Reactive nonmetal')">Reactive nonmetal</button>
+  <button (click)="filter('Noble gas')">Noble gas</button>
+  <button (click)="filter('Alkali metal')">Alkali metal</button>
+  <button (click)="filter('Alkaline earth metal')">Alkaline earth metal</button>
+  <button (click)="filter('Metalloid')">Metalloid</button>
+  <button (click)="filter('Transition metal')">Transition metal</button>
+  <button (click)="filter('Lanthanide')">Lanthanide</button>
+  <button (click)="filter('Actinide')">Actinide</button>
+</div>
+
+<div>
+  <button (click)="msGrid.pop()">Pop</button>
+  <button (click)="msGrid.shift()">Shift</button>
+  <button (click)="msGrid.reverse()">Reverse</button>
+  <button (click)="msGrid.clear()">Clear()</button>
+  <button (click)="msGrid.unshiftRange(data)">Restore()</button>
+
+</div>
+
+<div>
+  <button (click)="msGrid.reverse()">Reverse</button>
+  <button (click)="msGrid.sortBy = ['id', 'number']">Id</button>
+  <button (click)="msGrid.sortBy = ['name', 'string']">Name</button>
+  <button (click)="msGrid.sortBy = ['position', 'number']">Position</button>
+  <button (click)="msGrid.sortBy = ['weight', 'number']">Weight</button>
+  <button (click)="msGrid.sortBy = ['symbol', 'string']">Symbol</button>
+  <button (click)="msGrid.sortBy = ['type', 'string']">Type</button>
+</div>
+
+<ms-grid xGap="20" yGap="20" [itemHeight]="160" #msGrid>
+  <div *MsGridItemDef="let item of elements; let i=index" style="background: #FFF; height: 100%; padding: 8px; box-sizing: border-box" class="ms-depth-8">
+    <div style="font-size: 28px">
+      {{item.symbol}}
+    </div>
+    <div>
+      {{item.name}}
+    </div>
+    <div>
+      {{item.position}}
+    </div>
+    <div>
+      Index: {{i}}
+    </div>
+
+    <div>
+      <span style="cursor: pointer; color: blue" (click)="msGrid.remove(item)">supprimer</span>
+    </div>
+
+    <div style="color: #3399FF">{{item.type}}</div>
+  </div>
+</ms-grid>

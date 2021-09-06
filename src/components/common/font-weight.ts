@@ -1,29 +1,29 @@
 import {Directive, ElementRef, Input} from '@angular/core';
-import {msontWeight} from '../core';
+import {msFontWeight} from '../core';
 
 @Directive({
-  selector: '[msontWeight]',
+  selector: '[msFontWeight]',
 })
-export class MsontWeight {
+export class MsFontWeight {
 
-  @Input('msontWeight')
-  get weight(): msontWeight {
+  @Input('msFontWeight')
+  get weight(): msFontWeight {
     return this._weight;
   }
 
-  set weight(value: msontWeight) {
-    this.host.classList.remove(...this.getMsontWeightClasses());
+  set weight(value: msFontWeight) {
+    this.host.classList.remove(...this.getMsFontWeightClasses());
     if (value) {
       this.host.classList.add(`ms-fontWeight-${value}`);
     }
     this._weight = value;
   }
-  private _weight: msontWeight;
+  private _weight: msFontWeight;
 
   constructor(private _elementRef: ElementRef<HTMLElement>) {
   }
 
-  getMsontWeightClasses(): string[] {
+  getMsFontWeightClasses(): string[] {
     const classes = Array.from(this.host.classList);
     return classes.filter(item => item.startsWith('ms-fontWeight-'));
   }

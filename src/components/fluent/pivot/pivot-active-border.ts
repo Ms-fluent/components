@@ -1,5 +1,4 @@
 import {Directive, ElementRef} from '@angular/core';
-import {MsPivotHeader} from './header/pivot-header';
 import {MsPivotLabel} from './label/pivot-label';
 
 @Directive({
@@ -15,20 +14,20 @@ export class MsPivotActiveBorder {
 
   private _label: MsPivotLabel;
 
-  constructor(private _elementRef: ElementRef<HTMLElement>, private _header: MsPivotHeader) {
+  constructor(private _elementRef: ElementRef<HTMLElement>) {
   }
 
-  move(label: MsPivotLabel, all: boolean = true): Promise<void> {
+  move(label: MsPivotLabel, extended: boolean = true): Promise<void> {
     this._label = label;
-    const translateX = all ? label.host.offsetLeft : this.getTranslateX(label);
-    const width = all ? label.host.offsetWidth : label.layoutHost.offsetWidth;
+    const translateX = extended ? label.host.offsetLeft : this.getTranslateX(label);
+    const width = extended ? label.host.offsetWidth : label.layoutHost.offsetWidth;
 
     const keyframes = [
       {width: `${this._width}px`, transform: `translateX(${this._translateX}px)`},
       {width: `${width}px`, transform: `translateX(${translateX}px)`}
     ];
     return new Promise<void>(resolve => {
-      this.host.animate(keyframes, {fill: 'none', duration: 100})
+      this.host.animate(keyframes, {fill: 'none', duration: 300, easing: 'cubic-bezier(0.1, 0.9, 0.2, 1)'})
         .onfinish = () => {
         this._translateX = translateX;
         this._width = width;

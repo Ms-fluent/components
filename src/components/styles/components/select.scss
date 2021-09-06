@@ -1,0 +1,140 @@
+@import "../theme";
+
+
+$ms-select-width: 240px !default;
+$ms-select-height: 32px !default;
+$ms-select-option-panel-bgColor: #FFF !default;
+
+$ms-select-option-paddingY: 7px !default;
+
+
+.ms-select {
+  display: inline-block;
+  border: 1px solid $ms-formField-borderColor;
+  border-radius: $ms-formField-borderRadius;
+  box-sizing: border-box;
+  transition: border-width .2s;
+  min-width: $ms-formField-minWidth;
+  max-width: $ms-formField-minWidth;
+  height: $ms-select-height;
+  padding: 0;
+
+
+  &:focus {
+    border-color: $ms-formField-activeColor;
+  }
+}
+
+.ms-select-panel-overlay {
+  overflow: hidden;
+
+}
+
+.ms-select-wrapper {
+  cursor: pointer;
+  height: $ms-select-height;
+}
+
+.ms-select-contentLayout {
+  position: relative;
+  height: 32px;
+}
+
+.ms-select-trigger {
+  font-size: 16px;
+  height: $ms-select-height;
+  line-height: $ms-select-height;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+}
+
+.ms-select-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 32px;
+  left: 0;
+  height: $ms-select-height;
+  line-height: $ms-select-height;
+  user-select: none;
+  margin-left: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ms-select-placeholder {
+  opacity: 0.7;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ms-select-panel {
+  background-color: var(--bodyBackgroundColor);
+  backdrop-filter: blur(20px);
+  min-width: $ms-select-width;
+
+  margin: 0 10px 10px;
+
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.ms-select-optionGroup {
+  display: block;
+
+  border-bottom: 1px solid $ms-optionGroup-borderColor;
+}
+
+.ms-select-optionGroup-label {
+  font-weight: 600;
+  color: $ms-optionGroup-titleColor;
+  padding: $ms-select-option-paddingY 10px;
+  display: block;
+  margin: 0;
+}
+
+.ms-select-option {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: $ms-option-font;
+  min-height: $ms-option-minHeight;
+  color: $ms-option-color;
+  font-weight: $ms-option-fontWeight;
+  cursor: pointer;
+  margin: 0;
+  padding: $ms-option-padding;
+
+
+  &:hover {
+    background-color: $ms-option-bgColor--hover;
+  }
+
+  &.ms-selected {
+    background-color: $ms-option-bgColor--selected;
+  }
+}
+
+.ms-selectOption-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 32px;
+  width: 32px;
+}
+
+.ms-selectOption-content {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.hidden {
+  display: none;
+}

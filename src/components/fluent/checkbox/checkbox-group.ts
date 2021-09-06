@@ -38,7 +38,8 @@ export const MS_CHECKBOX_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   host: {
     'role': 'checkboxgroup',
     'class': 'ms-checkbox-group',
-    '[class.ms-disabled]': 'disabled'
+    'tabindex': '0',
+    '[class.ms-disabled]': 'disabled',
   }
 })
 export class MsCheckboxGroup implements AfterContentInit, ControlValueAccessor, OnDestroy {
@@ -48,64 +49,22 @@ export class MsCheckboxGroup implements AfterContentInit, ControlValueAccessor, 
 
   private _uniqueId: string = `ms-checkbox-group-${nextUniqueId++}`;
 
+  @Input()
+  id: string = this._uniqueId;
 
-  /**
-   * Event emitted when the group value changes.
-   * Change events are only emitted when the value changes due to user interaction with
-   * a checkbox button (the same behavior as `<input type-"checkbox">`).
-   */
-  @Output() readonly change: EventEmitter<MsCheckboxGroup> = new EventEmitter<MsCheckboxGroup>();
-
-  /** Child radio buttons. */
-  @ContentChildren(forwardRef(() => MsCheckbox), {descendants: true})
-  _checkboxChildren: QueryList<MsCheckbox>;
-
-  get checkboxes(): Array<MsCheckbox> {
-    return this._checkboxChildren.toArray();
+  @Input()
+  get checked(): boolean {
+    return this.checkboxes?.every(c => c.checked) || false;
   }
 
-
-  constructor(private _changeDetector: ChangeDetectorRef,
-              private _elementRef: ElementRef<HTMLElement>,
-              private _focusMonitor: FocusMonitor) {
-
+  set checked(value: boolean) {
+    value = coerceBooleanProperty(value);
+    if (value) {
+      this.selectAll();
+    } else {
+      this.unselectAll();
+    }
   }
-
-
-  ngAfterContentInit(): void {
-
-
-    this._checkboxChildren.forEach(item => {
-      item._changeDetector.detach();
-      item.change.subscribe(() => {
-        this.change.next(this);
-        this._controlValueAccessorChangeFn(this.values);
-      });
-      item._changeDetector.detectChanges();
-      item._changeDetector.reattach();
-    });
-
-    this._focusMonitor.monitor(this._elementRef.nativeElement, true)
-      .subscribe(() => {
-        this._touch();
-      });
-
-    this._isInitialized = true;
-  }
-
-  ngOnDestroy(): void {
-    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
-  }
-
-
-  get values(): Array<any> {
-    return this.checkboxes.map(item => item.value);
-  }
-
-  get selected(): Array<MsCheckbox> {
-    return this.checkboxes.filter(f => f.checked);
-  }
-
 
   /** Whether the radio group is disabled. */
   @Input()
@@ -120,9 +79,106 @@ export class MsCheckboxGroup implements AfterContentInit, ControlValueAccessor, 
     }
 
     this._disabled = state;
+    this._changeDetector.markForCheck();
   }
 
   private _disabled: boolean = false;
+
+  @Input()
+  set values(values: any[]) {
+    values = coerceArray(values);
+    this._rawValues = values;
+    if (this._checkboxChildren) {
+      this._checkboxChildren.forEach(item => item.checked = values.indexOf(item.value) > -1);
+    }
+  }
+
+  get values(): Array<any> {
+    return this.checkboxes.filter(item => item.checked).map(item => item.value);
+  }
+
+  private _rawValues: any[];
+
+
+  /**
+   * Event emitted when the group value changes.
+   * Change events are only emitted when the value changes due to user interaction with
+   * a checkbox button (the same behavior as `<input type-"checkbox">`).
+   */
+    // tslint:disable-next-line:no-output-native
+  @Output() readonly change: EventEmitter<MsCheckboxGroup> = new EventEmitter<MsCheckboxGroup>();
+
+  /** Child radio buttons. */
+  @ContentChildren(forwardRef(() => MsCheckbox), {descendants: true})
+  _checkboxChildren: QueryList<MsCheckbox>;
+
+  get checkboxes(): Array<MsCheckbox> {
+    return this._checkboxChildren?.toArray() || [];
+  }
+
+
+  constructor(private _changeDetector: ChangeDetectorRef,
+              private _elementRef: ElementRef<HTMLElement>,
+              private _focusMonitor: FocusMonitor) {
+
+    this._focusMonitor.monitor(_elementRef, false).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+        Promise.resolve().then(() => {
+          this._touch();
+          _changeDetector.markForCheck();
+        });
+      }
+    });
+  }
+
+
+  ngAfterContentInit(): void {
+    this._checkboxChildren.forEach(item => {
+      item.change.subscribe(() => {
+        this._controlValueAccessorChangeFn(this.values);
+        this.change.next(this);
+      });
+    });
+    this._isInitialized = true;
+
+    Promise.resolve().then(() => this.values = this._rawValues);
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+  }
+
+
+  get selected(): Array<MsCheckbox> {
+    return this.checkboxes.filter(f => f.checked);
+  }
+
+
+  get ariaChecked(): 'true' | 'false' | 'mixed' {
+    return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
+  }
+
+
+  get indeterminate(): boolean {
+    return this.checkboxes.some(c => c.checked) && this.checkboxes.some(c => !c.checked);
+  }
+
+  selectAll(): void {
+    this.checkboxes.forEach(c => c.checked = true);
+    this._controlValueAccessorChangeFn(this.values);
+    this.change.emit();
+  }
+
+  unselectAll(): void {
+    this.checkboxes.forEach(c => c.checked = false);
+    this._controlValueAccessorChangeFn(this.values);
+    this.change.emit();
+  }
 
   /** The method to be called in order to update ngModel */
   _controlValueAccessorChangeFn: (value: any) => void = () => {
@@ -146,9 +202,7 @@ export class MsCheckboxGroup implements AfterContentInit, ControlValueAccessor, 
   }
 
   writeValue(obj: any): void {
-    const values = coerceArray(obj);
-
-    this._checkboxChildren.forEach(item => item.checked = values.indexOf(item.value) > -1);
+    this.values = coerceArray(obj);
   }
 
   /**

@@ -14,7 +14,7 @@ import {
   Output, ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, NgControl, NgModel} from '@angular/forms';
 import {FocusMonitor} from '@angular/cdk/a11y';
 import {MS_CHECKBOX_DEFAULT_OPTIONS, MsCheckboxDefaultOptions} from './checkbox-options';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
@@ -72,7 +72,7 @@ const CHECKMARK_PATH = 'M13.86 3.66a.5.5 0 01-.02.7l-7.93 7.48a.6.6 0 01-.84-.02
     '[attr.disabled]': 'disabled',
     '[attr.aria-labelledby]': 'ariaLabelledby',
     '[attr.aria-label]': 'ariaLabel',
-    '[attr.aria-checked]': 'ariaChecked',
+    '[attr.aria-checked]': '_getAriaChecked()',
     '[attr.aria-disabled]': 'disabled',
     '[attr.role]': 'role'
   }
@@ -136,15 +136,6 @@ export class MsCheckbox implements OnDestroy, OnInit {
   @Input()
   value: any;
 
-  get ariaChecked(): 'true' | 'false' | 'mixed' {
-    if (this.indeterminate) {
-      return 'mixed';
-    }
-    if (this.checked) {
-      return 'true';
-    }
-    return 'false';
-  }
 
 
   /** Event emitted when the checkbox's `checked` value changes. */
@@ -156,7 +147,7 @@ export class MsCheckbox implements OnDestroy, OnInit {
   @Output() readonly indeterminateChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('checkmarkPath')
-  checkmarkPath: ElementRef<SVGPathElement>;
+  checkmarkPath: ElementRef<HTMLElement>;
 
   @ViewChild('background')
   background: ElementRef<HTMLDivElement>;
@@ -164,13 +155,18 @@ export class MsCheckbox implements OnDestroy, OnInit {
   @ViewChild('border')
   border: ElementRef<HTMLDivElement>;
 
+  get touched(): boolean {return this._touched;}
+  private _touched: boolean = false;
+  get dirty(): boolean {return this._dirty;}
+  private _dirty: boolean = false;
+
   constructor(public _elementRef: ElementRef<HTMLElement>,
               private _changeDetectorRef: ChangeDetectorRef,
               private _focusMonitor: FocusMonitor,
               @Inject(DOCUMENT) private _document: any,
               @Optional() @Inject(MS_CHECKBOX_DEFAULT_OPTIONS) private _defaultOptions: MsCheckboxDefaultOptions) {
 
-    this._focusMonitor.monitor(_elementRef, true).subscribe(focusOrigin => {
+    this._focusMonitor.monitor(_elementRef, false).subscribe(focusOrigin => {
       if (!focusOrigin) {
         // When a focused element becomes disabled, the browser *immediately* fires a blur event.
         // Angular does not expect events to be raised during change detection, so any state change
@@ -179,14 +175,14 @@ export class MsCheckbox implements OnDestroy, OnInit {
         // telling the form control it has been touched until the next tick.
         Promise.resolve().then(() => {
           this._onTouched();
+          this._touched = true;
           _changeDetectorRef.markForCheck();
         });
       }
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef);
@@ -208,22 +204,26 @@ export class MsCheckbox implements OnDestroy, OnInit {
       this.animateOut().then();
     }
     this._checked = state;
+    this._dirty = true;
     this._changeDetectorRef.markForCheck();
   }
 
   async animateIn(): Promise<void> {
-    const animation1 = gsap.gsap.to(this.background.nativeElement, 0.2, {scale: 1});
+    // const animation1 = gsap.gsap.to(this.background.nativeElement, 0.2, {scale: 1});
     const animation2 = gsap.gsap.to(this.border.nativeElement, 0.2, {borderWidth: 1});
+    const animation3 = gsap.gsap.to(this.checkmarkPath.nativeElement, 0.2, {rotate: 0, scale: 1});
 
-    await Promise.all([animation1, animation2]);
+    await Promise.all([ animation2, animation3]);
     return Promise.resolve();
   }
 
   async animateOut(): Promise<void> {
-    const animation1 = gsap.gsap.to(this.background.nativeElement, 0.2, {scale: 0});
+    // const animation1 = gsap.gsap.to(this.background.nativeElement, 0.2, {scale: 0});
     const animation2 = gsap.gsap.to(this.border.nativeElement, 0.2, {borderWidth: 1});
+    const animation3 = gsap.gsap.to(this.checkmarkPath.nativeElement, 0.2, {rotate: 180, scale: 0});
 
-    await Promise.all([animation1, animation2]);
+
+    await Promise.all([ animation2, animation3]);
     return Promise.resolve();
   }
 
@@ -251,6 +251,11 @@ export class MsCheckbox implements OnDestroy, OnInit {
     this.indeterminate = true;
   }
 
+  @HostListener('blur')
+  _onblur() {
+    this._onTouched();
+    this._changeDetector.markForCheck();
+  }
 
   @HostListener('click', ['$event'])
   onClick(event: Event) {

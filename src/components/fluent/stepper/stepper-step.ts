@@ -17,7 +17,7 @@ export class MsStepperStepContext {
 }
 
 @Directive({
-  selector: '[ms-stepper-step], [msStepperStep]'
+  selector: '[ms-stepper-step], [msStepperStep], [MsStepperStep]'
 })
 export class MsStepperStepDef {
   private _uniqueId = `ms-stepper-step-${_uniqueId++}`;

@@ -1,4 +1,4 @@
-export type msontSize =
+export type msFontSize =
   'su'
   | 'xxl'
   | 'xl'

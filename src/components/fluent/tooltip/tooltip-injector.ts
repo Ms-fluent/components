@@ -1,4 +1,4 @@
-import {AbstractType, InjectFlags, InjectionToken, Injector, StaticProvider, Type} from '@angular/core';
+import {AbstractType, InjectFlags, InjectionToken, Injector, Type} from '@angular/core';
 import {MsTooltipRef} from './tooltip-ref';
 import {MsTooltipOptions} from './tooltip-options';
 import {MS_TOOLTIP_DATA} from './tooltip-injectors';
@@ -24,6 +24,4 @@ export class MsTooltipInjector<V, D> extends Injector {
 
     return this.parentInjector.get<T>(token, notFoundValue);
   }
-
-
 }

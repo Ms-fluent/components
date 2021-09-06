@@ -1,6 +1,6 @@
-import {ComponentFixture, fakeAsync, flush, TestBed} from '@angular/core/testing';
-import {Component, DebugElement, Type} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed} from '@angular/core/testing';
+import {ChangeDetectionStrategy, Component, DebugElement, Type} from '@angular/core';
+import {FormControl, FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
 import {MsCheckboxModule} from './checkbox.module';
 import {MsCheckbox, MsCheckboxChange} from './checkbox';
 import {By} from '@angular/platform-browser';
@@ -218,8 +218,187 @@ describe('MsCheckbox component', () => {
 
       expect(document.activeElement).toBe(checkboxInstance.host);
     });
-
   })
+
+  describe('with change event and no initial value', () => {
+    let checkboxDebugElement: DebugElement;
+    let checkboxNativeElement: HTMLElement;
+    let checkboxInstance: MsCheckbox;
+    let testComponent: CheckboxWithChangeEvent;
+
+    beforeEach(() => {
+      fixture = createComponent(CheckboxWithChangeEvent);
+      fixture.detectChanges();
+
+      checkboxDebugElement = fixture.debugElement.query(By.directive(MsCheckbox))!;
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      checkboxInstance = checkboxDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('should emit the event to the change observable', () => {
+      const changeSpy = jasmine.createSpy('onChangeObservable');
+
+      checkboxInstance.change.subscribe(changeSpy);
+
+      fixture.detectChanges();
+      expect(changeSpy).not.toHaveBeenCalled();
+
+      // When changing the native `checked` property the checkbox will not fire a change event,
+      // because the element is not focused and it's not the native behavior of the input element.
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      expect(changeSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('with ngModel', () => {
+    let checkboxDebugElement: DebugElement;
+    let checkboxNativeElement: HTMLElement;
+    let checkboxInstance: MsCheckbox;
+    let ngModel: NgModel;
+
+    beforeEach(() => {
+      fixture = createComponent(CheckboxWithNgModel);
+
+      fixture.componentInstance.isRequired = false;
+      fixture.detectChanges();
+
+      checkboxDebugElement = fixture.debugElement.query(By.directive(MsCheckbox))!;
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      checkboxInstance = checkboxDebugElement.componentInstance;
+      ngModel = checkboxDebugElement.injector.get<NgModel>(NgModel);
+    });
+
+    it('should be pristine, untouched, and valid initially', () => {
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(true);
+      expect(ngModel.touched).toBe(false);
+    });
+
+    it('should have correct control states after interaction', fakeAsync(() => {
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      // Flush the timeout that is being created whenever a `click` event has been fired by
+      // the underlying input.
+      flush();
+
+      // After the value change through interaction, the control should be dirty, but remain
+      // untouched as long as the focus is still on the underlying input.
+      expect(ngModel.pristine).toBe(false);
+      expect(ngModel.touched).toBe(false);
+
+      // If the input element loses focus, the control should remain dirty but should
+      // also turn touched.
+      checkboxInstance.host.blur();
+      fixture.detectChanges();
+      flushMicrotasks();
+
+      expect(ngModel.pristine).toBe(false);
+      expect(ngModel.touched).toBe(true);
+    }));
+
+    it('should mark the element as touched on blur when inside an OnPush parent', fakeAsync(() => {
+      fixture.destroy();
+      TestBed.resetTestingModule();
+      fixture = createComponent(CheckboxWithNgModelAndOnPush);
+      fixture.detectChanges();
+      checkboxDebugElement = fixture.debugElement.query(By.directive(MsCheckbox))!;
+      checkboxNativeElement = checkboxDebugElement.nativeElement;
+      checkboxInstance = checkboxDebugElement.componentInstance;
+      ngModel = checkboxDebugElement.injector.get<NgModel>(NgModel);
+
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+      flush();
+
+      expect(checkboxInstance.host.classList).not.toContain('ng-touched');
+
+      checkboxInstance.host.blur();
+      fixture.detectChanges();
+      flushMicrotasks();
+      fixture.detectChanges();
+
+      expect(checkboxNativeElement.classList).toContain('ng-touched');
+    }));
+
+
+    it('should not throw an error when disabling while focused', fakeAsync(() => {
+      expect(() => {
+        // Focus the input element because after disabling, the `blur` event should automatically
+        // fire and not result in a changed after checked exception. Related: #12323
+        checkboxInstance.host.focus();
+
+        // Flush the two nested timeouts from the FocusMonitor that are being created on `focus`.
+        flush();
+
+        checkboxInstance.disabled = true;
+        fixture.detectChanges();
+        flushMicrotasks();
+      }).not.toThrow();
+    }));
+
+    it('should toggle checked state on click', () => {
+      expect(checkboxInstance.checked).toBe(false);
+
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.checked).toBe(true);
+
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.checked).toBe(false);
+    });
+
+    it('should validate with RequiredTrue validator', () => {
+      fixture.componentInstance.isRequired = true;
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.checked).toBe(true);
+      expect(ngModel.valid).toBe(true);
+
+      checkboxInstance.host.click();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.checked).toBe(false);
+      expect(ngModel.valid).toBe(false);
+    });
+  });
+
+
+  describe('with form control', () => {
+    let checkboxDebugElement: DebugElement;
+    let checkboxInstance: MsCheckbox;
+    let testComponent: CheckboxWithFormControl;
+
+    beforeEach(() => {
+      fixture = createComponent(CheckboxWithFormControl);
+      fixture.detectChanges();
+
+      checkboxDebugElement = fixture.debugElement.query(By.directive(MsCheckbox))!;
+      checkboxInstance = checkboxDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+    });
+
+    it('should toggle the disabled state', () => {
+      expect(checkboxInstance.disabled).toBe(false);
+
+      testComponent.formControl.disable();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.disabled).toBe(true);
+
+      testComponent.formControl.enable();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.disabled).toBe(false);
+    });
+  });
 });
 
 
@@ -254,4 +433,40 @@ class SingleCheckbox {
   };
   onCheckboxChange: (event?: MsCheckboxChange) => void = () => {
   };
+}
+
+/** Simple test component with change event */
+@Component({
+  template: `
+      <ms-checkbox (change)="lastEvent = $event"></ms-checkbox>`
+})
+class CheckboxWithChangeEvent {
+  lastEvent: MsCheckboxChange;
+}
+
+/** Simple component for testing an MatCheckbox with required ngModel. */
+@Component({
+  template: `
+      <ms-checkbox [required]="isRequired" [(ngModel)]="isGood"></ms-checkbox>`,
+})
+class CheckboxWithNgModel {
+  isGood: boolean = false;
+  isRequired: boolean = true;
+}
+
+@Component({
+  template: `
+      <ms-checkbox [required]="isRequired" [(ngModel)]="isGood">Be good</ms-checkbox>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+class CheckboxWithNgModelAndOnPush extends CheckboxWithNgModel {
+}
+
+/** Test component with reactive forms */
+@Component({
+  template: `
+      <ms-checkbox [formControl]="formControl"></ms-checkbox>`
+})
+class CheckboxWithFormControl {
+  formControl = new FormControl();
 }

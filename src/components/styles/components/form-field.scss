@@ -1,6 +1,8 @@
+$ms-formField-borderColor: rgb(96, 94, 92) !default;
+$ms-formField-activeColor: #0078D4 !default;
+
 .ms-formField {
   display: block;
-  height: 64px;
   position: relative;
 
   &.ms-form-field-inline {
@@ -41,11 +43,10 @@
   border-radius: 2px;
   overflow: hidden;
 
-  transition: border-width 200ms;
   z-index: -1;
 
   &.ms-active {
-    border-color: #0078D4;
+    border-color: $ms-formField-activeColor;
     border-width: 2px;
     z-index: 2;
     cursor: text;
@@ -57,7 +58,7 @@
   height: 2px;
   position: absolute;
   bottom: 0;
-  background-color: #0078D4;
+  background-color: $ms-formField-activeColor;
   box-sizing: border-box;
   transform: scaleX(0);
   transition: transform 200ms;
@@ -85,11 +86,11 @@
   transition: border-color 200ms;
 
   &.standard-appearance {
-    border: 1px solid rgb(96, 94, 92);
+    border: 1px solid $ms-formField-borderColor;
     border-radius: 2px;
   }
   &.underline-appearance {
-    border-bottom: 1px solid rgb(96, 94, 92);
+    border-bottom: 1px solid $ms-formField-borderColor;
   }
 
   &.ms-active {
@@ -179,4 +180,9 @@
   text-align: center;
   background-color: #E3E3E3;
   box-sizing: border-box;
+}
+
+
+.ms-formFieldContent {
+  display: block;
 }

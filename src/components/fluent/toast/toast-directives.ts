@@ -1,14 +1,14 @@
-import {Directive} from "@angular/core";
-import {MsToastRef} from "./toast-ref";
+import {Directive} from '@angular/core';
+import {MsToastRef} from './toast-ref';
 
 @Directive({
-  selector: '[ms-toastClose],[msToastClose]',
+  selector: '[MsToastClose]',
   host: {
     '(click)': 'close()'
   }
 })
 export class MsToastClose {
-  constructor(private ref: MsToastRef) {
+  constructor(private ref: MsToastRef<any>) {
   }
 
   close() {

@@ -11,3 +11,17 @@
   margin-top: 8px;
   margin-bottom: 8px;
 }
+
+.checkbox-layout, .radio-layout {
+  display: flex;
+  align-items: center;
+
+  & MsLabel {
+    margin-left: 8px;
+  }
+
+  &.label-before MsLabel{
+    margin-right: 8px;
+    margin-left: 0;
+  }
+}

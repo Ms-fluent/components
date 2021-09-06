@@ -37,7 +37,7 @@ export class MsAlert implements OnInit, AfterContentInit, AfterViewInit {
   content: string;
 
   @Input()
-  theme: MsAlertTheme = 'info';
+  theme: MsAlertTheme = this.defaultOptions.theme;
 
   @Input()
   showCloseButton: boolean = false;

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {SuggestExample} from './suggest-example';
 import {RouterModule, Routes} from '@angular/router';
-import {MsButtonModule, MsFormFieldModule, MsLabelModule, MsSuggestModule} from '../../components/fluent';
+import {MsButtonModule, MsFormFieldModule, MsLabelModule, MsSuggestModule} from '../../components/fluent/public-api';
 
 
 export const routes: Routes = [

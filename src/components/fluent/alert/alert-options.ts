@@ -22,6 +22,6 @@ export const MS_ALERT_DEFAULT_OPTIONS =
 export function MS_ALERT_OPTIONS_FACTORY(): MsAlertOptions {
   return {
     themeDeclarations: new Map<string, MsAlertThemeDeclaration>(MS_ALERT_THEME_DECLARATIONS),
-    theme: 'info'
+    theme: 'standardDarkAlt'
   };
 }

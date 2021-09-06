@@ -5,7 +5,7 @@ import {MsTooltipRef} from './tooltip-ref';
 import {MsTooltipContainer} from './tooltip-container';
 import {MsTooltipOptions} from './tooltip-options';
 import {MS_TOOLTIP_DEFAULT_THEMES, MsTooltipThemes} from "./tooltip-theme";
-import {colorThemes, MsButtonDefaultOptions} from "../button";
+import {colorThemes, MsButtonDefaultOptions} from "../button/public-api";
 
 export const MS_TOOLTIP_SCROLL_STRATEGY =
   new InjectionToken<() => ScrollStrategy>('MsTooltipScrollStrategy');

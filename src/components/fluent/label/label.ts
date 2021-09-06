@@ -6,7 +6,7 @@ import {
   Input, OnDestroy, OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'ms-label, MsLabel, msLabel',
@@ -33,14 +33,16 @@ export class MsLabel implements OnInit, OnDestroy {
   _targetClickEvent = () => this.target?.click();
 
   constructor(private elementRef: ElementRef<HTMLElement>,
-              @Inject(DOCUMENT) private document: Document,
+              @Inject(DOCUMENT) private document,
               private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    if (this.htmlFor) {
-      this.target = this.document.getElementById(this.htmlFor);
-    }
+    Promise.resolve().then(() => {
+      if (this.htmlFor) {
+        this.target = this.document.getElementById(this.htmlFor);
+      }
+    })
   }
 
   ngOnDestroy(): void {

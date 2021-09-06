@@ -2,6 +2,7 @@
 <div style="width: 300px">
   <MsFormField label="Standard">
     <input type="text" MsInputField>
+    <MsFormFieldContent>Form field description for <br> def </MsFormFieldContent>
   </MsFormField>
 
   <MsFormField>
@@ -57,10 +58,18 @@
   <div style="margin-left: 64px; width: 300px">
     <MsFormField label="Float label" MsFloatLabel>
       <input type="text" MsInputField>
+      <MsFormFieldContent>
+        Contenu du float
+        <div>à la ligne</div>
+      </MsFormFieldContent>
     </MsFormField>
 
     <MsFormField label="Float label underline" appearance="underline" MsFloatLabel>
       <input type="text" MsInputField>
+      <MsFormFieldContent>
+        Rien à signaler
+        <div>Contenu</div>
+      </MsFormFieldContent>
     </MsFormField>
 
     <MsFormField [required]="true" MsFloatLabel>

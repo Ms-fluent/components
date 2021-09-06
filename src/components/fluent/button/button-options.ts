@@ -22,7 +22,7 @@ export function MS_BUTTON_DEFAULT_OPTIONS_FACTORY(): MsButtonDefaultOptions {
     theme: 'standard',
     rounded: true,
     ripple: true,
-    size: 'small',
+    size: 'normal',
     colorThemes
   };
 }

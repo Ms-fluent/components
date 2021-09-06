@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ELEMENT_DATA, PeriodicElement} from '../../data/element';
-import {MsTable} from '../../components/fluent';
+import {MsTable} from '../../components/fluent/public-api';
 
 
 @Component({

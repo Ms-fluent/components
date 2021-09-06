@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MsButtonModule} from '../../components/fluent/button';
+import {MsButtonModule} from '../../components/fluent/button/public-api';
 import {MsTooltipModule} from '../../components/fluent/tooltip';
 import {TooltipContentComponent, TooltipExample} from './tooltip-example';
 import {RouterModule, Routes} from '@angular/router';

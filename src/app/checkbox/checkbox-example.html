@@ -1,10 +1,8 @@
 <div>
-  <input type="text" placeholder="first focus">
-  <label tabindex="0" for="nativeCheckbox">nativeCheckbox</label>
-  <input type="text" placeholder="first focus">
-  <input type="checkbox" id="nativeCheckbox">
-  <MsLabel htmlFor="checkbox">Basic checkbox</MsLabel>
-  <MsCheckbox id="checkbox"></MsCheckbox>
+  <div class="checkbox-layout">
+    <MsCheckbox id="checkbox"></MsCheckbox>
+    <MsLabel htmlFor="checkbox">Basic checkbox</MsLabel>
+  </div>
 
 
   <div>
@@ -18,4 +16,36 @@
     <button (click)="indeterminate.markAsIndeterminate()">Reset</button>
   </div>
 
+
+  <div>
+    <h3>Checkbox group</h3>
+    <div class="checkbox-layout">
+      <MsCheckbox id="checkbox-disabled" [(ngModel)]="disabled"></MsCheckbox>
+      <MsLabel htmlFor="checkbox-disabled">Disabled checkbox</MsLabel>
+    </div>
+    <div>
+      <button (click)="checkboxGroup.selectAll()">Select all</button>
+      <button (click)="checkboxGroup.unselectAll()">Unselect all</button>
+    </div>
+    <MsCheckboxGroup required #checkboxGroup [(ngModel)]="values" [disabled]="disabled">
+      <div class="checkbox-layout" *ngFor="let element of elements">
+        <MsCheckbox [id]="element.name" [value]="element.name"></MsCheckbox>
+        <MsLabel [htmlFor]="element.name">{{element.name}}</MsLabel>
+      </div>
+    </MsCheckboxGroup>
+
+    <div>
+      {{values}}
+    </div>
+  </div>
+</div>
+
+
+<div class="checkbox-layout">
+  <MsCheckbox #checkboxClasses id="checkbox-classes"></MsCheckbox>
+  <MsLabel htmlFor="checkbox-classes">Basic checkbox</MsLabel>
+</div>
+
+<div>
+  {{checkboxClasses.host.classList}}
 </div>

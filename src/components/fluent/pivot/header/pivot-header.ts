@@ -46,14 +46,14 @@ export class MsPivotHeader implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.labels.forEach(label => {
-      label.mouseenter.subscribe(() => {
+      label.host.addEventListener('mouseenter',() => {
           if (label.isActive) {
             this.activeBorder.move(label, true);
           }
         }
       );
 
-      label.mouseout.subscribe(() => {
+      label.host.addEventListener('mouseleave', () => {
           if (label.isActive) {
             this.activeBorder.move(label, false);
           }

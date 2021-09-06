@@ -23,7 +23,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 @Component({
   templateUrl: 'stepper.html',
   styleUrls: ['stepper.scss'],
-  selector: 'ms-stepper, msStepper',
+  selector: 'ms-stepper, msStepper, MsStepper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: {
@@ -83,7 +83,7 @@ export class MsStepper implements AfterContentInit, AfterViewInit {
 
 
   private observer = new ResizeObserver(entries => {
-    this._elementRef.nativeElement.style.height = entries[0].contentRect.width + 'px';
+    this._elementRef.nativeElement.style.height = entries[0].contentRect.height + 'px';
   });
 
   constructor(private _changeDetector: ChangeDetectorRef, private _elementRef: ElementRef<HTMLElement>) {

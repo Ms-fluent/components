@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {PersonaExample} from './persona-example';
 import {RouterModule, Routes} from '@angular/router';
-import {MsPersonaModule} from '../../components/fluent';
+import {MsPersonaModule} from '../../components/fluent/public-api';
 
 export const routes: Routes = [
   {path: '', component: PersonaExample}

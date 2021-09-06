@@ -100,26 +100,43 @@ $ms-pivot-contentPadding: 10px !default;
 }
 
 .ms-pivotBody {
-  // border: 1px solid cyan;
+  border: 1px solid cyan;
   display: block;
   width: 100%;
+  height: 200px;
   overflow: hidden;
+  position: relative;
+
+  transition: height .3s ease-in-out;
 }
 
 .ms-pivotBody-layout {
-  display: flex;
-  // border: 1px solid darkmagenta;
-}
-
-.ms-pivotContent-container {
-  width: 100%;
-  overflow: auto;
-  touch-action: pan-y !important;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }
 
 .ms-pivotContent {
+  border: 1px solid red;
   display: block;
-  padding: $ms-pivot-contentPadding;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+
+  & .ms-pivot-content-layout {
+    border: 1px solid black;
+  }
+
+  &.ms-hidden {
+    opacity: 0;
+    z-index: -1;
+  }
 }
 
 @media not all and (pointer: coarse) {

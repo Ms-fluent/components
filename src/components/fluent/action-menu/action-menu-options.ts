@@ -1,5 +1,5 @@
 import {InjectionToken} from '@angular/core';
-import {colorThemes, MsActionMenuColorTheme} from './action-menu-theme';
+import {actionMenuColorThemes, MsActionMenuColorTheme} from './action-menu-theme';
 
 export type msActionMenuSize = 'small' | 'normal';
 
@@ -24,6 +24,6 @@ export function MS_ACTION_MENU_DEFAULT_OPTIONS_FACTORY(): MsActionMenuDefaultOpt
     rounded: true,
     ripple: true,
     size: 'normal',
-    colorThemes
+    colorThemes: actionMenuColorThemes
   };
 }

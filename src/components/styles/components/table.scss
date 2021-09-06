@@ -34,7 +34,7 @@ $ms-tableRow-animationDuration: $ms-motion-duration-3  !default;
   //transition: transform $ms-tableRow-animationDuration;
   //transform-origin: top;
   overflow: hidden;
-  background-color: #FFF;
+  background-color: $ms-table-bgColor;
 
   &.ms-selected {
     background: $ms-color-gray20;

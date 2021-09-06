@@ -101,13 +101,16 @@ export class MsTooltip {
       minWidth: options.minWidth,
       minHeight: options.minHeight,
       maxWidth: options.maxWidth,
-      maxHeight: options.maxHeight
+      maxHeight: options.maxHeight,
+      hasBackdrop: options.hasBackdrop
     };
 
     if (options.backdropClass) {
       overlayConfig.backdropClass = options.backdropClass;
     }
-    return this.overlay.create(overlayConfig);
+    const overlayRef = this.overlay.create(overlayConfig);
+
+    return overlayRef;
   }
 
   private getPosition(target: HTMLElement) {
@@ -160,15 +163,15 @@ export class MsTooltip {
       }
     }
 
-    if(position === 'bottom' || position === 'top') {
+    if (position === 'bottom' || position === 'top') {
       if (align === 'start') {
         [originX, originFallbackX] = ['start', 'end'];
         [overlayX, overlayFallbackX] = ['start', 'end'];
-      }else if (align === 'end') {
-        [originX, originFallbackX] = [ 'end', 'start'];
+      } else if (align === 'end') {
+        [originX, originFallbackX] = ['end', 'start'];
         [overlayX, overlayFallbackX] = ['end', 'start'];
-      }else if (align === 'center'){
-        [originX, originFallbackX] = [ 'center', 'start'];
+      } else if (align === 'center') {
+        [originX, originFallbackX] = ['center', 'start'];
         [overlayX, overlayFallbackX] = ['center', 'start'];
       }
     }

@@ -1,0 +1,7 @@
+<div style="margin-left: 40%; margin-top: 20%">
+  <MsSelect placeholder="Choisir une élement" multiple="true">
+    <MsSelectOptionGroup *ngFor="let group of itemGroups.keys()" [label]="group">
+      <MsSelectOption *ngFor="let item of itemGroups.get(group)">{{item.name}}</MsSelectOption>
+    </MsSelectOptionGroup>
+  </MsSelect>
+</div>

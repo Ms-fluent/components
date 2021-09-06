@@ -1,1 +1,35 @@
-$ms-primary-color: #0078d4;
+@import "fluent-core/variables/Color.Variables";
+@import "fluent-core/variables/Font.Variables";
+
+$ms-primary-color: #0078d4 !default;
+
+
+$ms-formField-activeColor: $ms-primary-color;
+$ms-formField-borderColor: rgb(96, 94, 92) !default;
+$ms-formField-borderRadius: 2px !default;
+$ms-formField-borderWidth: 1px !default;
+$ms-formField-padding: 0 8px !default;
+$ms-formField-bgColor: $ms-color-white;
+
+$ms-formField-minWidth: 280px !default;
+$ms-formField-maxWidth: 100% !default;
+$ms-formField-height: 32px !default;
+$ms-formField-Color: rgb(96, 94, 92) !default;
+
+$ms-optionPanel-bgColor: $ms-color-white !default;
+
+
+$ms-option-fontSize: 14px;
+$ms-option-color: #323130;
+$ms-option-bgColor: $ms-color-white;
+$ms-option-padding: 0 8px;
+$ms-option-minHeight: 36px;
+$ms-option-fontWeight: 400;
+$ms-option-font: $ms-font-family-west-european;
+
+$ms-option-bgColor--hover: $ms-color-neutralLighter;
+$ms-option-bgColor--selected: $ms-color-neutralQuaternaryAlt;
+
+$ms-optionGroup-borderColor: $ms-color-neutralLight;
+
+$ms-optionGroup-titleColor: $ms-primary-color;

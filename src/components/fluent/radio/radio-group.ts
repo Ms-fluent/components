@@ -12,6 +12,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MsRadioChange, MsRadio} from './radio';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {FocusMonitor} from '@angular/cdk/a11y';
+import {Assert} from '../../helpers';
 
 // Increasing integer for generating unique ids for radio components.
 let nextUniqueId = 0;
@@ -33,7 +34,9 @@ export const MS_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   providers: [MS_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
   host: {
     'role': 'radiogroup',
-    'class': 'ms-radio-group'
+    'class': 'ms-radio-group',
+    '[class.ms-disabled]': 'disabled',
+    '[attr.aria-checked]': 'ariaChecked.toString()'
   }
 
 })
@@ -43,8 +46,9 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
   private _isInitialized: boolean = false;
 
 
+  @Input()
   /** The HTML name attribute applied to radio buttons in this group. */
-  private _name: string = `ms-radio-group-${nextUniqueId++}`;
+  private name: string = `ms-radio-group-${nextUniqueId++}`;
 
 
   /** Whether the radio group is required. */
@@ -60,36 +64,52 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
 
   /** Child radio buttons. */
   @ContentChildren(forwardRef(() => MsRadio), {descendants: true})
-  _radios: QueryList<MsRadio>;
+  _radioChildren: QueryList<MsRadio>;
 
+  get radios(): MsRadio[] {
+    return this._radioChildren?.toArray() || [];
+  }
+
+  private _touched: boolean = false;
 
   constructor(private _changeDetector: ChangeDetectorRef,
               private _elementRef: ElementRef<HTMLElement>,
               private _focusMonitor: FocusMonitor) {
+    this._focusMonitor.monitor(_elementRef, false).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+        Promise.resolve().then(() => {
+          this._touch();
+          this._touched = true;
+          _changeDetector.markForCheck();
+        });
+      }
+    });
 
   }
 
 
   ngAfterContentInit(): void {
-
-
-    this._radios.forEach(item => {
-      item.changeDetector.detach();
-      item.change.subscribe((data) => this.change.next(data));
-      item.changeDetector.detectChanges();
-      item.changeDetector.reattach();
-    });
-
-    this._radios.forEach(radio => {
-      radio.onactivate.subscribe(() => this.unselectOthers(radio));
-    });
-
-    this._focusMonitor.monitor(this._elementRef.nativeElement, true)
-      .subscribe(() => {
-        this._touch();
+    this.radios.forEach(radio => {
+      radio.onactivate.subscribe(() => {
+        this._onRadioChange(radio);
       });
+    });
 
+    Promise.resolve().then(() => {
+      if (this._initialValue) {
+        this.value = this._initialValue;
+      }
+    });
     this._isInitialized = true;
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
   }
 
 
@@ -99,18 +119,21 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
   }
 
   set value(_value: any) {
-    if (!this._radios) {
+    if (!this.radios || this.radios.length === 0) {
+      this._initialValue = _value;
       return;
     }
 
     if (!_value) {
-      this._radios.forEach(item => item.checked = false);
+      this.radios.forEach(item => item.checked = false);
     } else {
 
-      const _selected = this._radios.find(item => item.value === _value);
+      const _selected = this.radios.find(item => item.value === _value);
       this.selectRadio(_selected);
     }
   }
+
+  private _initialValue: any;
 
   /** Whether the radio group is required. */
   @Input()
@@ -126,7 +149,11 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
    * Gets the selected radio of the group.
    */
   get selected(): MsRadio {
-    return this._radios.find(r => r.checked);
+    return this.radios.find(r => r.checked);
+  }
+
+  get ariaChecked(): boolean {
+    return !!this.selected;
   }
 
   /** Whether the radio group is disabled. */
@@ -138,23 +165,41 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
   set disabled(state: boolean) {
     if (this._isInitialized) {
       state = coerceBooleanProperty(state);
-      this._radios.forEach(radio => radio.disabled = state);
+      this.radios.forEach(radio => radio.disabled = state);
     }
     this._disabled = state;
   }
 
   private _disabled: boolean = false;
 
+  _onRadioChange(radio: MsRadio) {
+    this._controlValueAccessorChangeFn(radio.value);
+    this.unselectOthers(radio);
+    this._changeDetector.markForCheck();
+    this.change.next();
+  }
+
   selectRadio(radio: MsRadio) {
-    if (radio) {
+    Assert.isNotNull(radio, 'Cannot select null radio');
+    if (!radio.checked) {
       radio.checked = true;
     }
+    this._controlValueAccessorChangeFn(radio.value);
     this.unselectOthers(radio);
+    this._changeDetector.markForCheck();
+    this.change.next();
   }
 
   unselectOthers(radio: MsRadio) {
-    const unselectedRadios = this._radios.filter(r => r !== radio);
+    const unselectedRadios = this.radios.filter(r => r !== radio);
     unselectedRadios.forEach(r => r.checked = false);
+  }
+
+  clear() {
+    this.radios.forEach(r => r.checked = false);
+    this._controlValueAccessorChangeFn(null);
+    this._changeDetector.markForCheck();
+    this.change.next();
   }
 
   /** The method to be called in order to update ngModel */
@@ -165,7 +210,7 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
    * onTouch function registered via registerOnTouch (ControlValueAccessor).
    * @docs-private
    */
-  onTouched: () => any = () => {
+  _onTouched: () => any = () => {
   };
 
   /**
@@ -173,8 +218,8 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
    * radio buttons upon their blur.
    */
   _touch() {
-    if (this.onTouched) {
-      this.onTouched();
+    if (this._onTouched) {
+      this._onTouched();
     }
   }
 
@@ -192,11 +237,7 @@ export class MsRadioGroup implements AfterContentInit, ControlValueAccessor, OnD
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  ngOnDestroy(): void {
-    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    this._onTouched = fn;
   }
 
   /**

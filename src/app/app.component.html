@@ -1,1 +1,46 @@
-<router-outlet></router-outlet>
+<div style="display: flex">
+  <div style="height: 100vh; overflow: auto">
+    <MsContextMenu style="width: 240px;">
+      <MsContextMenuItem routerLink="/button">Button</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/form-field">Form field</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/label">Label</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/toggle">Toggle</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/radio">Radio</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/checkbox">Checkbox</MsContextMenuItem>
+
+      <MsContextMenuItem routerLink="/suggest">Suggest</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/select">Select</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/picker">Picker</MsContextMenuItem>
+
+      <MsContextMenuItem routerLink="/grid">Grid</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/table">Table</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/paginator">Paginator</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/collection-slide">Collection slide</MsContextMenuItem>
+
+      <MsContextMenuItem routerLink="/pivot">Pivot</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/context-menu">Context menu</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/action-menu">Action menu</MsContextMenuItem>
+
+
+      <MsContextMenuItem routerLink="/dialog">Dialog</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/toast">Toast</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/tooltip">Tooltip</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/dropdown">Dropdown</MsContextMenuItem>
+
+      <MsContextMenuItem routerLink="/alert">Alert</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/persona">Persona</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/loader">Loader</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/spinner">Spinner</MsContextMenuItem>
+      <MsContextMenuItem routerLink="/stepper">Stepper</MsContextMenuItem>
+
+
+
+    </MsContextMenu>
+  </div>
+
+  <div style="padding: 16px">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+

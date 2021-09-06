@@ -1,0 +1,39 @@
+<button msButton secondaryIcon="ChevronDown" [MsDropdownTrigger]="msMenu">File</button>
+
+<ms-dropdown #msMenu>
+  <MsContextMenu>
+    <MsContextMenuItem icon="Add" secondaryText="Crtl + N" secondaryIcon="ChevronRight" [MsDropdownTrigger]="type">New</MsContextMenuItem>
+    <MsContextMenuItem icon="Folder" secondaryText="Crtl + O">Open</MsContextMenuItem>
+    <MsContextMenuItem>Edit</MsContextMenuItem>
+    <MsContextMenuItem icon="Recent" secondaryIcon="ChevronRight"  [ms-dropdown-trigger]="recents">Recents</MsContextMenuItem>
+    <MsContextMenuItem icon="Cancel">Close</MsContextMenuItem>
+  </MsContextMenu>
+</ms-dropdown>
+
+<ms-dropdown #recents>
+  <MsContextMenu>
+    <MsContextMenuItem icon="VisualBasicLanguage">Hello Word</MsContextMenuItem>
+    <MsContextMenuItem icon="CSharpLanguage">C# Hello Word</MsContextMenuItem>
+    <MsContextMenuItem icon="JavaScriptLanguage">Js Hello Word</MsContextMenuItem>
+    <MsContextMenuItem icon="CPlusPlusLanguage">C++ project</MsContextMenuItem>
+  </MsContextMenu>
+</ms-dropdown>
+
+<ms-dropdown #type>
+  <MsContextMenu>
+    <MsContextMenuItem icon="WordDocument" >Word</MsContextMenuItem>
+    <MsContextMenuItem icon="ExcelDocument" secondaryText="Crtl + O">Excel </MsContextMenuItem>
+    <MsContextMenuItem icon="PowerPointDocument">PowerPoint</MsContextMenuItem>
+    <MsContextMenuItem icon="VisioDocument">Visio</MsContextMenuItem>
+    <MsContextMenuItem secondaryIcon="ChevronRight" [ms-dropdown-trigger]="other">Other</MsContextMenuItem>
+  </MsContextMenu>
+</ms-dropdown>
+
+<ms-dropdown #other>
+  <MsContextMenu>
+    <MsContextMenuItem icon="OutlookLogo">Outlook</MsContextMenuItem>
+    <MsContextMenuItem icon="ExcelDocument" secondaryText="Crtl + O">Excel </MsContextMenuItem>
+    <MsContextMenuItem icon="PowerPointDocument">PowerPoint</MsContextMenuItem>
+    <MsContextMenuItem icon="VisioDocument">Visio</MsContextMenuItem>
+  </MsContextMenu>
+</ms-dropdown>

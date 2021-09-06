@@ -1,3 +1,35 @@
+export type MsMotionSlideDir = 'rtl' | 'ltr';
+
+export class MsMotionOptions {
+  duration: number = 300;
+  delay?: number = 0;
+  easing: string;
+}
+
+export class MsMotionSlideOptions extends MsMotionOptions {
+  dir: MsMotionSlideDir;
+}
+
+export const MS_MOTION_SLIDE_LTR_IN: Keyframe[] = [
+  {transform: 'translate3d(-48px, 0, 0)', opacity: '0'},
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'}
+];
+
+export const MS_MOTION_SLIDE_RTL_IN: Keyframe[] = [
+  {transform: 'translate3d(48px, 0, 0)', opacity: '0'},
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'}
+];
+
+export const MS_MOTION_SLIDE_LTR_OUT: Keyframe[] = [
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'},
+  {transform: 'translate3d(48px, 0, 0)', opacity: '0'}
+];
+
+export const MS_MOTION_SLIDE_RTL_OUT: Keyframe[] = [
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'},
+  {transform: 'translate3d(-48px, 0, 0)', opacity: '0'}
+];
+
 export class MsMotionKeyFrames {
   static fadeIn: Keyframe[] = [
     {opacity: 0},

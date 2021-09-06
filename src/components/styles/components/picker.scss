@@ -1,0 +1,100 @@
+@import "../theme";
+
+$ms-picker-borderColor: $ms-formField-borderColor !default;
+$ms-picker-secondaryColor: #D2D0CE !default;
+$ms-picker-activeColor: #0078D4 !default;
+$ms-picker-textColor: inherit !default;
+
+$ms-picker-panelBgColor: $ms-optionPanel-bgColor !default;
+$ms-picker-hoverColor: $ms-option-bgColor !default;
+
+.ms-picker {
+  display: inline-block;
+  box-sizing: border-box;
+  min-height: $ms-formField-height;
+  max-width: 300px;
+  min-width: $ms-formField-minWidth;
+
+  border: 1px solid $ms-picker-borderColor;
+  border-radius: $ms-formField-borderRadius;
+}
+
+.ms-picker-layout {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+
+  box-sizing: content-box;
+  &.ms-picker-focus{
+    border-width: 2px;
+    outline: none;
+    border-color: $ms-picker-activeColor;
+  }
+}
+
+.ms-picker-input {
+  border: 1px solid transparent;
+  outline: none;
+  box-sizing: border-box;
+  background-color: inherit;
+  padding: $ms-formField-padding;
+  height: $ms-formField-height;
+  display: inline-block;
+  color: $ms-formField-Color;
+  align-self: flex-end;
+  flex-grow: 1;
+}
+
+
+
+.ms-picker-title {
+  border-bottom: 1px solid $ms-picker-panelBgColor;
+  padding: 10px;
+  color: $ms-picker-activeColor;
+}
+
+.ms-picker-panel {
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: $ms-picker-panelBgColor;
+  backdrop-filter: blur(2px);
+}
+
+.ms-picker-panel-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: $ms-picker-hoverColor;
+  }
+}
+
+.ms-picker-value {
+  background-color: $ms-picker-secondaryColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  height: $ms-formField-height;
+  box-sizing: border-box;
+
+  & .ms-picker-value-button {
+    background-color: transparent;
+    font-size: 12px;
+    border-radius: 15px;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    margin-left: 3px;
+    outline: none;
+    color: var(--textColor);
+
+    &:hover{
+      background-color: $ms-picker-hoverColor;
+    }
+  }
+}

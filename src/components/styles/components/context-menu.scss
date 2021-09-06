@@ -1,0 +1,58 @@
+$ms-context-menu-primaryColor: $ms-color-themePrimary;
+$ms-context-menu-hoverColor: $ms-color-gray20;
+$ms-context-menu-bgColor: #FFF;
+$ms-context-menu-color: $ms-color-gray160;
+
+.ms-contextMenu {
+  background-color: $ms-context-menu-bgColor;
+  display: table;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ms-contextMenuItem {
+  display: table-row;
+  cursor: pointer;
+  height: 32px;
+  color: $ms-context-menu-color;
+
+  &:hover {
+    background-color: $ms-context-menu-hoverColor;
+  }
+
+  & * {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &.ms-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+.ms-contextMenuItem-content {
+  line-height: 32px;
+  vertical-align: center;
+  padding: 0 8px;
+  min-width: 72px;
+  margin: 0;
+}
+
+.ms-contextMenuItem-secondaryText {
+  opacity: 0.9;
+  font-size: 12px;
+  padding: 0 10px;
+  line-height: 32px;
+}
+.ms-contextMenuItem-icon {
+  color: $ms-context-menu-primaryColor;
+  font-size: 16px;
+}
+.ms-contextMenuItem-icon, .ms-contextMenuItem-secondaryIcon {
+  width: 32px;
+  line-height: 32px;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 2px;
+}

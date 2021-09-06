@@ -1,0 +1,29 @@
+<div class="ms-collection-slide-layout" #layout>
+  <ng-container #container></ng-container>
+</div>
+
+<div class="ms-collection-slide-content">
+  <ng-content></ng-content>
+
+  <ng-container *ngIf="defaultControls">
+    <button class="ms-collection-slide-button ms-collection-slide-button-prev" MsCollectionSlidePrev>
+      <svg width="22" height="22">
+        <path d="M1533 93l-90 -90l-1022 1021l1022 1021l90 -90l-930 -931l930 -931v0z" transform="scale(0.01, 0.01)"/>
+      </svg>
+    </button>
+
+    <button class="ms-collection-slide-button ms-collection-slide-button-next" MsCollectionSlideNext>
+      <svg width="22" height="22">
+        <path d="M515 93l930 931l-930 931l90 90l1022 -1021l-1022 -1021l-90 90v0z" transform="scale(0.01, 0.01)"/>
+      </svg>
+    </button>
+
+    <div class="ms-collection-slide-indicator-container">
+    <span class="ms-collection-slide-indicator">
+      {{activeIndex}}/{{length}}
+    </span>
+    </div>
+  </ng-container>
+
+</div>
+

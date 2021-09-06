@@ -1,0 +1,37 @@
+<div #origin="cdkOverlayOrigin" (click)="toggle()" cdk-overlay-origin class="ms-select-wrapper">
+  <div class="ms-select-contentLayout">
+    <div #content class="ms-select-content">
+
+      <ng-container #contentView [class.hidden]="!showValue"></ng-container>
+      <div [class.hidden]="showValue" class="ms-select-placeholder">{{placeholder}}</div>
+    </div>
+    <div class="ms-select-trigger">
+      <i class="ms-Icon ms-Icon--ChevronDown"></i>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultTemplate>
+  {{triggerValue}}
+</ng-template>
+
+<ng-template (backdropClick)="close()"
+             [cdkConnectedOverlayOpen]="openPanel"
+             [cdkConnectedOverlayOrigin]="origin"
+             [cdkConnectedOverlayOffsetX]="-10"
+
+
+             cdk-connected-overlay
+             cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+             cdkConnectedOverlayHasBackdrop
+             cdkConnectedOverlayLockPosition
+             cdkConnectedOverlayPanelClass="ms-select-panel-overlay"
+
+>
+
+
+  <div #panel [@transformPanel] class="ms-select-panel ms-depth-8" [style.width.px]="_elementWidth">
+    <ng-content></ng-content>
+  </div>
+
+</ng-template>

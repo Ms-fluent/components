@@ -1,0 +1,99 @@
+$ms-collection-slide-button-bgColor: rgba(0, 0, 0, 0.4) !default;
+$ms-collection-slide-button-hoverBgColor: rgba(0, 0, 0, 0.5) !default;
+$ms-collection-slide-button-color: #FFF !default;
+$ms-collection-slide-button-height: 48px !default;
+
+$ms-collection-slide-indicator-height: 8px !default;
+$ms-collection-slide-indicator-color: #393939 !default;
+
+.ms-collection-slide {
+  display: block;
+  position: relative;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid transparent;
+
+  touch-action: pan-y !important;
+}
+
+.ms-collection-slide-layout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+
+.ms-collection-slide-button {
+  opacity: 1;
+  border: none;
+  border-radius: 50%;
+
+  color: #FFFFFF;
+  background-color: $ms-collection-slide-button-bgColor;
+
+  height: $ms-collection-slide-button-height;
+  width: $ms-collection-slide-button-height;
+  //line-height: $ms-carousel-button-height;
+  //text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  transition: opacity .3s;
+
+  &:hover, &:focus {
+    background-color: $ms-collection-slide-button-hoverBgColor;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &.ms-disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  &.ms-collection-slide-button-prev {
+    left: 32px;
+  }
+
+  &.ms-collection-slide-button-next {
+    right: 32px;
+  }
+
+  & path {
+    fill: $ms-collection-slide-button-color;
+  }
+}
+
+.ms-collection-slide-indicator {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $ms-collection-slide-indicator-color;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ms-collection-slide-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  &.ms-hidden {
+    opacity: 0;
+  }
+}
+
+

@@ -1,8 +1,9 @@
 {
   "name": "@ms-fluent/components",
-  "version": "0.0.2",
+  "version": "0.0.30",
   "scripts": {
     "ng": "ng",
+    "ngcc": "ngc",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -17,10 +18,14 @@
       "src/components/styles"
     ],
     "lib": {
-      "entryFile": "src/components/index.ts"
+      "entryFile": "src/components/index.ts",
+      "umdModuleIds": {
+        "gsap": "gsap",
+        "resize-observer-polyfill": "ResizeObserver"
+      }
     },
     "dest": "dist",
-    "whitelistedNonPeerDependencies": [
+    "allowedNonPeerDependencies": [
       "@angular/animations",
       "@angular/common",
       "@angular/compiler",
@@ -35,6 +40,7 @@
       "zone.js",
       "hammerjs",
       "gsap",
+      "cleave.js",
       "resize-observer-polyfill"
     ]
   },
@@ -75,7 +81,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^11.2.4",
+    "ng-packagr": "11.2.4",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

@@ -1,0 +1,38 @@
+<div class="ms-picker-layout" [class.user-picker-focus]="openPanel">
+  <span class="ms-picker-value" *ngFor="let value of values" (click)="removeValue(value)">
+    <span class="ms-picker-value-layout">
+      <span>
+        <span style="margin-left: 2px">{{formatFn(value)}}</span>
+      <button class="ms-picker-value-button"><i class="ms-Icon ms-Icon--Cancel"></i></button>
+      </span>
+    </span>
+  </span>
+  <input type="text" class="ms-picker-input" (focus)="_inputFocus()"
+         (keyup)="_keypress($event.target.value)"
+         #origin="cdkOverlayOrigin" cdk-overlay-origin>
+</div>
+
+<ng-template cdk-connected-overlay
+             cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+             cdkConnectedOverlayHasBackdrop
+             cdkConnectedOverlayLockPosition
+             cdkConnectedOverlayPanelClass="ms-picker-panel-overlay"
+             (backdropClick)="close()"
+             [cdkConnectedOverlayOpen]="openPanel"
+             [cdkConnectedOverlayOrigin]="origin">
+
+  <div class="ms-picker-panel ms-depth-8" [@transformPanel] #panel>
+    <div class="ms-picker-title">Suggested People</div>
+    <div class="ms-picker-items">
+      <span *ngIf="!_items || _items.length === 0" style="padding: 10px">No results found</span>
+      <ng-container *ngIf="_items.length > 0">
+        <div *ngFor="let item of _items" class="ms-picker-panel-item" (click)="select(item)">
+          <div >
+            {{formatFn(item)}}
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

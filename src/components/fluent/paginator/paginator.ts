@@ -15,10 +15,11 @@ import {
 import {MsPaginatorPage} from './page';
 import {MsPaginatorItemsFn, MsPaginatorState} from './paginator-options';
 import {MsPaginatorPageDef} from './page-def';
+import {MsMotionTimings} from "../../core";
 
 @Component({
   templateUrl: 'paginator.html',
-  selector: 'ms-paginator, msPaginator',
+  selector: 'ms-paginator, msPaginator, MsPaginator',
   exportAs: 'msPaginator',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -131,12 +132,12 @@ export class MsPaginator<T> implements AfterViewInit {
 
   @HostListener('swipeleft')
   swipeleft() {
-    this.nextPage();
+    this.nextPage().then();
   }
 
   @HostListener('swiperight')
   swiperight() {
-    this.previousPage();
+    this.previousPage().then();
   }
 
   nextPage(): Promise<MsPaginatorPage<T>> {
@@ -199,7 +200,7 @@ export class MsPaginator<T> implements AfterViewInit {
     return Promise.resolve(page);
   }
 
-  _createPage(index: number): MsPaginatorPage<T> {
+  private _createPage(index: number): MsPaginatorPage<T> {
     const page = new MsPaginatorPage<T>();
     const start = this.pageSize * index;
     page.index = index;
@@ -229,7 +230,7 @@ export class MsPaginator<T> implements AfterViewInit {
     element.animate([
       {transform: `translateX(${width}px)`, opacity: 0},
       {transform: `translateX(0)`, opacity: 1}
-    ], {fill: 'both', duration: 100, easing: 'ease-in-out'})
+    ], {fill: 'both', duration: 100, easing: MsMotionTimings.decelerate})
   }
 
   get hasPreviousPage(): boolean {

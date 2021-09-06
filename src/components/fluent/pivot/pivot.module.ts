@@ -11,7 +11,6 @@ import {MsPivotActiveBorder} from './pivot-active-border';
   imports: [CommonModule],
   declarations: [MsPivotLabel, MsPivot, MsPivotBody, MsPivotContentDef, MsPivotHeader, MsPivotContent, MsPivotActiveBorder],
   exports: [MsPivotLabel, MsPivot, MsPivotBody, MsPivotContentDef, MsPivotHeader, MsPivotContent, MsPivotActiveBorder],
-  entryComponents: [MsPivotContent]
 })
 export class MsPivotModule {
 }
