@@ -7,7 +7,7 @@ import {MsSelectOptionGroup} from './select-option-group';
 import {MsfSelectTemplate} from './select-template';
 import {MSF_SELECT_SCROLL_STRATEGY_PROVIDER} from './select-scroll-strategy';
 import {MsfSelectOptionCheckbox} from './select-option-checkbox';
-import {MsCheckboxModule} from '../checkbox';
+import {MsCheckboxModule} from '../checkbox/public-api';
 
 @NgModule({
   imports: [CommonModule, MsCheckboxModule, OverlayModule],

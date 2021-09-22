@@ -10,6 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MsPivotContent} from '../pivot-content';
+import {Subscription} from "rxjs";
 
 let _uniqueId = 0;
 
@@ -34,6 +35,8 @@ export class MsPivotLabel {
   _index: number;
 
   _contentRef: ComponentRef<MsPivotContent>;
+
+  _resizeSubscription: Subscription;
 
   @Input()
   id: string = this._uniqueId;

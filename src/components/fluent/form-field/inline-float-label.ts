@@ -1,7 +1,7 @@
 import {AfterContentInit, AfterViewInit, Directive} from '@angular/core';
 import {MsFormField} from './form-field';
 import {MsMotionTimings, Point} from '../../core';
-import {MsLabel} from '../label';
+import {MsLabel} from '../label/public-api';
 import * as gsap from 'gsap';
 
 @Directive({
@@ -75,7 +75,7 @@ export class MsInlineFloatLabel implements AfterContentInit, AfterViewInit {
     this.labelHost.removeEventListener('click', this._labelClickEvent);
     const left = this.labelHost.getBoundingClientRect().width + this.margin;
     gsap.gsap.to(this.labelHost, 0.2, {translateX: 0});
-    gsap.gsap.to(this.inputLayoutHost, 0.2, {left: left, ease: MsMotionTimings.accelerate});
+    gsap.gsap.to(this.inputLayoutHost, 0.2, { left, ease: MsMotionTimings.accelerate});
   }
 
   private translateLabelToInput() {

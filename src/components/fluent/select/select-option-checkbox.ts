@@ -1,6 +1,6 @@
 import {Directive, OnInit} from '@angular/core';
 import {MsSelectOption} from './select-option';
-import {MsCheckbox, MsCheckboxChange} from '../checkbox';
+import {MsCheckbox, MsCheckboxChange} from '../checkbox/public-api';
 
 @Directive({
   selector: '[MsSelectOptionCheckbox], [ms-select-option-checkbox]'

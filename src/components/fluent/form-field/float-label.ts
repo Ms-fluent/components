@@ -1,7 +1,7 @@
 import {AfterContentInit, AfterViewInit, Directive} from '@angular/core';
 import {MsFormField} from './form-field';
 import {Point} from '../../core';
-import {MsLabel} from '../label';
+import {MsLabel} from '../label/public-api';
 import * as gsap from 'gsap';
 
 @Directive({

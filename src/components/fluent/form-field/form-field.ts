@@ -13,7 +13,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MsFormFieldAppearance} from './form-field-options';
-import {MsLabel} from '../label';
+import {MsLabel} from '../label/public-api';
 import {MsInputField} from './input-field';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 

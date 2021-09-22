@@ -2,19 +2,33 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Directive, ElementRef, Input,
+  Directive,
+  ElementRef,
+  EventEmitter,
   OnDestroy,
+  Output,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import {MsPivotContentContext} from './pivot-content-context';
+import ResizeObserver from 'resize-observer-polyfill';
+import {Observable, Subject} from 'rxjs';
 
 @Directive({
   selector: '[ms-pivotContentDef], [msPivotContentDef], [MsPivotContentDef]'
 })
 export class MsPivotContentDef {
+  @Output()
+  onCreate: EventEmitter<void>;
+
+  @Output()
+  onActivate: EventEmitter<void>;
+
+  @Output()
+  onDeactivate: EventEmitter<void>;
+
   constructor(public template: TemplateRef<MsPivotContentContext>) {
   }
 }
@@ -42,18 +56,32 @@ export class MsPivotContent implements AfterViewInit, OnDestroy {
 
   isActive: boolean = false;
 
+  get resize(): Observable<DOMRect> {
+    return this._resize.asObservable();
+  }
+
+  private _resize: Subject<DOMRect> = new Subject<DOMRect>();
+
+
+  private _resizeObserver = new ResizeObserver(entries => {
+    const rect = (entries[0].target as HTMLElement).getBoundingClientRect();
+    this._resize.next(rect);
+  });
+
   constructor(private _contentDef: MsPivotContentDef,
               private _elementRef: ElementRef<HTMLElement>,
               private _context: MsPivotContentContext) {
   }
 
   ngAfterViewInit(): void {
+    this._resizeObserver.observe(this.layoutHost);
     this.view.clear();
     this.view.createEmbeddedView(this._contentDef.template, this._context, 0);
   }
 
   ngOnDestroy(): void {
     this.view.clear();
+    this._resizeObserver.disconnect();
   }
 
   get host(): HTMLElement {

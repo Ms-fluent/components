@@ -8,7 +8,7 @@ import {MsCollectionSlide} from './collection-slide';
   }
 })
 export class MsCollectionSlidePrev {
-  constructor(private slide: MsCollectionSlide<any>) {}
+  constructor(public slide: MsCollectionSlide<any>) {}
 
   @HostListener('click')
   click() {
@@ -24,7 +24,7 @@ export class MsCollectionSlidePrev {
   }
 })
 export class MsCollectionSlideNext {
-  constructor(private slide: MsCollectionSlide<any>) {
+  constructor(public slide: MsCollectionSlide<any>) {
 
   }
 

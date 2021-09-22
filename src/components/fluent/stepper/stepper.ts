@@ -18,6 +18,7 @@ import {
 } from '@angular/core';
 import {MsStepperStepContext, MsStepperStepDef} from './stepper-step';
 import ResizeObserver from 'resize-observer-polyfill';
+import {MsMotionTimings} from "../../core";
 
 
 @Component({
@@ -142,7 +143,7 @@ export class MsStepper implements AfterContentInit, AfterViewInit {
       this._layout.nativeElement.animate([
         {transform: `translateX(${this._translateX}px)`},
         {transform: `translateX(${x}px)`}
-      ], {fill: 'both', easing: 'ease-in-out', duration: 200})
+      ], {fill: 'both', easing: MsMotionTimings.decelerate, duration: 300})
         .onfinish = () => {
         this._translateX = x;
         resolve();

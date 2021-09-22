@@ -4,6 +4,7 @@ import {ToastExample} from './toast/toast-example';
 import {AlertExample} from './alert/alert-example';
 
 const routes: Routes = [
+  {path: 'action-menu', loadChildren: () => import('./action-menu/action-menu-example.module').then(t => t.ActionMenuExampleModule)},
   {path: 'button', loadChildren: () => import('./button/button-example.module').then(t => t.ButtonExampleModule)},
   {path: 'form-field', loadChildren: () => import('./form-field/form-field-example.module').then(t => t.FormFieldExampleModule)},
   {path: 'label', loadChildren: () => import('./label/label-example.module').then(t => t.LabelExampleModule)},

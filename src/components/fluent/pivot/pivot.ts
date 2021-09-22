@@ -23,7 +23,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MS_PIVOT_DEFAULT_OPTIONS, MsPivotDefaultOptions} from './pivot-options';
 import {PivotState} from './pivot-state';
 import ResizeObserver from 'resize-observer-polyfill';
-import {MsMotionFunction, MsMotionSlideDir, MsMotionTimings} from "../../core";
+import {MsMotionFunction, MsMotionSlideDir, MsMotionTimings} from '../../core';
 
 export class MsPivotChangeEvent {
   label: MsPivotLabel;
@@ -188,7 +188,13 @@ export class MsPivot implements AfterViewInit, AfterContentInit, OnInit, OnDestr
       selectedLabel._contentRef.instance.host.classList.remove('ms-hidden');
     }
 
+    if(this.selectedLabel) {
+      this.selectedLabel._resizeSubscription.unsubscribe();
+    }
     this.body.host.style.height = selectedLabel._contentRef.instance.layoutHost.getBoundingClientRect().height + 'px';
+    selectedLabel._resizeSubscription = selectedLabel._contentRef.instance.resize.subscribe(rect => {
+      this.body.host.style.height = rect.height + 'px';
+    });
 
     this._selectedIndex = index;
     this._selectedLabel = selectedLabel;

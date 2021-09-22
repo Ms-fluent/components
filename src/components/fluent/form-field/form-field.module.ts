@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MsFormField} from './form-field';
 import {MsInputField} from './input-field';
-import {MsLabelModule} from '../label';
+import {MsLabelModule} from '../label/public-api';
 import {MsFloatLabel} from './float-label';
 import {MsInlineFloatLabel} from './inline-float-label';
 import {FormFieldContent} from './form-field-content';
