@@ -1,0 +1,25 @@
+$ms-description-list--borderColor: $ms-color-gray30 !default;
+
+.ms-description {
+  display: table;
+
+  & .ms-description-item {
+    display: table-row;
+  }
+
+  & .ms-description-item-title {
+    display: table-cell;
+    font-weight: normal;
+    opacity: 0.8;
+    padding: 10px 0;
+    border-bottom: 1px solid $ms-description-list--borderColor;
+  }
+
+  & .ms-description-item-details {
+    display: table-cell;
+    font-weight: 600;
+    padding: 10px 0 10px 50px;
+    border-bottom: 1px solid $ms-description-list--borderColor;
+    vertical-align: middle;
+  }
+}

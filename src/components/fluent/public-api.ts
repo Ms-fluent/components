@@ -26,3 +26,4 @@ export * from './grid/public-api';
 
 export * from './collection-slide/public-api';
 export * from './selection/public-api';
+export * from './description-list/public-api';
