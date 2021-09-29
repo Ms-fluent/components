@@ -1,34 +1,45 @@
-<msActionMenu>
-  <button bgColor="sharedRed10" fontColor="white" msActionMenuButton size="normal">Basic button</button>
-  <button icon="Add" msActionMenuButton>Add button</button>
-  <button icon="Add" msActionMenuButton secondaryIcon="ChevronDown">Add button</button>
-  <button icon="Add" msActionMenuButton></button>
-  <button icon="Add" msActionMenuButton secondaryIcon="ChevronDown"></button>
-  <button disabled="true" icon="Add" msActionMenuButton>Disabled button</button>
-</msActionMenu>
-
-
-<div>
-  <h1>Theme</h1>
+<div style="background-color: #3b3a39; color: white">
   <msActionMenu>
-    <button msActionMenuButton theme="transparent" >Transparent</button>
-    <button msActionMenuButton theme="standard">Standard</button>
-    <button msActionMenuButton theme="error" icon="Delete">Error</button>
-    <button icon="Add" msActionMenuButton theme="primary">Primary</button>
-    <button icon="Add" msActionMenuButton secondaryIcon="ChevronDown" theme="success">Success</button>
-    <button icon="Add" msActionMenuButton secondaryIcon="ChevronDown" theme="warning"> Warning</button>
+    <button msActionMenuButton icon="Add" secondaryIcon="ChevronDown">Add</button>
+    <button icon="Upload" msActionMenuButton>Upload</button>
+    <button icon="Share" msActionMenuButton>Share</button>
+    <button icon="Download" msActionMenuButton>Download</button>
+    <button icon="Delete" msActionMenuButton theme="error">Delete</button>
+    <button msActionMenuButton >Export</button>
+
+
+    <MsActionMenuFarSection>
+      <button MsActionMenuIconButton="GridViewMedium" secondaryIcon="ChevronDown"></button>
+      <button MsActionMenuIconButton="Info" ></button>
+    </MsActionMenuFarSection>
+
   </msActionMenu>
-</div>
 
 
+  <div>
+    <h1>Theme</h1>
+    <msActionMenu>
+      <button msActionMenuButton theme="error" icon="Delete">Error</button>
+      <button icon="Add" msActionMenuButton theme="primary">Primary</button>
+      <button icon="Add" msActionMenuButton secondaryIcon="ChevronDown" theme="success">Success</button>
 
-<div>
-  <h1>Icon</h1>
-  <msActionMenu>
-    <button msActionMenuIconButton icon="Contact" theme="standard"></button>
-    <button msActionMenuIconButton icon="Delete" theme="error"></button>
-    <button msActionMenuIconButton icon="Contact" theme="primary"></button>
-    <button msActionMenuIconButton icon="Delete" theme="warning"></button>
-  </msActionMenu>
+      <MsActionMenuFarSection>
+        <button MsActionMenuIconButton="Delete" theme="error"></button>
+        <button MsActionMenuIconButton="Info" theme="primary"></button>
+        <button MsActionMenuIconButton="SkypeCircleCheck" theme="success"></button>
+      </MsActionMenuFarSection>
+    </msActionMenu>
+  </div>
+
+
+  <div>
+    <h1>Icon</h1>
+    <msActionMenu>
+      <button MsActionMenuIconButton="Delete" theme="error"></button>
+      <button MsActionMenuIconButton="Contact" theme="primary"></button>
+      <button MsActionMenuIconButton="Delete" theme="success"></button>
+    </msActionMenu>
+
+  </div>
 
 </div>

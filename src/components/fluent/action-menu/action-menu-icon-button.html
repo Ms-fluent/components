@@ -1,4 +1,5 @@
-<div class="ms-action-menu-iconButton-layout">
+<div class="ms-action-menu-iconButton-layout" [ngClass]="themeColor.class">
   <div #focusBorder class="ms-action-menu-button-focusBorder"></div>
-  <span *ngIf="icon" class="ms-action-menu-iconButton-icon ms-Icon ms-Icon--{{icon}}"></span>
+  <span *ngIf="icon" class="ms-action-menu-iconButton--icon ms-Icon ms-Icon--{{icon}}" [ngClass]="themeColor.iconClass"></span>
+  <span *ngIf="secondaryIcon" class="ms-action-menu-button--secondaryIcon ms-Icon ms-Icon--{{secondaryIcon}}"></span>
 </div>

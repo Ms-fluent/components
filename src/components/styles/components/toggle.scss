@@ -1,9 +1,18 @@
+$ms-toggle-borderColor: $ms-formField-borderColor !default;
+$ms-toggle-activeColor: $ms-formField-activeColor !default;
+$ms-toggle-thumbColor: $ms-formField-borderColor !default;
+$ms-toggle-activeThumbColor: rgb(255, 255, 255) !default;
+
 .ms-toggle {
   display: inline-block;
   box-sizing: border-box;
 
   &:focus{
     outline: transparent;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
   }
 }
 
@@ -15,7 +24,7 @@
   height: 20px;
   border-radius: 10px;
   transition: all 0.1s ease 0s;
-  border:1px solid rgb(96, 94, 92);
+  border: 2px solid $ms-toggle-borderColor;
   cursor: pointer;
   background-color: transparent;
 
@@ -30,11 +39,8 @@
 
   .ms-toggle.ms-checked &{
     border-color: transparent;
-    background-color: rgb(0, 120, 212);
+    background-color: $ms-toggle-activeColor;
 
-    &:hover{
-      background-color: rgb(0, 90, 158);
-    }
   }
 }
 
@@ -44,16 +50,15 @@
   height: 12px;
   border-radius: 50%;
   transition: all 0.3s ease 0s;
-  background-color: rgb(32, 31, 30);
+  background-color: $ms-toggle-thumbColor;
   border-color: transparent;
   border-width: 6px;
   border-style: solid;
   box-sizing: border-box;
 
 
-
   .ms-toggle.ms-checked & {
-    background-color: rgb(255, 255, 255);
+    background-color: $ms-toggle-activeThumbColor;
     transform: translate3d(20px, 0, 0);
   }
 }

@@ -13,7 +13,6 @@ $ms-formField-activeColor: #0078D4 !default;
 
   &.inline-float-label {
     height: 32px;
-    margin: 16px 0;
   }
 }
 
@@ -72,7 +71,7 @@ $ms-formField-activeColor: #0078D4 !default;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: rgb(255, 255, 255);
+  background: $ms-formField-bgColor;
   height: 32px;
   display: flex;
   flex-direction: row;
@@ -109,6 +108,10 @@ $ms-formField-activeColor: #0078D4 !default;
   position: relative;
   display: flex;
   align-items: center;
+
+  &.no-label {
+    display: none;
+  }
 
   .appearance-underline & {
     height: 20px;
@@ -149,7 +152,7 @@ $ms-formField-activeColor: #0078D4 !default;
   border-radius: 0;
   border: none;
   background: none transparent;
-  color: rgb(50, 49, 48);
+  color: $ms-formField-inputColor;
   width: 100%;
   min-width: 0;
   text-overflow: ellipsis;
@@ -178,7 +181,6 @@ $ms-formField-activeColor: #0078D4 !default;
   height: 100%;
   line-height: 32px;
   text-align: center;
-  background-color: #E3E3E3;
   box-sizing: border-box;
 }
 

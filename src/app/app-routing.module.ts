@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'tooltip', loadChildren: () => import('./tooltip/tooltip-example.module').then(t => t.TooltipExampleModule)},
   {path: 'dialog', loadChildren: () => import('./dialog/dialog-example.module').then(t => t.DialogExampleModule)},
 
+  {path: 'selection', loadChildren: () => import('./selection/selection-example.module').then(t => t.SelectionExampleModule)},
   {path: 'table', loadChildren: () => import('./table/table-example.module').then(t => t.TableExampleModule)},
   {path: 'paginator', loadChildren: () => import('./paginator/paginator-example.module').then(t => t.PaginatorExampleModule)},
   {path: 'grid', loadChildren: () => import('./grid/grid-example.module').then(t => t.GridExampleModule)},

@@ -3,9 +3,9 @@ import {FormControl} from '@angular/forms';
 import {MsToggle, MsToggleChange} from './toggle';
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {MsToggleModule} from './toggle.module';
-import {MsLabel, MsLabelModule} from '../label';
 import {MutationObserverFactory} from '@angular/cdk/observers';
 import {By} from '@angular/platform-browser';
+import {MsLabel, MsLabelModule} from '../..';
 
 
 describe('MsToggle without forms', () => {

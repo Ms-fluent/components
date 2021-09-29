@@ -29,7 +29,8 @@
 </div>
 
 <ms-grid xGap="20" yGap="20" [itemHeight]="160" #msGrid>
-  <div *MsGridItemDef="let item of elements; let i=index" style="background: #FFF; height: 100%; padding: 8px; box-sizing: border-box" class="ms-depth-8">
+  <div *MsGridItemDef="let item of elements; let i=index"
+       style="background: #FFF; height: 100%; padding: 8px; box-sizing: border-box" class="ms-depth-8">
     <div style="font-size: 28px">
       {{item.symbol}}
     </div>

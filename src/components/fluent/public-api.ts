@@ -25,3 +25,4 @@ export * from './dropdown/public-api';
 export * from './grid/public-api';
 
 export * from './collection-slide/public-api';
+export * from './selection/public-api';

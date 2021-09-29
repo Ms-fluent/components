@@ -9,12 +9,14 @@ $ms-formField-borderColor: rgb(96, 94, 92) !default;
 $ms-formField-borderRadius: 2px !default;
 $ms-formField-borderWidth: 1px !default;
 $ms-formField-padding: 0 8px !default;
-$ms-formField-bgColor: $ms-color-white;
+$ms-formField-bgColor: transparent !default;
 
 $ms-formField-minWidth: 280px !default;
 $ms-formField-maxWidth: 100% !default;
 $ms-formField-height: 32px !default;
-$ms-formField-Color: rgb(96, 94, 92) !default;
+$ms-formField-Color: inherit !default;
+
+$ms-formField-inputColor: inherit !default;
 
 $ms-optionPanel-bgColor: $ms-color-white !default;
 

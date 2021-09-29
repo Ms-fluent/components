@@ -49,10 +49,11 @@ export class MsLabel implements OnInit, OnDestroy {
 
   }
 
-  @HostListener('click')
-  _onclick() {
+  @HostListener('click', ['$event'])
+  _onclick(event: MouseEvent) {
     if (this.target) {
-      this.target.click();
+      const trigger = new Event('click', event);
+      this.target.dispatchEvent(trigger);
     }
   }
 

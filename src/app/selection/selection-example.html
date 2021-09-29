@@ -1,0 +1,16 @@
+<h3>Selection</h3>
+
+<div>
+  <span style="background-color: #a0aeb2; padding: 2px; margin: 8px" *ngFor="let item of values">{{item.name}}</span>
+</div>
+
+
+<button (click)="selection.toggleAll()">Toggle All</button>
+<button (click)="addItem(10, 20)">AddItem</button>
+<div style="padding: 16px; background-color: #323130; color: #FFF; width: fit-content" MsSelection [(values)]="values">
+  <div *ngFor="let item of items" style="display: flex; align-items: center; margin-top: 18px">
+    <MsSelectionToggle [id]="item.id.toString()" [value]="item"></MsSelectionToggle>
+    <MsLabel [htmlFor]="item.id.toString()" style="margin-left: 8px">{{item.name}}</MsLabel>
+  </div>
+</div>
+

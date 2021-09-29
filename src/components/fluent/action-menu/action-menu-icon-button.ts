@@ -1,9 +1,19 @@
-import {ChangeDetectionStrategy, Component, ElementRef, HostBinding, Inject, Input, Optional, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostBinding,
+  Inject,
+  Input,
+  Optional,
+  ViewEncapsulation
+} from '@angular/core';
 import {MsActionMenuButtonBase} from './action-menu-button-base';
 import {MS_ACTION_MENU_DEFAULT_OPTIONS, MsActionMenuDefaultOptions} from './action-menu-options';
 
 @Component({
-  selector: 'button[msActionMenuIconButton], button[ms-actionMenuIconButton]',
+  selector: 'button[MsActionMenuIconButton]',
   templateUrl: 'action-menu-icon-button.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,15 +24,12 @@ import {MS_ACTION_MENU_DEFAULT_OPTIONS, MsActionMenuDefaultOptions} from './acti
   }
 })
 export class MsActionMenuIconButton extends MsActionMenuButtonBase{
-  @Input()
+  @Input('MsActionMenuIconButton')
   icon: string = 'Add';
 
-  @Input()
-  @HostBinding('class.rounded')
-  rounded: boolean;
-
   constructor(_elementRef: ElementRef<HTMLButtonElement>,
+              changeDetector: ChangeDetectorRef,
               @Optional() @Inject(MS_ACTION_MENU_DEFAULT_OPTIONS) _defaultOptions: MsActionMenuDefaultOptions) {
-    super(_elementRef, _defaultOptions);
+    super(_elementRef, changeDetector, _defaultOptions);
   }
 }

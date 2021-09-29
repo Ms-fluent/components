@@ -12,6 +12,10 @@
   }
 }
 
+.ms-unselectable {
+  user-select: none;
+}
+
 .ms-bgColor-transparent {
   background: transparent;
 }

@@ -1,0 +1,69 @@
+$ms-selection-toggle-borderColor: $ms-formField-borderColor !default;
+$ms-selection-toggle-activeColor: $ms-formField-activeColor !default;
+$ms-selection-toggle-color: #FFF !default;
+
+.ms-selection-zone {
+  display: block;
+}
+
+.ms-selection-toggle {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+
+
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+
+  transition: border-color .3s ease-in-out;
+
+  &.ms-checked {
+    border-color: $ms-selection-toggle-color;
+  }
+}
+
+.ms-selection-toggle-background {
+  border: 2px solid $ms-selection-toggle-borderColor;
+  background-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  transition: transform .3s ease-in-out;
+  transform: scale(1);
+
+  .ms-checked & {
+    transform: scale(0);
+  }
+}
+
+.ms-selection-toggle-thumb {
+  width: 18px;
+  height: 18px;
+  background-color: $ms-selection-toggle-activeColor;
+  color: $ms-selection-toggle-color;
+  border: 2px solid $ms-selection-toggle-color;
+  font-size: 10px;
+  text-align: center;
+  line-height: 14px;
+
+  transform: scale(0);
+  transition: transform .3s ease-in-out;
+  border-radius: 50%;
+  box-sizing: border-box;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  .ms-checked & {
+    transform: scale(1);
+  }
+}
+
+

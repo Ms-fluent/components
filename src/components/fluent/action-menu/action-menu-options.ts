@@ -5,7 +5,7 @@ export type msActionMenuSize = 'small' | 'normal';
 
 
 export class MsActionMenuDefaultOptions {
-  theme: string;
+  theme?: string;
   rounded: boolean;
   ripple: boolean;
   size: msActionMenuSize;
@@ -20,7 +20,6 @@ export const MS_ACTION_MENU_DEFAULT_OPTIONS =
 
 export function MS_ACTION_MENU_DEFAULT_OPTIONS_FACTORY(): MsActionMenuDefaultOptions {
   return {
-    theme: 'transparent',
     rounded: true,
     ripple: true,
     size: 'normal',

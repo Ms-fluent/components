@@ -180,6 +180,8 @@ export class MsFormField implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     this.inputField.host.addEventListener('focus', this._inputFocusEvent);
     this.inputField.host.addEventListener('blur', this._inputBlurEvent);
+
+    this.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy(): void {

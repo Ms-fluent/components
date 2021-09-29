@@ -1,5 +1,5 @@
 
-<div class="ms-formField-labelLayout" #labelLayoutRef>
+<div class="ms-formField-labelLayout" [class.no-label]="!hasLabel" #labelLayoutRef>
   <MsLabel id="b" *ngIf="labelText" #viewLabelRef [required]="required" [htmlFor]="getHtmlFor()">{{labelText}}</MsLabel>
   <ng-content select="ms-label MsLabel"></ng-content>
 </div>

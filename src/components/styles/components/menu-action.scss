@@ -1,101 +1,109 @@
+$ms-action-menu-iconColor: $ms-primary-color !default;
+$ms-action-menu-color: #323130 !default;
+
 .ms-action-menu {
   display: block;
   overflow-x: auto;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.ms-action-menu-layout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ms-action-menu-farSection {
+  display: block;
+  margin-left: 32px;
 }
 
 .ms-action-menu-button {
-  font-weight: 500;
+  font-size: 14px;
   display: inline-block;
   position: relative;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
+  border: none;
   cursor: pointer;
   outline: none;
   overflow: hidden;
   height: 32px;
-  padding: 0 8px;
-
+  box-sizing: border-box;
+  background-color: transparent;
+  padding: 0;
   transition: background .3s;
+  color: inherit;
 
   &:active, &:focus {
     outline: none;
+    background-color: rgba(50, 49, 48, 0.15);
   }
 
-  &.ms-disabled {
-    pointer-events: none;
-    opacity: 0.7;
-  }
-
-  &.size--small{
-    font-size: 12px;
-    height: 26px;
+  &:hover {
+    background-color: rgba(50, 49, 48, 0.1);
   }
 }
 
-.ms-action-menu-iconButton {
-  height: 32px;
-  width: 32px;
-  display: inline-block;
-  position: relative;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-  cursor: pointer;
-  outline: none;
-  overflow: hidden;
-  font-size: 16px;
-
-
-  &.small {
-    height: 26px;
-    width: 26px;
-    font-size: 14px;
-  }
-
-  &.rounded {
-    border-radius: 50%;
-  }
-
-  &:active, &:focus {
-    outline: none;
-  }
-
-}
-
-
-.ms-action-menu-button-icon, .ms-action-menu-button-secondaryIcon {
+.ms-action-menu-button--icon, .ms-action-menu-button--secondaryIcon {
   text-align: center;
   display: inline-block;
   font-size: 16px;
 }
 
-.ms-action-menu-button.small {
-  & .ms-action-menu-button-icon,  & .ms-action-menu-button-secondaryIcon {
-    font-size: 14px;
-  }
-}
-
-.ms-action-menu-button-icon {
+.ms-action-menu-button--icon {
   margin-right: 8px;
+  color: $ms-action-menu-iconColor;
 }
 
-.ms-action-menu-button-secondaryIcon {
+.ms-action-menu-button--secondaryIcon {
   margin-left: 8px;
+  font-size: 12px;
 }
 
 .ms-action-menu-button-layout {
   display: flex;
   align-items: center;
+
+  padding: 0 8px;
+  width: 100%;
+  height: 100%;
+}
+
+.ms-action-menu-iconButton {
+  height: 32px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  font-size: 16px;
+  vertical-align: bottom;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+
+  & .ms-action-menu-iconButton--icon {
+    color: $ms-action-menu-iconColor;
+  }
+
+  &:active, &:focus {
+    outline: none;
+    background-color: rgba(50, 49, 48, 0.15);
+  }
+
+  &:hover {
+    background-color: rgba(50, 49, 48, 0.1);
+  }
 }
 
 .ms-action-menu-iconButton-layout {
   display: flex;
   align-items: center;
-  justify-content: center;
+
+  padding: 0 8px;
   width: 100%;
   height: 100%;
-
 }
 
 .ms-action-menu-button-focusBorder {
@@ -108,14 +116,66 @@
   border-width: 1px;
 }
 
-.ms-action-menu-iconButton.rounded .ms-action-menu-iconButton-focusBorder {
-  border-radius: 50%;
-}
-
 
 .ms-ripple {
   position: absolute; /* The absolute position we mentioned earlier */
   border-radius: 50%;
   transform: scale(0);
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+.ms-action-menu-button-standard {
+  color: inherit;
+  & .primary-icon {
+    color: $ms-action-menu-iconColor;
+  }
+
+  &:hover {
+    background-color: rgba(50, 49, 48, 0.05);
+    filter: brightness(1.5);
+  }
+
+  &:focus {
+    background-color: rgba(50, 49, 48, 0.2)
+  }
+}
+
+.ms-action-menu-button-primary {
+  & .primary-icon {
+    color: #0078d4;
+  }
+
+  &:hover {
+    background-color: rgba(0, 120, 212, 0.1);
+    color: #0078d4;
+  }
+
+  &:focus {
+    background-color: rgba(0, 120, 212, 0.2);
+  }
+}
+
+
+.ms-action-menu-button-success {
+  & .success-icon {
+    color: #107c10;
+  }
+
+  &:hover {
+    color: #107c10;
+    background-color: rgba(16, 124, 16, 0.1);
+  }
+}
+
+.ms-action-menu-button-error {
+
+  & .error-icon {
+    color: #a80000;
+  }
+
+  &:hover {
+    background-color: rgba(168, 0, 0, 0.1);
+    color: rgba(168, 0, 0, 1);
+  }
 }

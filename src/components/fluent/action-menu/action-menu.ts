@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 
 @Component({
   templateUrl: 'action-menu.html',
-  selector: 'ms-actionMenu, msActionMenu',
+  selector: 'ms-actionMenu, msActionMenu, MsActionMenu',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
