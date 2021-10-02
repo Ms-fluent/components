@@ -218,7 +218,11 @@ export class MsSelection<T = any> implements IMsSelection<T>, AfterContentInit, 
   }
 
   selectItem(...items: MsSelectionToggle[]) {
-    items.forEach(item => item.checked = true);
+    items.forEach(item => {
+      if (item) {
+        item.checked = true;
+      }
+    });
     this.valuesChange.emit(this.values);
   }
 

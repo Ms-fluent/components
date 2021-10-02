@@ -4,5 +4,5 @@ import {Component} from '@angular/core';
   templateUrl: 'context-menu-example.html'
 })
 export class ContextMenuExample {
-
+  devices = ['Mobile']
 }

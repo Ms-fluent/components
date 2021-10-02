@@ -1,7 +1,7 @@
-$ms-context-menu-primaryColor: $ms-color-themePrimary;
-$ms-context-menu-hoverColor: $ms-color-gray20;
-$ms-context-menu-bgColor: #FFF;
-$ms-context-menu-color: $ms-color-gray160;
+$ms-context-menu-primaryColor: $ms-color-themePrimary !default;
+$ms-context-menu-hoverColor: $ms-color-gray20 !default;
+$ms-context-menu-bgColor: #FFF !default;
+$ms-context-menu-color: $ms-color-gray160 !default;
 
 .ms-contextMenu {
   background-color: $ms-context-menu-bgColor;
@@ -28,6 +28,29 @@ $ms-context-menu-color: $ms-color-gray160;
   &.ms-disabled {
     pointer-events: none;
     opacity: 0.6;
+  }
+}
+
+.ms-contextMenu.selectable {
+
+}
+
+.ms-contextMenuItem-toggle {
+  color: $ms-context-menu-primaryColor;
+  width: 32px;
+  text-align: center;
+  display: none;
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+
+  .ms-contextMenuItem.ms-checked & {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+
+  .ms-contextMenu.selectable & {
+    display: table-cell;
   }
 }
 

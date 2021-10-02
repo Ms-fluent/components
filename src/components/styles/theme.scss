@@ -32,6 +32,8 @@ $ms-option-font: $ms-font-family-west-european;
 $ms-option-bgColor--hover: $ms-color-neutralLighter;
 $ms-option-bgColor--selected: $ms-color-neutralQuaternaryAlt;
 
-$ms-optionGroup-borderColor: $ms-color-neutralLight;
+$ms-default-borderColor: $ms-color-gray30 !default;
+
+$ms-optionGroup-borderColor: $ms-default-borderColor;
 
 $ms-optionGroup-titleColor: $ms-primary-color;

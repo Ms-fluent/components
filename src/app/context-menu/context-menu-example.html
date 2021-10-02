@@ -4,3 +4,14 @@
   <MsContextMenuItem>Edit</MsContextMenuItem>
   <MsContextMenuItem icon="Cancel">Close</MsContextMenuItem>
 </msContextMenu>
+
+<div class="ms-depth-5">
+  {{devices | json}}
+</div>
+
+<MsContextMenu [selectable]="true" [(values)]="devices">
+  <MsContextMenuItem value="Pc" >Pc</MsContextMenuItem>
+  <MsContextMenuItem value="Tablet" icon="Tablet">Tablet</MsContextMenuItem>
+  <MsContextMenuItem value="Mobile" icon="CellPhone">Mobile</MsContextMenuItem>
+  <MsContextMenuItem value="TV">Tv</MsContextMenuItem>
+</MsContextMenu>

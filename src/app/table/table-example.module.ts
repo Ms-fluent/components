@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MsTableModule} from '../../components/fluent/public-api';
+import {MsButtonModule, MsContextMenuModule, MsDropdownModule, MsTableModule} from '../../components/fluent/public-api';
 import {RouterModule, Routes} from '@angular/router';
 import {TableExample} from './table-example';
 
@@ -9,7 +9,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, MsTableModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, MsTableModule, MsContextMenuModule, MsDropdownModule, RouterModule.forChild(routes), MsButtonModule],
   declarations: [ TableExample ]
 })
 export class TableExampleModule {

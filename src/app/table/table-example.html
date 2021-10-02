@@ -1,12 +1,17 @@
-<button (click)=" toggleColumnByName('#')" [class.ms-bgColor-blue]="selectedColumn('#')">#</button>
-<button (click)=" toggleColumnByName('id')" [class.ms-bgColor-blue]="selectedColumn('id')">Id</button>
-<button [class.ms-bgColor-blue]="selectedColumn('position')" (click)=" toggleColumnByName('position')"> Position</button>
- <button [class.ms-bgColor-blue]="selectedColumn('name')" (click)=" toggleColumnByName('name')">Name</button>
-<button [class.ms-bgColor-blue]="selectedColumn('weight')" (click)=" toggleColumnByName('weight')">Weight</button>
-<button (click)=" toggleColumnByName('symbol')" [class.ms-bgColor-blue]="selectedColumn('symbol')">Symbol</button>
-<button (click)=" toggleColumnByName('type')" [class.ms-bgColor-blue]="selectedColumn('type')">Type</button>
-<button (click)=" toggleColumnByName('actions')" [class.ms-bgColor-blue]="selectedColumn('actions')">Actions</button>
+<button msButton secondaryIcon="ChevronDown" [MsDropdownTrigger]="columnSelect">Colonnes</button>
 
+<MsDropdown #columnSelect>
+  <MsContextMenu selectable="true" [(values)]="columns" id="tableColumn">
+    <MsContextMenuItem value="#">#</MsContextMenuItem>
+    <MsContextMenuItem value="id">Id</MsContextMenuItem>
+    <MsContextMenuItem value="position"> Position</MsContextMenuItem>
+    <MsContextMenuItem value="name">Name</MsContextMenuItem>
+    <MsContextMenuItem value="weight">Weight</MsContextMenuItem>
+    <MsContextMenuItem value="symbol">Symbol</MsContextMenuItem>
+    <MsContextMenuItem value="type">Type</MsContextMenuItem>
+    <MsContextMenuItem value="actions">Actions</MsContextMenuItem>
+  </MsContextMenu>
+</MsDropdown>
 
 <div>
   <button (click)="filter('Reactive nonmetal')">Reactive nonmetal</button>
