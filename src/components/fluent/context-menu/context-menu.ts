@@ -12,6 +12,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MsContextMenuItem} from './context-menu-item';
+import {Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 let _uniqueId = 0;
 
@@ -21,12 +23,12 @@ let _uniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'class': 'ms-contextMenu ms-depth-4',
+    class: 'ms-contextMenu ms-depth-4',
     '[class.selectable]': 'selectable',
-    'role': 'menu'
+    role: 'menu'
   }
 })
-export class MsContextMenu implements AfterContentInit {
+export class MsContextMenu<T = any> implements AfterContentInit {
   _initialized: boolean = false;
   _uniqueId = `ms-context-menu-${_uniqueId++}`;
 
@@ -48,11 +50,11 @@ export class MsContextMenu implements AfterContentInit {
   selectable: boolean = false;
 
   @Input()
-  set selectedIndexed(indexes: number[]) {
+  set selectedIndexes(indexes: number[]) {
   }
 
   get selectedIndexes(): number[] {
-    return this._items.filter(t => t.checked).map((value, index) => index);
+    return this.items.filter(t => t.checked).map(value => value._index);
   }
 
   @Input()
@@ -63,15 +65,27 @@ export class MsContextMenu implements AfterContentInit {
     return this.items.filter(t => t.checked).map(value => value.key);
   }
 
-  @Output()
-  valuesChange = new EventEmitter<[]>();
-
-  @Input()
-  get values(): [] {
-    return this.items.filter(t => t.checked).map(t => t.value) as [];
+  get selectedItems(): MsContextMenuItem[] {
+    return this.items.filter(item => item.checked);
   }
 
-  set values(values: []) {
+  _change = new Subject<MsContextMenuItem[]>();
+
+  @Output()
+  valuesChange = this._change.pipe(map(item => item.map(i => i.value)));
+  @Output()
+  valueChange = this._change.pipe(map(item => item.map(i => i.value)[0]));
+
+  @Output()
+  selectedKeysChange = this._change.pipe(map(item => item.map(i => i.key)));
+
+
+  @Input()
+  get values(): T[] {
+    return this.items.filter(t => t.checked).map(t => t.value);
+  }
+
+  set values(values: T[]) {
     if (this._initialized) {
       if (values) {
         this._selectValues(...values);
@@ -81,17 +95,33 @@ export class MsContextMenu implements AfterContentInit {
     }
   }
 
-  private _initialValues: [];
+  private _initialValues: T[];
+
+  @Input()
+  get value(): T {
+    return this.values.length > 1 ? this.values[0] : undefined;
+  }
+
+  set value(value: T) {
+    if (this._initialized) {
+      this._selectValues(value);
+    }
+    this._initialValue = value;
+  }
+
+  _initialValue: T;
 
   constructor(private _changeDetector: ChangeDetectorRef) {
   }
 
   ngAfterContentInit(): void {
+    this.items.forEach((item, index) => item._index = index);
     this._items.forEach(toggle => {
       this._attachItemClick(toggle);
     });
 
     this._items.changes.subscribe(changes => {
+      this.items.forEach((item, index) => item._index = index);
       this._items.forEach(toggle => {
         this._attachItemClick(toggle);
       });
@@ -100,6 +130,9 @@ export class MsContextMenu implements AfterContentInit {
     Promise.resolve().then(() => {
       if (this._initialValues) {
         this._selectValues(...this._initialValues);
+      }
+      if (this._initialValue) {
+        this._selectValues(this._initialValue);
       }
     });
 
@@ -117,7 +150,7 @@ export class MsContextMenu implements AfterContentInit {
   }
 
   _emitValuesChange() {
-    this.valuesChange.emit(this.values);
+    this._change.next(this.items.filter(c => c.checked));
   }
 
   isIndexSelected(...indexes: number[]): boolean {
@@ -135,7 +168,7 @@ export class MsContextMenu implements AfterContentInit {
     return items.every(t => t.checked);
   }
 
-  isValueSelected(...values: any[]): boolean {
+  isValueSelected(...values: T[]): boolean {
     const items = this.items.filter(t => values.indexOf(t.value) > -1);
     return items.every(t => t.checked);
   }
@@ -155,7 +188,7 @@ export class MsContextMenu implements AfterContentInit {
     this.selectItem(...items);
   }
 
-  selectValues(...values: any[]): void {
+  selectValues(...values: T[]): void {
     const items = values.map(v => this.items.find(t => t.value === v));
     this.selectItem(...items);
   }
@@ -165,7 +198,7 @@ export class MsContextMenu implements AfterContentInit {
     this.selectItem(...items);
   }
 
-  _selectValues(...values: any[]): void {
+  _selectValues(...values: T[]): void {
     const items = values.map(v => this.items.find(t => t.value === v));
     this._selectItem(...items);
   }
@@ -177,7 +210,7 @@ export class MsContextMenu implements AfterContentInit {
 
   selectItem(...items: MsContextMenuItem[]) {
     items.forEach(item => {
-      if(item) {
+      if (item) {
         item.checked = true;
       }
     });
@@ -231,7 +264,7 @@ export class MsContextMenu implements AfterContentInit {
     this._deselectItem(...items);
   }
 
-  deselectValue(...values: []): void {
+  deselectValue(...values: T[]): void {
     const items = values.map(k => this.items.find(t => t.value === k));
     this._deselectItem(...items);
   }

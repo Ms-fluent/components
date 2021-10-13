@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {msPickerAnimations} from './picker-animations';
-import {MsPersonaSize} from '../persona';
+import {MsPersonaSize} from '../persona/public-api';
 
 export type MsPickerSearchFn<T> = (key: string) => Promise<Array<T>>;
 export type MsPickerFormatFn<T> = (item: T) => string

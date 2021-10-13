@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ELEMENT_DATA, PeriodicElement} from '../../data/element';
-import {MsCollectionSlideDescription} from '../../components/fluent/collection-slide';
+import {MsCollectionSideArrayDescriptor, MsCollectionSlideDescription} from '../../components/fluent/collection-slide';
 import {Observable, Subject} from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class CollectionSlideExample {
   elements: PeriodicElement[] = ELEMENT_DATA;
   of: any;
 
-  description = new SlideDescription();
+  description = new MsCollectionSideArrayDescriptor(ELEMENT_DATA);
 }
 
 export class SlideDescription implements MsCollectionSlideDescription<PeriodicElement> {
@@ -30,6 +30,5 @@ export class SlideDescription implements MsCollectionSlideDescription<PeriodicEl
   change(): Observable<void> {
     return this._change.asObservable();
   }
-
 }
 

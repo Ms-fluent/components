@@ -41,9 +41,11 @@ let _uniqueId = 0;
   }
 })
 export class MsContextMenuItem {
-  private _uniqueId: string = `ms-context-unique-${_uniqueId++}`;
+  private _uniqueId: string = `ms-context-item-${_uniqueId++}`;
 
   _attachedClickEvent: boolean = false;
+
+  _index: number;
 
   @Input()
   ariaLabel: string;
@@ -73,7 +75,6 @@ export class MsContextMenuItem {
   key: string = this._uniqueId;
 
   /** Whether the toggle element is checked or not. */
-  @Input()
   get checked(): boolean {
     return this._checked;
   }
