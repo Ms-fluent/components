@@ -178,7 +178,7 @@ export class MsCollectionSlide<T = any> implements AfterViewInit, OnDestroy {
 
 
   hasNext(): boolean {
-    return this._activeIndex < this.description?.length() - 1;
+    return this._activeIndex < this.description?.length() ;
   }
 
   hasPrev(): boolean {
