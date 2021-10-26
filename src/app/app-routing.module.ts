@@ -54,6 +54,10 @@ const routes: Routes = [
     loadChildren: () => import('./context-menu/context-menu-example.module').then(t => t.ContextMenuExampleModule)
   },
   {
+    path: 'ribbon-menu',
+    loadChildren: () => import('./ribbon-menu/ribbon-menu-example.module').then(t => t.RibbonMenuExampleModule)
+  },
+  {
     path: 'collection-slide', loadChildren: () => import('./collection-slide/collection-slide-example.module')
       .then(t => t.CollectionSlideExampleModule)
   },

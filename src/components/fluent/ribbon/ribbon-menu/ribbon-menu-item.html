@@ -1,0 +1,17 @@
+<span class="ms-ribbon-menu-item-icon-layout">
+  <span class="ms-ribbon-menu-item-icon-container" #iconContainer>
+    <i *ngIf="icon" [ngClass]="iconClass"></i>
+  <img *ngIf="!icon && imageIcon" [src]="imageIcon" alt="Ribbon menu icon image" width="20" height="20">
+  </span>
+</span>
+
+<div class="ms-ribbon-menu-item-content">
+  <ng-content></ng-content>
+</div>
+
+<div class="ms-ribbon-menu-item-open" *ngIf="hasPopUp()">
+  <i class="icon-ic_fluent_chevron_down_28_filled"></i>
+</div>
+
+
+

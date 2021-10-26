@@ -15,7 +15,6 @@ $ms-select-option-paddingY: 7px !default;
   box-sizing: border-box;
   transition: border-width .2s;
   min-width: $ms-formField-minWidth;
-  max-width: $ms-formField-minWidth;
   height: $ms-select-height;
   padding: 0;
 
@@ -41,7 +40,7 @@ $ms-select-option-paddingY: 7px !default;
 }
 
 .ms-select-trigger {
-  font-size: 16px;
+  font-size: 12px;
   height: $ms-select-height;
   line-height: $ms-select-height;
   text-align: center;

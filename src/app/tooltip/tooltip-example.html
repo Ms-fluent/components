@@ -1,11 +1,11 @@
-<button ms-tooltip="Bonjour à toi jeune entrepreuneur"> string tooltip</button>
+<button MsTitle="Bonjour à toi jeune entrepreuneur"> string tooltip</button>
 <button [MsTooltip]="template">template tooltip</button>
-<button (click)="_tooltip.open($event.target, component)">component tooltip</button>
+<button (MsMouseStay)="_tooltip.open(component, $event.target)">component tooltip</button>
 <button [MsTooltip]="template" position="bottom" align="center">Top center</button>
 
 <div style="margin-top: 300px; padding-left: 500px;padding-bottom: 200px; border: 1px solid red">
   <div>
-    <button [MsTooltip]="'bonjour à tous et à tous.'" position="bottom" align="center">Bottom center</button>
+    <button [MsTitle]="'bonjour à tous et à tous.'" position="bottom" align="center">Bottom center</button>
   </div>
   <div>
     <button [MsTooltip]="template" position="bottom" align="start">Bottom start</button>

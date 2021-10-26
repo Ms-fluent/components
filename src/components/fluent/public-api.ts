@@ -27,3 +27,4 @@ export * from './collection-slide/public-api';
 export * from './selection/public-api';
 export * from './description-list/public-api';
 export * from './persona/public-api';
+export * from './ribbon/public-api';

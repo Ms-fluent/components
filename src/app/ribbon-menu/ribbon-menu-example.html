@@ -1,0 +1,61 @@
+<MsRibbonMenu #msMenu selectedLabel="videos">
+  <MsRibbonMenuItem icon="home">Files</MsRibbonMenuItem>
+  <MsRibbonMenuItem imageIcon="/assets/icon/video-camera.png">Audios</MsRibbonMenuItem>
+  <MsRibbonMenuItem label="videos" imageIcon="/assets/icon/headphone.png">Vidéos</MsRibbonMenuItem>
+  <MsRibbonMenuItem icon="image" iconStyle="filled">Images</MsRibbonMenuItem>
+
+  <MsRibbonMenuItem icon="document">Documents</MsRibbonMenuItem>
+  <MsRibbonMenuItem icon="person" iconStyle="regular">Account</MsRibbonMenuItem>
+  <MsRibbonMenuItem imageIcon="/assets/icon/document.png">Documents</MsRibbonMenuItem>
+  <MsRibbonMenuItem icon="mail" iconStyle="filled">Messages</MsRibbonMenuItem>
+
+  <MsRibbonMenuItem imageIcon="/assets/icon/corbeille-a-papier.png">Corbeille</MsRibbonMenuItem>
+</MsRibbonMenu>
+
+
+<div style="margin-top: 128px; width: 500px">
+  <MsRibbon style="height: 600px; border: 1px solid red" collapseBehaviour="move">
+    <MsRibbonMenu [selectedIndex]="1" >
+      <button class="" MsRibbonToggle>
+        <i class="icon-ic_fluent_navigation_16_regular"></i>
+      </button>
+      <MsRibbonMenuItem icon="document">Ribbon 0</MsRibbonMenuItem>
+      <MsRibbonMenuItem label="ribbon-1">Ribbon 1</MsRibbonMenuItem>
+      <MsRibbonMenuItem>Ribbon 2</MsRibbonMenuItem>
+      <MsRibbonMenuItem>Ribbon 3</MsRibbonMenuItem>
+      <MsRibbonMenuItem>Ribbon 4</MsRibbonMenuItem>
+    </MsRibbonMenu>
+
+    <div *MsRibbonContentDef>
+      Pivot #0
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+      praesentium quasi repellendus sequi,
+    </div>
+
+    <div *MsRibbonContentDef>
+      Pivot #1
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+      praesentium quasi repellendus sequi,
+    </div>
+
+    <div *MsRibbonContentDef>
+      Pivot #2
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+      praesentium quasi repellendus sequi,
+    </div>
+
+    <div *MsRibbonContentDef>
+      Pivot #3
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+      praesentium quasi repellendus sequi,
+    </div>
+
+    <div *MsRibbonContentDef>
+      Pivot #4
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eligendi, esse fuga magnam modi numquam,
+      praesentium quasi repellendus sequi,
+    </div>
+
+  </MsRibbon>
+</div>
+

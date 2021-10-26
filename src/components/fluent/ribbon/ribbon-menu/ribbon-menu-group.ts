@@ -6,15 +6,19 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@ang
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'ribbon-menu-group',
+    class: 'ms-ribbon-menu-group',
     role: 'menubar',
     '[attr.aria-label]': 'ariaLabel'
   }
 })
 export class MsRibbonMenuGroup {
-
   @Input()
   ariaLabel: string;
+
+
+  _getDepth(): number {
+    return 1;
+  }
 
   /**
    * Activates menu item, causing the link to be activated.

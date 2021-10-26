@@ -1,4 +1,4 @@
-export * from './content-component';
+export * from './tooltip-title-content';
 export * from './tooltip.module';
 export * from './tooltip';
 export * from './tooltip-container';
@@ -9,4 +9,4 @@ export * from './tooltip-trigger';
 
 export * from './tooltip-theme';
 export * from './tooltip-injectors';
-export * from './tooltip-injector';
+export * from './ms-title';

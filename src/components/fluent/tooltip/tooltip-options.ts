@@ -9,6 +9,7 @@ export type MsTooltipTriggerEvent = 'hover' | 'click'
 export type MsTooltipAlign = 'start' | 'end' | 'center';
 export type MsTooltipPosition = 'left' | 'top' | 'bottom' | 'right'
 
+
 export class MsTooltipOptions<D = any> {
   /** Data to be injected into the tooltip content. */
   data?: D | null = null;
@@ -20,7 +21,7 @@ export class MsTooltipOptions<D = any> {
   panelClass?: string | string[] = 'ms-tooltip-panel';
 
   /** Whether the tooltip has a background. */
-  hasBackdrop?: boolean = true;
+  hasBackdrop?: boolean = false;
 
   /** Custom class(es) for the tooltip. */
   backdropClass?: string | undefined = '';
@@ -70,6 +71,8 @@ export class MsTooltipOptions<D = any> {
 
   /** The size in pixel of the tooltip beak. */
   beakWidth?: number = 12;
+
+  closeOnNavigation?: boolean = true;
 }
 
 class Point {

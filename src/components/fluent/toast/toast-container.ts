@@ -10,7 +10,7 @@ import {
 import {MsToastOptions} from './toast-options';
 import {BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
 import * as gsap from 'gsap';
-import {OverlayRef} from "@angular/cdk/overlay";
+import {OverlayRef} from '@angular/cdk/overlay';
 
 interface MsToastAnimationEvent {
   state: 'opened' | 'opening' | 'closing' | 'closed';

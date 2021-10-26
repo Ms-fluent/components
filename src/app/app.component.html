@@ -1,44 +1,45 @@
 <div style="display: flex">
   <div style="height: 100vh; overflow: auto">
-    <MsContextMenu style="width: 240px;">
-      <MsContextMenuItem routerLink="/button">Button</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/form-field">Form field</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/label">Label</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/toggle">Toggle</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/radio">Radio</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/checkbox">Checkbox</MsContextMenuItem>
+    <MsRibbonMenu style="width: 240px;">
+      <a title="Button" MsRibbonMenuItem routerLink="/button">Button</a>
+      <a title="Form field" MsRibbonMenuItem routerLink="/form-field">Form field</a>
+      <a title="Label" MsRibbonMenuItem routerLink="/label">Label</a>
+      <a title="Toggle" MsRibbonMenuItem routerLink="/toggle" icon="toggle_left">Toggle</a>
+      <a  MsTitle="Radio" MsRibbonMenuItem routerLink="/radio" icon="radio_button" iconStyle="filled">Radio</a>
+      <a MsTitle="Checkbox" MsRibbonMenuItem routerLink="/checkbox" icon="checkbox_checked" iconStyle="regular">Checkbox</a>
 
-      <MsContextMenuItem routerLink="/suggest">Suggest</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/select">Select</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/picker">Picker</MsContextMenuItem>
+      <a MsTitle="Suggest" MsRibbonMenuItem routerLink="/suggest" icon="search">Suggest</a>
+      <a MsTitle="Select" MsRibbonMenuItem routerLink="/select" icon="multiselect">Select</a>
+      <a MsTitle="Picker" MsRibbonMenuItem routerLink="/picker" >Picker</a>
 
-      <MsContextMenuItem routerLink="/grid">Grid</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/table">Table</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/paginator">Paginator</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/collection-slide">Collection slide</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/selection">Selection</MsContextMenuItem>
+      <a MsRibbonMenuItem routerLink="/grid" icon="grid">Grid</a>
+      <a MsRibbonMenuItem routerLink="/table" icon="table">Table</a>
+      <a MsRibbonMenuItem routerLink="/paginator" icon="page" iconStyle="filled">Paginator</a>
+      <a MsRibbonMenuItem routerLink="/collection-slide" icon="slide_grid">Collection slide</a>
+      <a MsRibbonMenuItem routerLink="/selection" icon="multiselect">Selection</a>
 
-      <MsContextMenuItem routerLink="/pivot">Pivot</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/context-menu">Context menu</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/action-menu">Action menu</MsContextMenuItem>
-
-
-      <MsContextMenuItem routerLink="/dialog">Dialog</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/toast">Toast</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/tooltip">Tooltip</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/dropdown">Dropdown</MsContextMenuItem>
-
-      <MsContextMenuItem routerLink="/alert">Alert</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/persona">Persona</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/loader">Loader</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/spinner">Spinner</MsContextMenuItem>
-      <MsContextMenuItem routerLink="/stepper">Stepper</MsContextMenuItem>
-
-      <MsContextMenuItem routerLink="/description-list">Description list</MsContextMenuItem>
+      <a MsRibbonMenuItem routerLink="/pivot">Pivot</a>
+      <a MsRibbonMenuItem routerLink="/context-menu">Context menu</a>
+      <a MsRibbonMenuItem routerLink="/ribbon-menu">Ribbon menu</a>
+      <a MsRibbonMenuItem routerLink="/action-menu">Action menu</a>
 
 
+      <a MsRibbonMenuItem routerLink="/dialog">Dialog</a>
+      <a MsRibbonMenuItem routerLink="/toast">Toast</a>
+      <a icon="tooltip-quote" MsRibbonMenuItem routerLink="/tooltip">Tooltip</a>
+      <a MsRibbonMenuItem routerLink="/dropdown">Dropdown</a>
 
-    </MsContextMenu>
+      <a MsRibbonMenuItem routerLink="/alert" icon="alert">Alert</a>
+      <a MsRibbonMenuItem routerLink="/persona" icon="person">Persona</a>
+      <a MsRibbonMenuItem routerLink="/loader">Loader</a>
+      <a MsRibbonMenuItem routerLink="/spinner" icon="spinner-ios">Spinner</a>
+      <a MsRibbonMenuItem routerLink="/stepper">Stepper</a>
+
+      <a MsRibbonMenuItem routerLink="/description-list">Description list</a>
+
+
+
+    </MsRibbonMenu>
   </div>
 
   <div style="padding: 16px">

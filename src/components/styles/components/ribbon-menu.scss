@@ -1,0 +1,178 @@
+$ms-ribbon-menu-bgColor: $ms-color-gray10 !default;
+$ms-ribbon-menu-bgColor--hover: $ms-color-gray30 !default;
+$ms-ribbon-menu-bgColor--active: $ms-color-gray40 !default;
+$ms-ribbon-menu-thumb-color: $ms-primary-color !default;
+$ms-ribbon-menu-color: $ms-option-color !default;
+$ms-ribbon-panel-bgColor: $ms-panel-bgColor !default;
+
+$ms-ribbon-item-height: 40px;
+$ms-ribbon-icon-height: 20px;
+
+.ms-ribbon {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+
+  & .ms-ribbon-menu {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition: width .3s ease-in-out;
+    box-sizing: border-box;
+  }
+}
+
+.ms-ribbon-layout {
+
+}
+
+.ms-ribbon-menu {
+  display: block;
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background-color: $ms-ribbon-menu-bgColor;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.ms-ribbon-menu-thumb {
+  background-color: $ms-ribbon-menu-thumb-color;
+  display: inline-block;
+  width: 3px;
+  position: absolute;
+  left: 2px;
+  top: 0;
+  bottom: $ms-ribbon-icon-height;
+  BORDER-RADIUS: 2px;
+}
+
+.ms-ribbon-menu-group {
+  display: none;
+}
+
+.ms-ribbon-menu-item {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 48px 1fr 16px;
+  height: $ms-ribbon-item-height;
+  cursor: pointer;
+  color: $ms-ribbon-menu-color;
+  text-decoration: none;
+  border-radius: 2px;
+  width: 100%;
+
+  &:hover {
+    background-color: $ms-ribbon-menu-bgColor--hover;
+  }
+
+  &.ms-active {
+    background-color: $ms-ribbon-menu-bgColor--active;
+    font-weight: 600;
+    color: $ms-primary-color;
+  }
+
+  &.ms-collapsed {
+    //grid-template-columns: 48px;
+  }
+}
+
+.ms-ribbon-menu-item-content {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  .ms-collapsed & {
+    //display: none;
+  }
+}
+
+.ms-ribbon-menu-item-open {
+  box-sizing: border-box;
+  height: $ms-ribbon-item-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & i {
+    height: 14px;
+  }
+  .ms-collapsed & {
+    //display: none;
+  }
+}
+
+.ms-ribbon-menu-item-icon-layout {
+  box-sizing: border-box;
+  height: $ms-ribbon-item-height;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  & i, & i:before, & img {
+    font-size: $ms-ribbon-icon-height;
+    height: $ms-ribbon-icon-height;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  & .ms-ribbon-menu-item-icon-container {
+    display: inline-block;
+    height: $ms-ribbon-icon-height;
+    width: $ms-ribbon-icon-height;
+    box-sizing: border-box;
+    position: relative;
+  }
+}
+
+
+.ms-ribbon-content-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  transition: left .3s ease-in-out;
+}
+
+.ms-ribbon-content {
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+  background-color: $ms-ribbon-panel-bgColor;
+
+  &.ms-hidden {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+.ms-ribbon-toggle {
+  display: inline-block;
+  width: 48px;
+  height: $ms-ribbon-item-height;
+  line-height: $ms-ribbon-item-height;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}

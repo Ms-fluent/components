@@ -1,96 +1,108 @@
-import {Injectable, Injector, TemplateRef} from '@angular/core';
+import {Injectable, Injector, Optional, StaticProvider, TemplateRef} from '@angular/core';
 import {
   ComponentType,
-  FlexibleConnectedPositionStrategy, HorizontalConnectionPos,
+  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
-  OverlayRef, VerticalConnectionPos
+  OverlayRef
 } from '@angular/cdk/overlay';
 import {MsTooltipRef} from './tooltip-ref';
 import {ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
-import {MsTooltipOptions, MsTooltipPosition} from './tooltip-options';
-import {MsTooltipInjector} from './tooltip-injector';
-import {MsTooltipContentComponent} from './content-component';
+import {MsTooltipOptions} from './tooltip-options';
+import {MsTooltipTitleContent} from './tooltip-title-content';
 import {MsTooltipContainer} from './tooltip-container';
-import {MS_TOOLTIP_CONTAINER} from './tooltip-injectors';
+import {setOverlayPosition} from './tooltip-positions';
+import {MS_TOOLTIP_TARGET} from './tooltip-target';
+import {MS_TOOLTIP_DATA} from './tooltip-injectors';
+import {filter} from 'rxjs/operators';
+import {NavigationStart, Router} from '@angular/router';
+
 
 @Injectable()
 export class MsTooltip {
 
   constructor(private overlay: Overlay,
+              @Optional() private _router: Router,
               private parentInjector: Injector) {
   }
 
-  open<T, R = any>(target: HTMLElement, content: ComponentType<T> | TemplateRef<T> | string, options: MsTooltipOptions = {}): MsTooltipRef<T, R> {
-
+  open<T, R = any>(content: ComponentType<T> | TemplateRef<T>,
+                   target: HTMLElement,
+                   options: MsTooltipOptions = {}): MsTooltipRef<T, R> {
     options = this._applyOptionsDefaults(options);
-    if (typeof content === 'string') {
-      return this.openFromString(target, content, options);
-    } else if (content instanceof TemplateRef) {
-      return this.openFromTemplate(target, content, options);
-    } else {
-      return this.openFromComponent(target, content, options);
+    const overlayRef = this._createOverlay(options, target);
+    const container = this.createTooltipContainer(overlayRef, target, options);
+
+    const toastRef = this._attachTooltipContent<T, R>(content, overlayRef, container, options);
+
+    overlayRef.backdropClick().subscribe(() => toastRef.close());
+
+    if(this._router && options.closeOnNavigation) {
+      this._router.events.pipe(filter(event => event instanceof NavigationStart))
+        .subscribe(() => toastRef.close())
     }
+
+    return toastRef;
   }
 
+  private _attachTooltipContent<T, R>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+                                      overlayRef: OverlayRef,
+                                      container: MsTooltipContainer, options: MsTooltipOptions) {
+    const tooltipRef = new MsTooltipRef<T, R>(overlayRef, options, container);
 
-  openFromComponent<T, R = any>(target: HTMLElement, content: ComponentType<T>, options: MsTooltipOptions): MsTooltipRef<T, R> {
-    const overlayRef = this._createOverlay(options, target);
-
-    const tooltipRef = new MsTooltipRef<T, R>();
-    tooltipRef.overlayRef = overlayRef;
-    tooltipRef.target = target;
-
-    const container = this.createTooltipContainer(overlayRef, tooltipRef, options);
-
-    const injector = new MsTooltipInjector(this.parentInjector, tooltipRef, options);
-
-    const portal = new ComponentPortal(content as ComponentType<T>, null, injector);
-    const componentRef = container.attachComponentPortal(portal);
-
-    this.setOverlayPosition(options, overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy);
-    return tooltipRef;
-  }
-
-  openFromTemplate<T, R = any>(target: HTMLElement, template: TemplateRef<T>, options: MsTooltipOptions): MsTooltipRef<T, R> {
-    const overlayRef = this._createOverlay(options, target);
-    const tooltipRef = new MsTooltipRef<T, R>();
-    tooltipRef.overlayRef = overlayRef;
-    tooltipRef.target = target;
-
-    const container = this.createTooltipContainer(overlayRef, tooltipRef, options);
-
-    const injector = new MsTooltipInjector(this.parentInjector, tooltipRef, options);
-
-    // tslint:disable-next-line:no-non-null-assertion
-    const portal = new TemplatePortal(template, null!, {$implicit: options.data, tooltipRef} as any);
-    const componentRef = container.attachTemplatePortal(portal);
-    this.setOverlayPosition(options, overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy);
+    if (componentOrTemplateRef instanceof TemplateRef) {
+      const context = <any>{$implicit: options.data, tooltipRef};
+      const portal = new TemplatePortal<T>(componentOrTemplateRef, null!, context);
+      container.attach(portal);
+    } else {
+      const injector = this._createInjector<T, R>(tooltipRef, container, options);
+      const portal = new ComponentPortal(componentOrTemplateRef, options.viewContainerRef, injector);
+      const contentRef = container.attach(portal);
+      tooltipRef.componentInstance = contentRef.instance;
+    }
+    setOverlayPosition(options, overlayRef.getConfig().positionStrategy as FlexibleConnectedPositionStrategy);
 
     return tooltipRef;
+
   }
 
-  openFromString<T, R = void>(target: HTMLElement, content: string, options: MsTooltipOptions): MsTooltipRef<T, R> {
+  info(target: HTMLElement, content: string, options?: MsTooltipOptions): MsTooltipRef<MsTooltipTitleContent> {
+    if (!options) {
+      options = new MsTooltipOptions<any>();
+    }
     options.data = {content};
-    // @ts-ignore
-    return this.openFromComponent<T, R>(target, MsTooltipContentComponent, options);
+    return this.open(MsTooltipTitleContent, target, options);
   }
 
-  private createTooltipContainer(overlayRef: OverlayRef, tooltipRef: MsTooltipRef<any>, options: MsTooltipOptions): MsTooltipContainer {
-    const containerType = options.containerComponent || this.parentInjector.get(MS_TOOLTIP_CONTAINER);
+  private createTooltipContainer(overlayRef: OverlayRef, target: HTMLElement, options: MsTooltipOptions): MsTooltipContainer {
     const userInjector = options && options.viewContainerRef && options.viewContainerRef.injector;
     const injector = Injector.create({
       parent: userInjector || this.parentInjector,
       providers: [
         {provide: MsTooltipOptions, useValue: options},
         {provide: OverlayRef, useValue: overlayRef},
-        {provide: MsTooltipRef, useValue: tooltipRef}
+        {provide: MS_TOOLTIP_TARGET, useValue: target}
       ]
     });
-    const portal = new ComponentPortal(containerType, options.viewContainerRef, injector);
+    const portal = new ComponentPortal(MsTooltipContainer, options.viewContainerRef, injector);
     const componentRef = overlayRef.attach(portal);
 
     return componentRef.instance;
+  }
+
+  private _createInjector<T, R>(ref: MsTooltipRef<T, R>,
+                                container: MsTooltipContainer,
+                                options: MsTooltipOptions): Injector {
+
+    const userInjector = options && options.viewContainerRef && options.viewContainerRef.injector;
+
+    const providers: StaticProvider[] = [
+      {provide: MsTooltipRef, useValue: ref},
+      {provide: MsTooltipOptions, useValue: options},
+      {provide: MsTooltipContainer, useValue: container},
+      {provide: MS_TOOLTIP_DATA, useValue: options.data}
+    ];
+    return Injector.create({parent: userInjector || userInjector, providers});
   }
 
   private _createOverlay(options: MsTooltipOptions, target: HTMLElement): OverlayRef {
@@ -127,77 +139,6 @@ export class MsTooltip {
     return position;
   }
 
-  private setOverlayPosition(options: MsTooltipOptions, positionStrategy: FlexibleConnectedPositionStrategy) {
-    const position = options.position;
-    const align = options.align;
-    let [originX, originFallbackX]: HorizontalConnectionPos[] = ['start', 'end'];
-    let [overlayX, overlayFallbackX]: HorizontalConnectionPos[] = ['end', 'start'];
-
-    let [overlayY, overlayFallbackY]: VerticalConnectionPos[] = ['top', 'bottom'];
-    let [originY, originFallbackY]: VerticalConnectionPos[] = ['bottom', 'top'];
-
-    if (position === 'left') {
-      [originX, originFallbackX] = ['start', 'end'];
-      [overlayX, overlayFallbackX] = ['end', 'start']
-    } else if (position === 'right') {
-      [originX, originFallbackX] = ['end', 'start'];
-      [overlayX, overlayFallbackX] = ['start', 'end']
-    } else if (position === 'top') {
-      [originY, originFallbackY] = ['top', 'bottom'];
-      [overlayY, overlayFallbackY] = ['bottom', 'top']
-    } else if (position === 'bottom') {
-      [originY, originFallbackY] = ['bottom', 'top'];
-      [overlayY, overlayFallbackY] = ['top', 'bottom'];
-    }
-
-    if (position === 'left' || position === 'right') {
-      if (align === 'start') {
-        [originY, originFallbackY] = ['top', 'bottom'];
-        [overlayY, overlayFallbackY] = ['top', 'bottom']
-      } else if (align === 'end') {
-        [originY, originFallbackY] = ['bottom', 'top'];
-        [overlayY, overlayFallbackY] = ['bottom', 'top'];
-      } else {
-        [originY, originFallbackY] = ['center', 'top'];
-        [overlayY, overlayFallbackY] = ['center', 'top'];
-      }
-    }
-
-    if (position === 'bottom' || position === 'top') {
-      if (align === 'start') {
-        [originX, originFallbackX] = ['start', 'end'];
-        [overlayX, overlayFallbackX] = ['start', 'end'];
-      } else if (align === 'end') {
-        [originX, originFallbackX] = ['end', 'start'];
-        [overlayX, overlayFallbackX] = ['end', 'start'];
-      } else if (align === 'center') {
-        [originX, originFallbackX] = ['center', 'start'];
-        [overlayX, overlayFallbackX] = ['center', 'start'];
-      }
-    }
-
-    const offsetY = 0;
-
-    positionStrategy.withPositions([
-      {originX, originY, overlayX, overlayY, offsetY},
-      {originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY},
-      {
-        originX,
-        originY: originFallbackY,
-        overlayX,
-        overlayY: overlayFallbackY,
-        offsetY: -offsetY
-      },
-      {
-        originX: originFallbackX,
-        originY: originFallbackY,
-        overlayX: overlayFallbackX,
-        overlayY: overlayFallbackY,
-        offsetY: -offsetY
-      }
-    ]);
-  }
-
   /**
    * Expands the provided configuration object to include the default values for properties which
    * are undefined.
@@ -205,4 +146,6 @@ export class MsTooltip {
   private _applyOptionsDefaults(options?: MsTooltipOptions): MsTooltipOptions {
     return {...new MsTooltipOptions(), ...options};
   }
+
+
 }

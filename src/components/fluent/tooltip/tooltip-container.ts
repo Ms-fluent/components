@@ -3,7 +3,7 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  EmbeddedViewRef,
+  EmbeddedViewRef, EventEmitter,
   Inject,
   ViewChild,
   ViewEncapsulation
@@ -16,7 +16,12 @@ import {MsTooltipOptions, MsTooltipPosition} from './tooltip-options';
 import {MsMotionTimings} from '../../core';
 
 import * as gsap from 'gsap';
-import {MsTooltipRef} from './tooltip-ref';
+import {MS_TOOLTIP_TARGET} from "./tooltip-target";
+
+interface MsTooltipAnimationEvent {
+  state: 'opened' | 'opening' | 'closing' | 'closed';
+  totalTime?: number;
+}
 
 @Component({
   templateUrl: 'tooltip-container.html',
@@ -64,8 +69,11 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
     return this.elementRef.nativeElement;
   }
 
+  /** Emits when an animation state changes. */
+  _animationStateChanged: EventEmitter<MsTooltipAnimationEvent> = new EventEmitter<MsTooltipAnimationEvent>();
+
   constructor(private overlayRef: OverlayRef,
-              private tooltipRef: MsTooltipRef<any>,
+              @Inject(MS_TOOLTIP_TARGET)private target: HTMLElement,
               private options: MsTooltipOptions,
               private elementRef: ElementRef<HTMLElement>,
               @Inject(MS_TOOLTIP_THEMES) private themes: MsTooltipThemes) {
@@ -100,6 +108,8 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
       this.animateEnter(position);
     }, 0)
   }
+
+
 
   private setBeakDimensions() {
     const width: number = +this.options.beakWidth;
@@ -150,7 +160,7 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
   }
 
   private setBeakPosition(dir: MsTooltipPosition) {
-    const rect = this.tooltipRef.target.getBoundingClientRect();
+    const rect = this.target.getBoundingClientRect();
     const x = rect.x + rect.width / 2 - this.overlayRef.overlayElement.getBoundingClientRect().x - this.beakWidth/2;
     const y = rect.y + rect.height / 2 - this.host.getBoundingClientRect().y - this.beakWidth/2;
 
@@ -173,14 +183,21 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
   }
 
   private animateEnter(dir: MsTooltipPosition) {
-
+    this._animationStateChanged.emit({state: 'opening'});
     gsap.gsap.fromTo(this.host, 0.2, {transform: 'scale3d(0.9, 0.9, 1)', opacity: 0}, {
       transform: '',
       opacity: 1,
       ease: MsMotionTimings.decelerate
     }).then(() => {
       this.host.style.opacity = '1';
+      this._animationStateChanged.emit({state: 'opened', totalTime: 200});
     })
+  }
+
+  async animateOut(): Promise<void> {
+    this._animationStateChanged.emit({state: 'closing', totalTime: 0});
+    await gsap.gsap.to(this.host, .3, {transform: 'scale3d(0.9, 0.9, 1)', opacity: 0});
+    this._animationStateChanged.emit({state: 'closed', totalTime: 300});
   }
 
   getKeyframe(dir: MsTooltipPosition) {
@@ -192,7 +209,7 @@ export class MsTooltipContainer extends BasePortalOutlet implements AfterViewIni
   }
 
   get position(): MsTooltipPosition {
-    const targetRect = this.tooltipRef.target.getBoundingClientRect();
+    const targetRect = this.target.getBoundingClientRect();
     const rect = this.overlayRef.overlayElement.getBoundingClientRect();
 
     if (rect.right <= targetRect.left) {

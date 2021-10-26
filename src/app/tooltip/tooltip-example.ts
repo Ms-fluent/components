@@ -17,7 +17,9 @@ export class TooltipExample {
   template: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br>
   Cumque dicta dolorem est officiis vitae. A aliquid amet,<br>
   atque culpa ea eos ipsam laborum porro quisquam,<br>
-  reprehenderit velit veritatis, voluptatum. Libero!`
+  reprehenderit velit veritatis, voluptatum. Libero!
+  <div> <button MsTooltipClose>Fermer</button> </div>
+  `
 })
 export class TooltipContentComponent {
 

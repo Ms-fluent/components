@@ -30,6 +30,32 @@ export const MS_MOTION_SLIDE_RTL_OUT: Keyframe[] = [
   {transform: 'translate3d(-48px, 0, 0)', opacity: '0'}
 ];
 
+
+export const MS_MOTION_SLIDE_UP_IN: Keyframe[] = [
+  {transform: 'translate3d(0, 48px, 0)', opacity: '0'},
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'}
+];
+
+export const MS_MOTION_SLIDE_UP_OUT: Keyframe[] = [
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'},
+  {transform: 'translate3d(0, 48px, 0)', opacity: '0'}
+];
+
+export const MS_MOTION_SLIDE_DOWN_IN: Keyframe[] = [
+  {transform: 'translate3d(0, -48px, 0)', opacity: '0'},
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'}
+];
+
+export const MS_MOTION_SLIDE_DOWN_OUT: Keyframe[] = [
+  {transform: 'translate3d(0, 0, 0)', opacity: '1'},
+  {transform: 'translate3d(0, -48px, 0)', opacity: '0'}
+];
+export const MS_MOTION_SLIDE_UP_IN_FROM = {translateY : 48, opacity: 0};
+export const MS_MOTION_SLIDE_DOWN_IN_FROM = {translateY: -48, opacity: 0};
+
+export const MS_MOTION_SLIDE_UP_OUT_TO = {transform: 'translate3d(0, -48px, 0)', opacity: '0'};
+export const MS_MOTION_SLIDE_DOWN_OUT_TO = {transform: 'translate3d(0, 48px, 0)', opacity: '0'};
+
 export class MsMotionKeyFrames {
   static fadeIn: Keyframe[] = [
     {opacity: 0},

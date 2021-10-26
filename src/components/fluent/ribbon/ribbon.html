@@ -1,0 +1,8 @@
+<div class="ms-ribbon-layout">
+  <ng-content select="MsRibbonMenu"></ng-content>
+
+  <div class="ms-ribbon-content-container" #layoutContainer [style.left.px]="menuWidth">
+    <ng-container #container></ng-container>
+  </div>
+
+</div>

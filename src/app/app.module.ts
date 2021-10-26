@@ -9,7 +9,7 @@ import {MsToastModule} from '../components/fluent/toast';
 import {MsAlertModule} from '../components/fluent/alert';
 import {AlertExample} from './alert/alert-example';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MsContextMenuModule} from '../components';
+import {MsContextMenuModule, MsRibbonModule, MsTooltipModule} from '../components';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,9 @@ import {MsContextMenuModule} from '../components';
     MsCommonModule,
     MsToastModule,
     MsAlertModule,
-    MsContextMenuModule
+    MsContextMenuModule,
+    MsRibbonModule,
+    MsTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

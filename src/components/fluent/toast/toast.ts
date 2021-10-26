@@ -52,11 +52,8 @@ export class MsToast extends MsToastBase {
 
   launch<T, D = any, R = any>(target: TemplateRef<T> | ComponentType<T>, options?: MsToastOptions<D>): MsToastRef<T, R> {
     options = this._getDefaultOptions(options);
-
     const overlayRef = this._createOverlayRef(options);
-
     const container = this._createToastContainer(overlayRef, options);
-
     const toastRef = this._attachToastContent<T, R>(target, overlayRef, container, options);
 
     toastRef.updateSize(options.width, options.height);
@@ -71,8 +68,6 @@ export class MsToast extends MsToastBase {
       this._items = this._items.filter(i => i !== toastRef);
       this.animateToastsOnClose();
     });
-
-
     return toastRef;
   }
 
